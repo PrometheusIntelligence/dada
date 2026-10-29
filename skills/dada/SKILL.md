@@ -28,6 +28,8 @@ In your final reply state the mode you ran, the tools you used, the stop conditi
 | Required critics | Critic: Apollonian Order (Wölfflin, Gombrich), Critic: Dionysian Excess (Nietzsche, Venturi), Critic: Rupture (Shklovsky, Marinetti), Critic: Detachment (Ortega y Gasset, Sontag), plus at least 1 more (5 to 7 total) | Critic: Provocateur (Debord, Shklovsky), Critic: Inclusion (Holmes, Mace), plus at least 3 more chosen for maximum difference |
 | Extra record field | Reception dial: used or not, and why | Advanced pole and Acceptable pole, each with its anchor |
 
+**Websites are multi-page whenever possible.** When the artifact is a website, plan it as several pages from the Traversal Plan on: a page per service, product, topic or tool, plus home and the contact, about or legal pages that apply, under shared navigation. A single page is only for something that is genuinely one screen (a single-purpose tool or game), and the plan must say why. A redesign of a one-page site splits it into pages as one of its moves.
+
 If the person does not name a mode, use Autonomous unless the brief names a client, audience or public constraint, and say which you chose and why. In both modes the panel must include at least one pair of critics joined by a dotted edge in the graph.
 
 ## How the traversal works (non-linear)

@@ -174,6 +174,8 @@ Then close:
    - [ ] Double-loop paragraph written
    - [ ] Final reply states the mode, the tools used, the stop conditions and everything skipped
 
+**Optional human grade.** A run's critics are agents; the person who asked for the work is the one judge that matters. After delivery the person may grade the run, as a letter (A+ to F) plus any words of their own. Only record a grade the person actually gave: never ask for one as a gate, never infer one from praise, and never invent one. When a grade is given, append a **Human grade** section to `DESIGN-LOG.md` (grade, date, the person's words verbatim, and one line on what the run did that the grade most likely rewards or punishes), and, where a lessons repository is kept, add a row to its `GRADES.md` ledger (date, project, mode, rounds, grade, words, link to the log). Read the ledger before Step 1 of a later run: the moves and seats behind the higher grades are evidence about what this person values.
+
 ## Anti-skip rules
 
 - An escalation you did not measure is not an escalation, and a patch you did not verify at the computed value is not a change.

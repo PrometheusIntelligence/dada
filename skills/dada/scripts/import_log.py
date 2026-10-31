@@ -2,7 +2,7 @@
 
     python scripts/import_log.py DESIGN-LOG.md --project NAME --repo OWNER/REPO [--date YYYY-MM-DD]
         [--grade B+ --grade-words "their words, verbatim"] [--mode adaptive] [--run-type full]
-        [--ledger PATH] [--dry-run]
+        [--from HEADING] [--until HEADING] [--registry] [--ledger PATH] [--dry-run]
 
 Reads every panel table (`### Panel ... round R<n>` followed by `| Critic | ... | Verdict | ... |` rows) into one
 seat-round per row, and every resolutions table (`| <seats>: <finding> | ADAPT|OVERRULE|SCRAP|DEFERRED ... |`) into
@@ -129,6 +129,20 @@ def parse(text, index, mode):
     return list(dedup.values()), sorted(unmapped), outcomes
 
 
+def section(text, start, stop):
+    """The part of a log from the first heading containing `start` to the next heading containing `stop`."""
+    lines = text.splitlines()
+    begin = 0
+    if start:
+        begin = next((i for i, l in enumerate(lines) if l.startswith("#") and start in l), None)
+        if begin is None:
+            raise SystemExit(f"no heading contains {start!r}")
+    end = len(lines)
+    if stop:
+        end = next((i for i, l in enumerate(lines) if i > begin and l.startswith("#") and stop in l), end)
+    return "\n".join(lines[begin:end])
+
+
 def guess(text, pattern, default):
     m = re.search(pattern, text[:4000], re.I)
     return m.group(1).lower() if m else default
@@ -146,21 +160,25 @@ def main(argv):
     ap.add_argument("--grade-words")
     ap.add_argument("--ledger", default=str(DEFAULT_LEDGER))
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--registry", action="store_true", help="the seats were briefed from seats/<id>.md: record their persona hashes")
+    ap.add_argument("--from", dest="from_heading", help="start at the first heading containing this text (one run of a log that holds several)")
+    ap.add_argument("--until", dest="until_heading", help="stop at the first heading after the start containing this text")
     a = ap.parse_args(argv)
     if a.grade and a.grade not in GRADE_POINTS:
         raise SystemExit(f"grade must be one of {list(GRADE_POINTS)}")
     text = pathlib.Path(a.log).read_text(encoding="utf-8", errors="replace")
+    text = section(text, a.from_heading, a.until_heading)
     seats = load_seats()
     mode = a.mode or guess(text, r"\b(Adaptive|Autonomous)\b", "unknown")
     run_type = a.run_type or guess(text, r"\*{0,2}\b(Full|Polish|Extend|Landing)\b\*{0,2}\s+run", "unknown")
     lite = bool(re.search(r"dada-lite|lite dada|\(lite\)", text[:2000], re.I))
     seat_rounds, unmapped, outcomes = parse(text, seat_index(seats), mode)
     for sr in seat_rounds:
-        sr["persona_hash"] = seats[sr["seat"]]["persona_hash"] if a.date and a.date >= "2026-11-01" else "pre-registry"
+        sr["persona_hash"] = seats[sr["seat"]]["persona_hash"] if a.registry else "pre-registry"
     dates = sorted(re.findall(r"20\d\d-\d\d-\d\d", text))
     date = a.date or (dates[0] if dates else datetime.date.today().isoformat())
     record = {
-        "id": hashlib.sha256(f"{a.repo}|{a.log and pathlib.Path(a.log).name}|{date}".encode()).hexdigest()[:10],
+        "id": hashlib.sha256(f"{a.repo}|{a.log and pathlib.Path(a.log).name}|{date}|{a.from_heading or ''}".encode()).hexdigest()[:10],
         "date": date,
         "project": a.project,
         "repo": a.repo,

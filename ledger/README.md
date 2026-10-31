@@ -41,6 +41,10 @@ When the person grades the run, import it again with `--grade B+ --grade-words "
 duplicated. Before a run, `python skills/dada/scripts/pick_panel.py --mode adaptive --project NAME` proposes the
 panel.
 
+## Since the backfill
+
+- 2026-10-31: shadw-MCP run 2 (Polish, the Shadw deploy fix), the first run seated by `pick_panel.py` and briefed from the seat files (persona hashes recorded). Imported with `--from "# Run 2" --registry`; run 1 of the same log with `--until "# Run 2"`.
+
 ## The backfill (31 Oct 2026)
 
 `runs.jsonl` was seeded from the 39 DADA-family logs pushed to SolutionsAsService and PrometheusIntelligence between

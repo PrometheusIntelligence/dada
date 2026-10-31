@@ -5,7 +5,7 @@ The record of DADA runs, used to rate the panel's seats and to choose panels fro
 | File | What it is | Written by |
 |---|---|---|
 | `runs.jsonl` | One JSON line per run: its seats' verdicts per round, the outcome of every finding the log's resolution tables credit to a seat, and the person's grade if one was given | `skills/dada/scripts/import_log.py` |
-| `ratings.json` | Every seat's counts and score | `skills/dada/scripts/rate_seats.py` |
+| `../skills/dada/references/seat-ratings.json` | Every seat's counts and score, shipped with the skill so an installed copy can pick panels | `skills/dada/scripts/rate_seats.py` |
 | `../skills/dada/references/seat-ratings.md` | The same ratings as a table, shipped with the skill so an installed copy can read them | `rate_seats.py` |
 
 ## A run record

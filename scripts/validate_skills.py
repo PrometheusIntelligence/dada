@@ -35,3 +35,26 @@ for skill in skills:
     if not discovery.is_symlink() or discovery.resolve() != skill.resolve():
         raise SystemExit(f"{skill}: workspace discovery link is invalid")
     print(f"Valid skill: {skill.name}")
+
+# The seat registry and the ratings are generated; they must match their sources.
+import json
+import subprocess
+import sys
+
+dada = root / "skills" / "dada"
+for script in ("build_seats.py", "rate_seats.py"):
+    subprocess.run([sys.executable, str(dada / "scripts" / script), "--check"], check=True)
+seat_ids = {path.stem for path in (dada / "seats").glob("crit_*.md")}
+grades = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"}
+ledger = root / "ledger" / "runs.jsonl"
+for number, line in enumerate(ledger.read_text(encoding="utf-8").splitlines(), 1):
+    run = json.loads(line)
+    for key in ("id", "date", "project", "repo", "mode", "run_type", "seat_rounds", "outcomes", "grade"):
+        if key not in run:
+            raise SystemExit(f"{ledger}:{number}: missing {key}")
+    for row in run["seat_rounds"]:
+        if row["seat"] not in seat_ids or row["verdict"] not in ("PASS", "OBJECT", "NOT REPORTED"):
+            raise SystemExit(f"{ledger}:{number}: bad seat-round {row}")
+    if run["grade"] and run["grade"]["letter"] not in grades:
+        raise SystemExit(f"{ledger}:{number}: bad grade {run['grade']}")
+print(f"Valid ledger: {number} runs, {len(seat_ids)} seats")

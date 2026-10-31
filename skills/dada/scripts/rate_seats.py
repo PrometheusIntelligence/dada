@@ -1,6 +1,6 @@
 """Rate every panel seat from the ledger, so a run can seat the critics that have earned it.
 
-    python scripts/rate_seats.py [--ledger PATH]      # writes ledger/ratings.json and references/seat-ratings.md
+    python scripts/rate_seats.py [--ledger PATH]      # writes references/seat-ratings.json and .md
     python scripts/rate_seats.py --check              # exit non-zero if the committed ratings are stale
 
 What a seat is rated on (all per seat, over every run in the ledger):
@@ -31,7 +31,7 @@ import sys
 SKILL = pathlib.Path(__file__).resolve().parents[1]
 REPO = SKILL.parents[1]
 LEDGER = REPO / "ledger" / "runs.jsonl"
-RATINGS_JSON = REPO / "ledger" / "ratings.json"
+RATINGS_JSON = SKILL / "references" / "seat-ratings.json"  # shipped with the skill, so an installed copy has it
 RATINGS_MD = SKILL / "references" / "seat-ratings.md"
 ADOPTED = {"ADAPT", "SCRAP"}
 

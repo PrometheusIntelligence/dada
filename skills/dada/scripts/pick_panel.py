@@ -22,13 +22,14 @@ Prints the panel with the reason for every seat and the path of each seat file, 
 import argparse
 import hashlib
 import json
+import os
 import pathlib
 import sys
 
 SKILL = pathlib.Path(__file__).resolve().parents[1]
 REPO = SKILL.parents[1]
-RATINGS = REPO / "ledger" / "ratings.json"
-LEDGER = REPO / "ledger" / "runs.jsonl"
+RATINGS = SKILL / "references" / "seat-ratings.json"
+LEDGER = pathlib.Path(os.environ.get("DADA_LEDGER", REPO / "ledger" / "runs.jsonl"))  # optional: enables the rest rule
 PRIOR, K = 0.60, 3
 
 MODE_REQUIRED = {

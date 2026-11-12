@@ -58,3 +58,6 @@ for number, line in enumerate(ledger.read_text(encoding="utf-8").splitlines(), 1
     if run["grade"] and run["grade"]["letter"] not in grades:
         raise SystemExit(f"{ledger}:{number}: bad grade {run['grade']}")
 print(f"Valid ledger: {number} runs, {len(seat_ids)} seats")
+
+# The run manual (skills/dada/runtypes) is the machine-readable form of SKILL.md's run-type table.
+subprocess.run([sys.executable, str(dada / "scripts" / "validate_runtypes.py"), "--seats-dir", str(dada / "seats")], check=True)

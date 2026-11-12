@@ -1,0 +1,178 @@
+{
+  "designpack_version": "1",
+  "id": "sentinel-instrument",
+  "name": "Sentinel Instrument",
+  "version": "0.1.0",
+  "status": "draft",
+  "summary": "Dark navy and charcoal, signal green for observed-and-healthy, cyan for selection and inference, severity on its own palette. An operator's instrument: dense, calm, never alarming without a word attached.",
+  "intent": {
+    "mood": "calm, precise, operational",
+    "for": [
+      "monitoring and investigation tools",
+      "evidence and finding lists",
+      "maps and graphs with provenance"
+    ],
+    "not_for": [
+      "marketing pages",
+      "narrative pages (use prometheus-seal)"
+    ]
+  },
+  "tokens": {
+    "modes": {
+      "dark": {
+        "page": "#070c16",
+        "canvas": "#0b1220",
+        "panel": "#121c30",
+        "line": "#1a263d",
+        "fg": "#e8eef8",
+        "fg2": "#aab8cf",
+        "fg3": "#8696b0",
+        "signal": "#34d399",
+        "cyan": "#22d3ee",
+        "sev-critical": "#ff6b81",
+        "sev-high": "#ff9552",
+        "sev-medium": "#f5c84c",
+        "sev-low": "#7ba7ff",
+        "sev-info": "#92a3bf",
+        "on-signal": "#04130c"
+      }
+    },
+    "pairs": [
+      {
+        "fg": "fg",
+        "bg": "canvas",
+        "role": "text body",
+        "min_ratio": 7
+      },
+      {
+        "fg": "fg2",
+        "bg": "canvas",
+        "role": "text secondary",
+        "min_ratio": 7
+      },
+      {
+        "fg": "fg3",
+        "bg": "canvas",
+        "role": "text dimmest allowed",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "cyan",
+        "bg": "canvas",
+        "role": "text selection",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "signal",
+        "bg": "canvas",
+        "role": "text status",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "sev-critical",
+        "bg": "panel",
+        "role": "text severity",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "sev-high",
+        "bg": "panel",
+        "role": "text severity",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "sev-medium",
+        "bg": "panel",
+        "role": "text severity",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "sev-low",
+        "bg": "panel",
+        "role": "text severity",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "on-signal",
+        "bg": "signal",
+        "role": "text on primary button",
+        "min_ratio": 4.5
+      }
+    ],
+    "type": {
+      "display": "\"Inter Variable\", ui-sans-serif, system-ui, sans-serif",
+      "text": "\"Inter Variable\", ui-sans-serif, system-ui, sans-serif",
+      "mono": "\"JetBrains Mono Variable\", ui-monospace, \"SFMono-Regular\", monospace",
+      "base_px": 15,
+      "floor_px": 12
+    },
+    "shape": {
+      "radius_px": 8,
+      "target_px": 44,
+      "note": "tabular numerals everywhere a number is compared"
+    }
+  },
+  "signature": {
+    "name": "the evidence line",
+    "rule": "A finding's confidence is drawn as a line with the facts that raised it as ticks, in three strokes: solid observed, dashed derived, dotted third-party. Not yet built in the interface; this pack names it so the next run builds it once.",
+    "carries": "which facts back a finding and how each was obtained",
+    "derived_from": "the finding's evidence list",
+    "asset": "none"
+  },
+  "motifs": [
+    {
+      "id": "severity-chip",
+      "use": "findings and alerts",
+      "rule": "Severity is a word plus a shape plus the colour, from the severity palette only; the accents (signal, cyan) never mean severity."
+    }
+  ],
+  "status_encoding": [
+    {
+      "state": "observed",
+      "color": "signal",
+      "shape": "solid line",
+      "word": "observed"
+    },
+    {
+      "state": "derived",
+      "color": "cyan",
+      "shape": "dashed line",
+      "word": "derived"
+    },
+    {
+      "state": "third-party",
+      "color": "sev-info",
+      "shape": "dotted line",
+      "word": "third-party"
+    }
+  ],
+  "motion": {
+    "allowed": [
+      "panel transitions",
+      "map pan and zoom"
+    ],
+    "reduced_motion": "off",
+    "hover": "gated"
+  },
+  "floors": [
+    "mobile"
+  ],
+  "never": [
+    "colour as the only carrier of severity",
+    "alarm red for anything that is not critical",
+    "a number without tabular figures where it is compared",
+    "a figure on the page that is not read from the data"
+  ],
+  "provenance": {
+    "source_run": "SolutionsAsService/sentinel docs/DESIGN-LOG.md, decisions D1 to D5",
+    "date": "2026-11-08",
+    "measured": [
+      "Mobile Floor passed on the built interface (frontend/scripts/floor.mjs)"
+    ],
+    "open": [
+      "ungraded by the owner",
+      "the evidence line is named, not built",
+      "R2 panel round not run"
+    ]
+  }
+}

@@ -235,3 +235,10 @@
    the spec labels wrap, and the card takes the width the screen has. Placed last
    so it overrides the card rules above it at the same specificity. */
 @media(max-width:420px){.spec span:nth-child(odd){white-space:normal}.artifact-set li{grid-template-columns:40px minmax(0,1fr)}.spec{grid-template-columns:minmax(0,1fr);gap:0 0}.spec span{margin-bottom:0}}
+/* Mobile Floor M4 (references/mobile-standard.md): no text under 12px, body copy at 15px and up.
+   Measured: 74 text nodes at 11px at 390px before this block. !important because earlier rules are
+   more specific (.graph-row>div small, .deliverable-copy p:nth-child(2)); this block is the floor. */
+.wordmark span,.masthead-caption,.eyebrow,.hero-top,.hero-top>span,figcaption,.build-chip,footer p,.artifact-note,.artifact-note a,.art-label,.graph-legend,.graph-row small,.graph-row span,.graph-row b,.graph-row i,.dotted-edge,.native,.node-id,.install-small,.install-small a,.install-step-heading button,.install-step-heading span,.artifact-set b,.mark-gloss,small{font-size:12px!important}
+.section-heading>p,.deliverable-copy p,.artifact-set p,.install-pre,.install-steps p,.install-steps article p,footer p{font-size:15px!important}
+footer p{font-size:12px!important}
+.artifact-note,.graph-legend,.art-label,p.artifact-note{font-size:15px!important}

@@ -63,6 +63,36 @@ The ledger was seeded from 40 runs pushed between 27 and 31 Oct 2026.
 proved necessary, each with the failure behind it. The lessons themselves are kept in
 [PrometheusIntelligence/dada-lessons](https://github.com/PrometheusIntelligence/dada-lessons).
 
+## Mobile Floor
+
+Every run that ships a page owes a great phone experience, and no run type waives it. The standard is
+[`skills/dada/references/mobile-standard.md`](skills/dada/references/mobile-standard.md): 44px touch targets, no text
+under 12px, inputs at 16px, hover gated, no sideways scroll, and the rest, each with a measured probe. Run it against any
+site:
+
+```sh
+python3 skills/dada/scripts/check_floor.py --web path/to/site
+python3 tools/measure.py --preset mobile --web path/to/site     # the raw numbers at 360, 390 and 430px
+```
+
+## Registry
+
+[`registry/registry.json`](registry/registry.json) is the one list of the skills, MCP servers and manuals dada and its
+forks use, with where each skill attaches to a run. External skills from
+[SolutionsAsService/skills](https://github.com/SolutionsAsService/skills) (animation, `mobile-native`, `break-ui`,
+`prototype` and the rest) are pinned by commit and file hash and attached to the phase of the run where they help.
+`python3 skills/dada/scripts/validate_registry.py` fails when any of it drifts.
+
+## Run manuals
+
+The run types (Full, Polish, Extend, Landing) are also published as data in
+[`skills/dada/runtypes/dada.manual.json`](skills/dada/runtypes/dada.manual.json), against the JSON Schema
+[`skills/dada/schema/dada-manual.schema.json`](skills/dada/schema/dada-manual.schema.json). It takes UTCP's declarative
+manual with direct call templates and MCP's capability detection and tool annotations, and adds the run contract,
+assertions on computed values and an evidence class on every instrument. Forks such as
+[3dada](https://github.com/SolutionsAsService/3dada) extend it with their own run types (drone, miniatures,
+product enclosure). See [`skills/dada/runtypes/README.md`](skills/dada/runtypes/README.md).
+
 ## Validation
 
-Run `python3 scripts/validate_skills.py` with PyYAML installed. It checks the skill's metadata, references and discovery link, and that the seat files, the ratings and the ledger match their sources. GitHub Actions runs it for pushes and pull requests. The skill's own scripts (`build_seats.py`, `import_log.py`, `rate_seats.py`, `pick_panel.py`) need only the Python standard library.
+Run `python3 scripts/validate_skills.py` with PyYAML installed. It checks the skill's metadata, references and discovery link, that the seat files, the ratings and the ledger match their sources, and that the run manual validates against its schema and agrees with `pick_panel.py` (`skills/dada/scripts/validate_runtypes.py`, standard library only). GitHub Actions runs it for pushes and pull requests. The skill's own scripts (`build_seats.py`, `import_log.py`, `rate_seats.py`, `pick_panel.py`) need only the Python standard library.

@@ -1,0 +1,256 @@
+{
+  "designpack_version": "1",
+  "id": "shell-session",
+  "name": "Shell Session",
+  "version": "1.0.0",
+  "status": "adopted",
+  "summary": "A dark terminal by default, a light page when the system asks. Real output in terminal blocks, and a mark on every command for what it can do to your files. For pages that teach or explain something people will run.",
+  "intent": {
+    "mood": "practical, careful, a little dry",
+    "for": [
+      "tutorials and references for commands, code or tools",
+      "pages that show output",
+      "tools that judge risk before something is run"
+    ],
+    "not_for": [
+      "narrative pages",
+      "dashboards"
+    ]
+  },
+  "tokens": {
+    "modes": {
+      "dark": {
+        "bg": "#0e1215",
+        "bg2": "#141a1e",
+        "card": "#182025",
+        "term": "#0a0d0f",
+        "ink": "#dde7eb",
+        "ink2": "#b1c0c7",
+        "ink3": "#8c9ea7",
+        "accent": "#4ade80",
+        "on-accent": "#06210f",
+        "warn": "#ff9b7a",
+        "ctl": "#7f939d",
+        "term-ink": "#d6e2e7",
+        "term-out": "#c4d2d8",
+        "term-ps": "#4ade80"
+      },
+      "light": {
+        "bg": "#f5f8f6",
+        "bg2": "#e9f0ec",
+        "card": "#ffffff",
+        "term": "#0a0d0f",
+        "ink": "#0f1a16",
+        "ink2": "#34443d",
+        "ink3": "#52635a",
+        "accent": "#0a7a40",
+        "on-accent": "#f2fff7",
+        "warn": "#b3361a",
+        "ctl": "#5f776a",
+        "term-ink": "#d6e2e7",
+        "term-out": "#c4d2d8",
+        "term-ps": "#4ade80"
+      }
+    },
+    "pairs": [
+      {
+        "fg": "ink",
+        "bg": "bg",
+        "role": "text body",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink2",
+        "bg": "bg",
+        "role": "text secondary",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink3",
+        "bg": "bg",
+        "role": "text dimmest allowed",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "ink3",
+        "bg": "card",
+        "role": "text dimmest on card",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "ink2",
+        "bg": "card",
+        "role": "text on card",
+        "min_ratio": 7
+      },
+      {
+        "fg": "accent",
+        "bg": "bg",
+        "role": "text link and prompt",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "accent",
+        "bg": "bg2",
+        "role": "text link on the band",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "on-accent",
+        "bg": "accent",
+        "role": "text on button",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "warn",
+        "bg": "bg",
+        "role": "text the can-delete mark",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "warn",
+        "bg": "card",
+        "role": "text the can-delete mark on a card",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "term-ink",
+        "bg": "term",
+        "role": "text terminal command",
+        "min_ratio": 7
+      },
+      {
+        "fg": "term-out",
+        "bg": "term",
+        "role": "text terminal output",
+        "min_ratio": 7
+      },
+      {
+        "fg": "term-ps",
+        "bg": "term",
+        "role": "text terminal prompt",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ctl",
+        "bg": "bg",
+        "role": "control border",
+        "min_ratio": 3
+      }
+    ],
+    "type": {
+      "display": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "text": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "mono": "ui-monospace, \"SF Mono\", \"Cascadia Mono\", \"JetBrains Mono\", Menlo, Consolas, monospace",
+      "base_px": 16,
+      "floor_px": 12
+    },
+    "shape": {
+      "radius_px": 8,
+      "target_px": 44,
+      "note": "terminal blocks stay dark in both modes and wrap instead of scrolling the page; controls use a border at 3:1 or better"
+    }
+  },
+  "signature": {
+    "name": "the measured pipeline",
+    "rule": "One continuous pipe in a terminal window, one segment per command of a real pipeline. Thickness is the number of lines flowing at an exact scale (no minimum size), and each segment runs from the lines that came in to the lines it let out, so it narrows where lines are thrown away. The measured count is above each segment, the command below it, the real final output beneath, and a one-line key says what thickness means. The poster is dark in both colour schemes and the header joins it.",
+    "carries": "how much data each stage of a real pipeline lets through, measured, at an honest scale",
+    "derived_from": "scripts/run_examples.py running each prefix of data/pipeline.json | wc -l",
+    "asset": "none"
+  },
+  "motifs": [
+    {
+      "id": "real-output",
+      "use": "every example",
+      "rule": "Show the command, then exactly what it printed, produced by a real run in a sandbox at build time. A build that has an example without a recorded output refuses to run, and a --check re-runs everything and compares."
+    },
+    {
+      "id": "impact-mark",
+      "use": "every command and flag",
+      "rule": "A rule style plus a word for what it can do in ordinary use: solid Only reads, dashed Changes things, double warm Can delete data. A flag riskier than its command carries its own mark. Never colour alone."
+    },
+    {
+      "id": "cant-tell",
+      "use": "tools that judge risk",
+      "rule": "A fourth verdict, dotted and worded Can't tell, for anything the tool could not analyse. A tool that judges risk never reports an unanalysed part as safe; it lists the specific reasons under the verdict."
+    },
+    {
+      "id": "step-nav",
+      "use": "lesson pages",
+      "rule": "Previous and Next links at the end of every lesson so a learner is never left at a footer."
+    },
+    {
+      "id": "rationed-colour",
+      "use": "a hero graphic",
+      "rule": "Saturated colour is spent only on the data (the pipe) and the primary action; the headline, counts and kicker stay neutral, so the colour ranks what matters."
+    }
+  ],
+  "status_encoding": [
+    {
+      "state": "only reads",
+      "color": "ink2",
+      "shape": "solid rule",
+      "word": "Only reads"
+    },
+    {
+      "state": "changes things",
+      "color": "ink2",
+      "shape": "dashed rule",
+      "word": "Changes things"
+    },
+    {
+      "state": "can delete data",
+      "color": "warn",
+      "shape": "double rule",
+      "word": "Can delete data"
+    },
+    {
+      "state": "can't tell",
+      "color": "ink",
+      "shape": "dotted rule",
+      "word": "Can't tell"
+    }
+  ],
+  "motion": {
+    "allowed": [
+      "blinking cursor in the brand mark"
+    ],
+    "reduced_motion": "off",
+    "hover": "gated"
+  },
+  "floors": [
+    "mobile"
+  ],
+  "never": [
+    "an output that was typed by hand",
+    "reporting an unanalysed part as safe",
+    "a danger mark defined more narrowly than the things it is applied to",
+    "advice to quote \"$dir/*\" (the wildcard must stay outside the quotes: \"$dir\"/*)",
+    "a control border under 3:1 or placeholder text under 4.5:1",
+    "a minimum size on a data mark that distorts its proportion (3 of 40 drawn as 0.117 instead of 0.075)",
+    "a hero graphic that is only explained by a caption below the fold: put a one-line key beside it",
+    "a nowrap headline (it clips at large text sizes)",
+    "a hero that is unreadable in print"
+  ],
+  "provenance": {
+    "source_run": "SolutionsAsService/LearnBash, round 1 (Adaptive Full, graded C: no bold landing) and round 2 (Landing run, bounded to one panel round: Arnheim, Krug, Cairo); see its DESIGN-LOG.md",
+    "date": "2026-11-09",
+    "measured": [
+      "Mobile Floor passes on all seven pages at 360, 390 and 430px",
+      "149 examples re-run identically; 12 of 12 independently re-run by Cairo",
+      "explainer: 75 command lines judged as expected; 114 adversarial lines run by Cairo with no crash or hang and no HTML injection",
+      "contrast preset n:0 on home, commands and explain after the fixes",
+      "landing: pipe thickness exactly proportional (144, 57.6, 10.8 px for 40, 16, 3 lines)",
+      "landing: headline one line at 320 to 2560 px and at 200% text size; print readable; contrast preset n:0 at 360, 390, 430, 1280"
+    ],
+    "open": [
+      "one panel round; S1 and S2 not met",
+      "outputs are GNU bash 5.2 on Linux; BSD and macOS claims partly from memory",
+      "not shown on a real phone",
+      "explainer covers 45 commands and says Can't tell for the rest",
+      "animation judged by measurement only (60 fps, 0 long tasks), not by eye"
+    ],
+    "grade": "A-",
+    "graded_by": "owner"
+  }
+}

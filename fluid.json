@@ -1,0 +1,5 @@
+{
+  "project": "dada",
+  "static_dir": "web",
+  "routes": [{ "pattern": "/", "target": "static" }]
+}

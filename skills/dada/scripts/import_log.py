@@ -66,7 +66,7 @@ def map_seat(text, index, mode):
 
 ROUND_TOKEN = re.compile(r"\b(R\d+)\b")
 VERDICT = re.compile(r"\b(PASS|OBJECT|NOT REPORTED)\b")
-RESOLUTION = re.compile(r"\b(ADAPT|OVERRULE|SCRAP|DEFERRED)\b")
+RESOLUTION = re.compile(r"\b(ADAPT|ADOPT|OVERRULE|SCRAP|DEFERRED)\b")
 REFUTED = re.compile(r"premise (?:refused|refuted)|refutes? the premise|measurement refuse", re.I)
 
 
@@ -75,7 +75,9 @@ def outcome_of(cell):
     if REFUTED.search(cell):
         return "REFUTED"
     m = RESOLUTION.search(cell)
-    return m.group(1) if m else None
+    if not m:
+        return None
+    return "ADAPT" if m.group(1) == "ADOPT" else m.group(1)  # ADOPT (taken as asked) counts as ADAPT
 
 
 def panel_round(heading, in_reports):

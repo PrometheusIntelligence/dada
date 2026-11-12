@@ -41,6 +41,11 @@ names the failure that put it here; the lesson numbers refer to `LESSONS.md` in 
 | Printed figures | every number on the page re-computed from its source after the last edit (Step 2g) | figures drift as later moves land |
 | Claims about software | every sentence that states a limit, default or refusal checked against `file:line` | copy written from memory of the code overstated it (lesson 44) |
 | Links | every internal link resolves; no page without an inbound link | a flagship page with no inbound link (lesson 52) |
+| Page coverage | the measuring script enumerates every page the build wrote (`site/**/*.html`), never a list the conductor typed | LearnC measured 15 of 22 pages for three rounds; the 10.8 px drawing labels were on an unmeasured page and a critic found them |
+| Printed commands | every command the page tells a reader to run is the command the build ran, run verbatim on files fetched over HTTP into an empty folder | LearnC printed an Objective-C command without the `-I`/`-L` the build added, then offered downloads that needed two files the page did not link |
+| Quoted outputs | every output the prose quotes ("Prints 55", "56 bytes") is checked by the build against the real output as a whole line | a substring check passes "5" against "5.0" and "15" alike |
+| Focus on drawn nodes | an SVG link's focus ring is a separate `.frame` rect painted last and outset from the box, measured against the glyphs inside it in every scheme | a stroke on the box was hidden under a same-colour band (1.00:1); after S4 enlarged the glyph, a frame on the box edge touched it (1.08:1 in dark) |
+| Deploy config | `vercel.json` (root and site folder), `fluid.json`, root redirect and root-anchored `.vercelignore` exist and agree; the build fails otherwise | three LearnC-run sites shipped without `fluid.json` |
 | Reduced motion and forced colours | animation stops; meaning carried by colour survives `forced-colors: active` | write cells read as read cells in High Contrast (shadw-MCP R1) |
 
 ## Reporting

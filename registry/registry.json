@@ -1,0 +1,471 @@
+{
+  "$schema": "../skills/dada/schema/dada-registry.schema.json",
+  "registry_version": "1.0",
+  "name": "dada",
+  "description": "The one list of what dada and its forks use: skills, MCP servers and manuals, with where each skill attaches. SKILL.md and the manuals stay the contract; this is how the three stay consistent. scripts/validate_registry.py fails when they drift. Forks list themselves under `forks` and keep their own manual, servers and attachments in their own registry, which extends this one.",
+  "manuals": [
+    {
+      "name": "dada",
+      "path": "skills/dada/runtypes/dada.manual.json",
+      "repo": "PrometheusIntelligence/dada"
+    }
+  ],
+  "servers": [
+    {
+      "id": "gm",
+      "kind": "workflow",
+      "repo": "AnEntrypoint/gm",
+      "transport": "stdio",
+      "used_by": [],
+      "description": "Project workflow MCP dada's AGENTS.md names for codesearch and git verbs. Not a manual instrument; 3dada uses the gm-lite skill instead and no daemon."
+    }
+  ],
+  "skills": [
+    {
+      "id": "dada",
+      "kind": "process",
+      "summary": "DADA: ambitious graphic design with a self-correcting critic panel.",
+      "status": "attached",
+      "invocation": "auto",
+      "source": {
+        "type": "local",
+        "path": "skills/dada/SKILL.md"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "*"
+          ],
+          "phase": "step0",
+          "role": "owner",
+          "when": "every dada run"
+        }
+      ]
+    },
+    {
+      "id": "mobile-native",
+      "kind": "fix-library",
+      "summary": "The CSS and meta-tag fixes that make a web page feel installed on a phone.",
+      "status": "attached",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/mobile-native/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "888b7651d66d66dbac4e72b7c554638eb19bd971d686d6cbdf030a5ef3788f55"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "*"
+          ],
+          "phase": "2b",
+          "role": "fix-source",
+          "when": "a Mobile Floor row fails (M2, M5, M6, M7, M11 map to its fixes 4, 3, 1, 3, 7)"
+        },
+        {
+          "manual": "dada",
+          "runtypes": [
+            "*"
+          ],
+          "phase": "2g",
+          "role": "verify",
+          "when": "read its `Never Ship` table against the final CSS"
+        }
+      ],
+      "note": "The Mobile Floor's fix_with. Its baseline (viewport-fit=cover, 16px inputs, gated hover, touch-action) starts every new page."
+    },
+    {
+      "id": "break-ui",
+      "kind": "process",
+      "summary": "Feed the UI worst-case data and report what breaks.",
+      "status": "attached",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/break-ui/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "e7eec1d70ac56a04255e9c0dbe98084ea3d544cc04aaad34f32c95d6fa9dff5e"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "polish",
+            "extend",
+            "landing"
+          ],
+          "phase": "R0",
+          "role": "premortem",
+          "when": "the artifact shows data, names or counts"
+        },
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full"
+          ],
+          "phase": "2c",
+          "role": "measurement-seat",
+          "when": "after the first render"
+        }
+      ]
+    },
+    {
+      "id": "animation-performance",
+      "kind": "fix-library",
+      "summary": "Keep animation inside the frame budget; find the cause of dropped frames.",
+      "status": "attached",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/animation-performance/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "6c60f45ab416ff3f7d7765a5427beead77fab0d82487fe610d2a298397558d0a"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full",
+            "landing"
+          ],
+          "phase": "2g",
+          "role": "verify",
+          "when": "the artifact has motion"
+        },
+        {
+          "manual": "dada",
+          "runtypes": [
+            "polish"
+          ],
+          "phase": "2c",
+          "role": "measurement-seat",
+          "when": "a move touched motion"
+        }
+      ]
+    },
+    {
+      "id": "review-animations",
+      "kind": "craft",
+      "summary": "A strict review of animation code against a high craft bar.",
+      "status": "attached",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/review-animations/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "5f9fb98b69cace7107af8b393a4196fd42fa42d98bce0e5afc1f866ff3b8a41c"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full",
+            "landing",
+            "polish"
+          ],
+          "phase": "2c",
+          "role": "critic-brief",
+          "when": "the artifact has motion; brief the measurement seat with its STANDARDS.md"
+        }
+      ]
+    },
+    {
+      "id": "remove-animations",
+      "kind": "craft",
+      "summary": "Remove the animation an interface does not need; subtract only.",
+      "status": "attached",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/remove-animations/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "dea95b7a7ef81cba312c7f70a3c5c67d7e06a287cb16b16d2f90f2b1fb0afff9"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "polish"
+          ],
+          "phase": "2b",
+          "role": "move-source",
+          "when": "the page feels slow or over-animated; Polish allows subtraction"
+        }
+      ]
+    },
+    {
+      "id": "emil-design-eng",
+      "kind": "craft",
+      "summary": "Philosophy of UI polish, component design and animation decisions.",
+      "status": "attached",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/emil-design-eng/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "965cc3108047a1f68e504977ae7816c66115b202a32e7509c0b8305314839c54"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full",
+            "polish",
+            "extend",
+            "landing"
+          ],
+          "phase": "2b",
+          "role": "craft",
+          "when": "a move changes a component's feel"
+        }
+      ]
+    },
+    {
+      "id": "apple-design",
+      "kind": "craft",
+      "summary": "Apple's interface and fluid-motion principles for the web: gestures, springs, sheets, materials.",
+      "status": "attached",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/apple-design/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "77bb63b7043bb93aca2ff4ab040c249484eef35682bb6ff7163433c31d30adc7"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full",
+            "landing"
+          ],
+          "phase": "2b",
+          "role": "craft",
+          "when": "Adaptive mode, or the artifact is gesture-driven"
+        }
+      ]
+    },
+    {
+      "id": "animate",
+      "kind": "process",
+      "summary": "Build an animation from scratch, deciding in the order that makes it feel right.",
+      "status": "on_demand",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/animate/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "39138996033e0dbe53e73217514116eaeca774bae84a0687c80d445a4e0cc3a6"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full",
+            "landing"
+          ],
+          "phase": "2b",
+          "role": "move-source",
+          "when": "a move adds motion"
+        }
+      ]
+    },
+    {
+      "id": "find-animation-opportunities",
+      "kind": "process",
+      "summary": "Find where motion belongs and reject where it does not; read-only.",
+      "status": "on_demand",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/find-animation-opportunities/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "d52a377819b84a71930f0c822cfe2849f40301605a2d5c7eccbfa3b257700df2"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full",
+            "landing"
+          ],
+          "phase": "R0",
+          "role": "premortem",
+          "when": "the brief asks for more life"
+        }
+      ]
+    },
+    {
+      "id": "improve-animations",
+      "kind": "process",
+      "summary": "Audit a codebase's motion and plan improvements for other agents.",
+      "status": "on_demand",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/improve-animations/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "73962447464433476343e2c12cd08ab39cc99a9e5f3c118c5fb54ed897574ef6"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full"
+          ],
+          "phase": "on_demand",
+          "role": "audit"
+        }
+      ]
+    },
+    {
+      "id": "animation-vocabulary",
+      "kind": "reference",
+      "summary": "Reverse-lookup glossary from a vague description to the exact motion term.",
+      "status": "on_demand",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/animation-vocabulary/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "40d2b27adfdfeb0570a9f20e7d0255109d9233c50603878bcd0dcd04c923fd94"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "*"
+          ],
+          "phase": "on_demand",
+          "role": "reference",
+          "when": "naming a motion effect in a brief or a decision record"
+        }
+      ]
+    },
+    {
+      "id": "prototype",
+      "kind": "process",
+      "summary": "Build several genuinely different versions behind a picker and promote the one that feels right.",
+      "status": "on_demand",
+      "invocation": "explicit",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/prototype/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "bba39c955eb1871c5a02733976ceec5d0324198e0812e667604756489c89f7b9"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full",
+            "landing"
+          ],
+          "phase": "branch",
+          "role": "spike",
+          "when": "two or more Breaker candidates are plausible: each branch is rendered as a spike"
+        }
+      ],
+      "note": "Explicit invocation only, so the Branch step names it and the person confirms."
+    },
+    {
+      "id": "pick-ui-library",
+      "kind": "reference",
+      "summary": "Pick a frontend library from a curated opinionated list.",
+      "status": "on_demand",
+      "invocation": "explicit",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/pick-ui-library/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "675fdce308683256ed617351a9b74d23457a5fbd0a562d9831b9c764b8c5e682"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "full",
+            "extend"
+          ],
+          "phase": "2b",
+          "role": "component-source",
+          "when": "a move needs a component that exists as a library"
+        }
+      ],
+      "note": "Explicit invocation only."
+    },
+    {
+      "id": "animate-expo",
+      "kind": "fix-library",
+      "summary": "Animation in React Native and Expo.",
+      "status": "reserved",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/animate-expo/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "9a01a91701e6563c67677dde6b66ab30f066a5341d42c21a90ba51d99679274a"
+      },
+      "attaches": [],
+      "note": "No dada manual targets a native app yet. Reserved for a native-app fork; it attaches there, not here."
+    },
+    {
+      "id": "write-swift",
+      "kind": "reference",
+      "summary": "Modern Swift.",
+      "status": "out_of_scope",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/write-swift/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "16a4b6adb74e338e55e704ce5753ad54d825438b8a63930eeaede9f3c04c9447"
+      },
+      "attaches": [],
+      "note": "Code skill with no design-run attachment."
+    },
+    {
+      "id": "ask-sonner",
+      "kind": "reference",
+      "summary": "Guide to the Sonner toast library.",
+      "status": "out_of_scope",
+      "invocation": "auto",
+      "source": {
+        "type": "git",
+        "repo": "SolutionsAsService/skills",
+        "path": "skills/ask-sonner/SKILL.md",
+        "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+        "sha256": "39f3ee185b3aa2cf70a689052ff078953ce7ba5915ed7a9391d232e9d4dcf57f"
+      },
+      "attaches": [],
+      "note": "Library support for one React toast package; dada pages are not React apps by default."
+    }
+  ],
+  "forks": [
+    {
+      "name": "3dada",
+      "repo": "SolutionsAsService/3dada",
+      "manual": "3dada",
+      "extends": "dada",
+      "registry": "registry/registry.json"
+    }
+  ]
+}

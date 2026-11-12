@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/PrometheusIntelligence/dada/skills/dada/schema/dada-registry.schema.json",
+  "title": "DADA registry",
+  "description": "The single list of the skills, MCP servers and manuals that dada and its forks use, and where each skill attaches to a run. A fork's registry `extends` its parent's and adds; it never redefines a parent id.",
+  "type": "object",
+  "required": [
+    "registry_version",
+    "name",
+    "manuals",
+    "servers",
+    "skills"
+  ],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "registry_version": {
+      "const": "1.0"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+    },
+    "description": {
+      "type": "string"
+    },
+    "extends": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Parent registry names, loaded with --parent."
+    },
+    "manuals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "path",
+          "repo"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "servers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "repo",
+          "transport",
+          "used_by"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "kind": {
+            "enum": [
+              "instrument",
+              "workflow"
+            ],
+            "description": "instrument: a manual's call templates name it. workflow: the agent's own project tooling, never a manual instrument."
+          },
+          "repo": {
+            "type": "string"
+          },
+          "transport": {
+            "enum": [
+              "stdio",
+              "http",
+              "sse"
+            ]
+          },
+          "used_by": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Manual names whose `mcp` call templates name this server. Must equal the manuals that do."
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "summary",
+          "source",
+          "status",
+          "invocation",
+          "attaches"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "kind": {
+            "enum": [
+              "process",
+              "craft",
+              "fix-library",
+              "reference"
+            ]
+          },
+          "summary": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "attached",
+              "on_demand",
+              "reserved",
+              "out_of_scope"
+            ],
+            "description": "attached: used by a run without being asked. on_demand: a run reaches for it when its `when` holds. reserved: for a fork that does not exist yet. out_of_scope: registered so it is decided, not forgotten."
+          },
+          "invocation": {
+            "enum": [
+              "auto",
+              "explicit"
+            ],
+            "description": "explicit: the skill runs only when invoked by name, so a run proposes it and the person confirms."
+          },
+          "source": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "type",
+                  "path"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "const": "local"
+                  },
+                  "path": {
+                    "type": "string"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "type",
+                  "repo",
+                  "path",
+                  "ref",
+                  "sha256"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "const": "git"
+                  },
+                  "repo": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "ref": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{40}$"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              }
+            ]
+          },
+          "attaches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "manual",
+                "runtypes",
+                "phase",
+                "role"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "manual": {
+                  "type": "string"
+                },
+                "runtypes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Run type ids, or `*`."
+                },
+                "phase": {
+                  "enum": [
+                    "step0",
+                    "R0",
+                    "2b",
+                    "2c",
+                    "2g",
+                    "branch",
+                    "on_demand"
+                  ]
+                },
+                "role": {
+                  "type": "string"
+                },
+                "when": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "uses_servers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "forks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "repo",
+          "manual",
+          "extends",
+          "registry"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "repo": {
+            "type": "string"
+          },
+          "manual": {
+            "type": "string"
+          },
+          "extends": {
+            "type": "string"
+          },
+          "registry": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "attach": {
+      "type": "array",
+      "description": "A fork's additions to skills its parent registry defines: where they attach in the fork's manual. The skill itself is never redefined.",
+      "items": {
+        "type": "object",
+        "required": [
+          "skill",
+          "attaches"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "skill": {
+            "type": "string"
+          },
+          "attaches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "manual",
+                "runtypes",
+                "phase",
+                "role"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "manual": {
+                  "type": "string"
+                },
+                "runtypes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Run type ids, or `*`."
+                },
+                "phase": {
+                  "enum": [
+                    "step0",
+                    "R0",
+                    "2b",
+                    "2c",
+                    "2g",
+                    "branch",
+                    "on_demand"
+                  ]
+                },
+                "role": {
+                  "type": "string"
+                },
+                "when": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

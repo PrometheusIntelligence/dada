@@ -15,6 +15,8 @@ in a temp dir, so the published files are never edited to take a measurement.
     python3 tools/measure.py --shot /tmp/no-h1.png --widths 1440 --fold 900 \
             --expr 'doc.querySelector(".hero h1").style.visibility="hidden"'
     python3 tools/measure.py --preset state --widths 390
+    python3 tools/measure.py --preset mobile                  # the Mobile Floor at 360, 390, 430 (fold 800)
+    python3 tools/measure.py --preset mobile --web ../site    # any site, not only this one
 
 The snippet runs with (doc, win, W, H) in scope. Return anything
 JSON-serialisable, or a string for raw output.
@@ -55,7 +57,18 @@ import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB = os.path.join(ROOT, 'web')
-CHROME = '/usr/bin/chromium'
+def _find_chrome():
+    # CHROME overrides; otherwise the first browser found. A hard-coded path made the tool
+    # fail on any machine whose Chromium lives elsewhere.
+    cand = [os.environ.get('CHROME'), '/usr/bin/chromium', '/usr/bin/chromium-browser',
+            '/usr/bin/google-chrome', '/opt/pw-browsers/chromium']
+    for c in cand:
+        if c and os.path.exists(c):
+            return c
+    return shutil.which('chromium') or shutil.which('google-chrome') or '/usr/bin/chromium'
+
+
+CHROME = _find_chrome()
 
 PROBE = """<!doctype html><meta charset="utf-8"><style>html,body{margin:0}iframe{border:0}</style>
 <iframe id="f" src=""></iframe>
@@ -250,6 +263,7 @@ const rows=[];
   if(r.width<2||r.height<2) return;
   const cs=getComputedStyle(el);
   if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0) return;
+  if(el.closest('[aria-hidden=true]')) return;  // decorative text is exempt from contrast, as from the 12px floor (mobile-standard.md M4, M10)
   const fg=parse(cs.color), bg=bgOf(el);
   if(!fg) return;
   const L1=lum(fg),L2=lum(bg);
@@ -293,7 +307,82 @@ const grammar=out.map(o=>o.status).filter(Boolean)
 return {w:W, steps:out, grammarBugs:grammar, focusable:btns.filter(b=>!b.hidden).length};
 """
 
+
+P_MOBILE = r"""
+// The Mobile Floor (skills/dada/references/mobile-standard.md). Counts, not impressions:
+// each key is a number a run type can assert on. `n:0` / `ovf:0` is clean.
+const de=doc.documentElement;
+const vis=el=>{const r=el.getBoundingClientRect();const cs=getComputedStyle(el);
+  return r.width>0&&r.height>0&&cs.visibility!=='hidden'&&cs.display!=='none'&&+cs.opacity!==0;};
+const tag=el=>el.tagName.toLowerCase()+(el.className&&typeof el.className==='string'?'.'+el.className.split(/\s+/)[0]:'');
+// 1. no sideways scroll, and no visible box past the viewport edge
+const clipped=[...doc.querySelectorAll('body *')].filter(el=>{
+  if(!vis(el)) return false; const r=el.getBoundingClientRect();
+  if(!(r.right>W+1||r.left<-1)) return false;
+  for(let a=el.parentElement;a&&a!==doc.body;a=a.parentElement){const o=getComputedStyle(a).overflowX;
+    if(o==='auto'||o==='scroll'||o==='hidden'){const b=a.getBoundingClientRect();if(b.right<=W+1&&b.left>=-1)return false;}}
+  return true;}).slice(0,6).map(el=>tag(el)+':'+Math.round(el.getBoundingClientRect().right));
+// 2. viewport meta: device-width, and pinch-zoom left alone
+const meta=(doc.querySelector('meta[name=viewport]')||{}).content||'';
+const viewportIssues=[];
+if(!/width\s*=\s*device-width/.test(meta)) viewportIssues.push('no width=device-width');
+if(/user-scalable\s*=\s*(no|0)/.test(meta)) viewportIssues.push('user-scalable=no');
+if(/maximum-scale\s*=\s*1(\.0)?\b/.test(meta)) viewportIssues.push('maximum-scale=1');
+// 3. touch targets: 44px floor; 24px is the WCAG 2.2 AA hard minimum. Inline links in a sentence are exempt.
+const sel='a[href],button,summary,input:not([type=hidden]),select,textarea,[role=button],[tabindex]:not([tabindex="-1"])';
+const targets=[...doc.querySelectorAll(sel)].filter(vis).map(el=>{
+  const r=el.getBoundingClientRect();
+  const inline=el.tagName==='A'&&el.parentElement&&!/^(NAV|LI|UL|HEADER|FOOTER)$/.test(el.parentElement.tagName)
+    &&el.parentElement.textContent.trim().length>el.textContent.trim().length+8;
+  // a positioned ::after (inset:-9px) is a real hit area getBoundingClientRect cannot see: take its computed box
+  const pa=getComputedStyle(el,'::after');
+  const ax=pa.content!=='none'&&pa.position==='absolute'?parseFloat(pa.width)||0:0, ay=pa.content!=='none'&&pa.position==='absolute'?parseFloat(pa.height)||0:0;
+  return {el:tag(el),w:Math.round(Math.max(r.width,ax)),h:Math.round(Math.max(r.height,ay)),inline,t:(el.textContent||'').trim().slice(0,20)};
+}).filter(o=>!o.inline);
+const under44=targets.filter(o=>Math.min(o.w,o.h)<44), under24=targets.filter(o=>Math.min(o.w,o.h)<24);
+// 4. text floor: nothing under 12px; body copy 15px and up
+const tiny=[],body=[];
+for(const el of doc.querySelectorAll('body *')){
+  const t=[...el.childNodes].filter(n=>n.nodeType===3&&n.textContent.trim()).map(n=>n.textContent.trim()).join('');
+  if(!t||!vis(el)||el.closest('[aria-hidden=true]')) continue;  // decorative text is not content; the floor is for what is read
+  const px=parseFloat(getComputedStyle(el).fontSize);
+  if(px<12) tiny.push(tag(el)+':'+px+':'+t.slice(0,16));
+  else if(/^(P|LI|DD)$/.test(el.tagName)&&t.length>60&&px<15) body.push(tag(el)+':'+px);
+}
+// 5. inputs under 16px make iOS zoom the page on focus
+const inputZoom=[...doc.querySelectorAll('input:not([type=checkbox]):not([type=radio]):not([type=hidden]),select,textarea')]
+  .filter(vis).filter(el=>parseFloat(getComputedStyle(el).fontSize)<16).map(tag);
+// 6. :hover outside (hover:hover) sticks after a tap
+let hoverUngated=0,vh100=0,hasSafeArea=false,hasDvh=false;
+const walk=(rules,gated)=>{for(const r of rules){
+  if(r.cssRules&&r.media){walk(r.cssRules,gated||/hover\s*:\s*hover/.test(r.media.mediaText));continue;}
+  if(r.cssRules){walk(r.cssRules,gated);continue;}
+  const sel=r.selectorText||'',css=r.cssText||'';
+  if(!gated&&/:hover/.test(sel)) hoverUngated++;
+  if(/(^|[^a-z])100vh/.test(css)) vh100++;
+  if(/safe-area-inset/.test(css)) hasSafeArea=true;
+  if(/100d?svh|100dvh|100lvh/.test(css)) hasDvh=true;}};
+for(const ss of doc.styleSheets){try{walk(ss.cssRules,false);}catch(e){}}
+// 7. fixed/sticky bars that eat the phone: share of the viewport they cover
+let barPx=0;const bars=[];
+for(const el of doc.querySelectorAll('body *')){const cs=getComputedStyle(el);
+  if((cs.position==='fixed'||cs.position==='sticky')&&vis(el)){const r=el.getBoundingClientRect();
+    if(r.width>W*0.6){barPx+=r.height;bars.push(tag(el)+':'+Math.round(r.height));}}}
+const barPct=Math.round(100*barPx/H);
+// 8. the first screen: an h1 inside the fold
+const h1=doc.querySelector('h1');const h1InFold=!!h1&&h1.getBoundingClientRect().top<H;
+return {w:W,ovf:de.scrollWidth-de.clientWidth,clipped:clipped,
+  viewport:{n:viewportIssues.length,issues:viewportIssues,safeAreaNeedsCover:hasSafeArea&&!/viewport-fit\s*=\s*cover/.test(meta)},
+  under44:{n:under44.length,rows:under44.slice(0,6).map(o=>o.el+' '+o.w+'x'+o.h)},
+  under24:{n:under24.length,rows:under24.slice(0,4).map(o=>o.el+' '+o.w+'x'+o.h)},
+  tiny:{n:tiny.length,rows:tiny.slice(0,5)}, body:{n:body.length,rows:body.slice(0,3)},
+  inputZoom:{n:inputZoom.length,rows:inputZoom.slice(0,3)},
+  hoverUngated:hoverUngated, vh100:vh100, dvhUsed:hasDvh,
+  bars:{pct:barPct,rows:bars}, h1InFold:h1InFold};
+"""
+
 PRESETS = {
+    'mobile': P_MOBILE,
     'overflow': P_OVERFLOW,
     'targets': P_TARGETS,
     'bands': P_BANDS,
@@ -302,7 +391,12 @@ PRESETS = {
     'state': P_STATE,
     'cross': P_CROSS,
 }
-ALL = ['overflow', 'targets', 'bands', 'contrast', 'structure', 'state', 'cross']
+ALL = ['overflow', 'targets', 'bands', 'contrast', 'structure', 'state', 'cross', 'mobile']
+MOBILE_WIDTHS = '360,390,430'  # the default for --preset mobile: small Android, iPhone, large iPhone
+MOBILE_FOLD = 800
+# A phone has a coarse pointer and no hover. Headless Chromium defaults to a mouse, which made every
+# `@media (pointer: coarse)` rule inert and under-reported target sizes; the mobile preset launches as a phone.
+MOBILE_ARGS = ['--blink-settings=primaryPointerType=2,availablePointerTypes=2,primaryHoverType=1,availableHoverTypes=1']
 
 # The case panels are hidden unless their tab is chosen, so a rect taken inside
 # one reads 0x0. Clicking the tab first is the whole of the fix.
@@ -313,7 +407,7 @@ TAB_PRELUDE = (
     "if(_t)_t.click();})();\n")
 
 
-def stage(v=None, nojs=False):
+def stage(v=None, nojs=False, web=None, page='index.html'):
     """Copy web/ to a temp dir with a fresh cache-bust token. Never edits web/.
 
     nojs=True strips every <script> from the copy, so a "with scripting off"
@@ -323,8 +417,8 @@ def stage(v=None, nojs=False):
     v = v or str(int(time.time() * 1000))
     d = tempfile.mkdtemp(prefix='dada-measure-')
     site = os.path.join(d, 'site')
-    shutil.copytree(WEB, site, symlinks=True)
-    idx = os.path.join(site, 'index.html')
+    shutil.copytree(web or WEB, site, symlinks=True)
+    idx = os.path.join(site, page)
     s = open(idx, encoding='utf-8').read()
     if nojs:
         s = re.sub(r'<script\b[^>]*>.*?</script>', '', s, flags=re.S | re.I)
@@ -394,6 +488,8 @@ def main():
                     help='use this as the iframe height instead of --h (viewport-sized capture)')
     ap.add_argument('--nojs', action='store_true', help='load the page without scripting')
     ap.add_argument('--delay', type=int, default=2500)
+    ap.add_argument('--web', help='measure this site directory instead of web/ (any site: the preset is the standard, not the page)')
+    ap.add_argument('--page', default='index.html', help='the page inside --web to measure')
     ap.add_argument('--shot', metavar='OUT.png', help='screenshot at the first width instead of measuring')
     ap.add_argument('--raw', action='store_true', help='print raw strings, not JSON')
     ap.add_argument('--tab', metavar='STEP',
@@ -416,15 +512,21 @@ def main():
     if code:
         warn_snippet(code)
 
+    if a.preset == 'mobile' and not (a.file or a.expr):
+        # the Mobile Floor is judged at phone widths and a phone-sized viewport unless told otherwise
+        if a.widths == ap.get_default('widths'):
+            a.widths = MOBILE_WIDTHS
+        if not a.fold:
+            a.fold = MOBILE_FOLD
     widths = [int(x) for x in a.widths.split(',') if x.strip()]
     height = a.fold or a.h
 
-    d, site, probe = stage(nojs=a.nojs)
+    d, site, probe = stage(nojs=a.nojs, web=a.web, page=a.page)
     try:
         if a.shot:
             w = widths[0]
             out = a.shot if os.path.isabs(a.shot) else os.path.join(os.getcwd(), a.shot)
-            dump, err = render(probe, os.path.join(site, 'index.html'), code or 'return 1',
+            dump, err = render(probe, os.path.join(site, a.page), code or 'return 1',
                                w, height, a.delay, a.nojs, shot=out)
             print('%s (%dx%d)' % (out, w, height))
             return 0 if os.path.exists(out) else 1
@@ -436,9 +538,9 @@ def main():
                 c = code if code is not None else PRESETS[name]
                 if a.tab:
                     c = TAB_PRELUDE % json.dumps(a.tab) + c
-                dump, err = render(probe, os.path.join(site, 'index.html'), c,
+                dump, err = render(probe, os.path.join(site, a.page), c,
                                    w, height, a.delay, a.nojs,
-                                   extra=os.environ.get('CHROME_ARGS', '').split())
+                                   extra=os.environ.get('CHROME_ARGS', '').split() + (MOBILE_ARGS if (a.preset == 'mobile' and code is None) else []))
                 res = extract(dump)
                 if res.startswith('ERR'):
                     bad = True

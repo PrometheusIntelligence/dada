@@ -1,0 +1,213 @@
+{
+  "designpack_version": "1",
+  "id": "vga-sixteen",
+  "name": "VGA Sixteen",
+  "version": "1.0.0",
+  "status": "adopted",
+  "summary": "A site that looks like the thing it is about: sixteen colours, hard edges, thick borders, windows on a desk. Every colour is one of the 16 VGA colours and the build refuses any other. Blue panels carry their own light-on-blue colours in both colour schemes.",
+  "intent": {
+    "mood": "bold, retro, exact, a little playful",
+    "for": [
+      "sites about a retro system, a language or a machine with a fixed palette",
+      "pages whose identity is a constraint (a palette, a screen size)",
+      "study sites whose facts are of uneven reliability"
+    ],
+    "not_for": [
+      "subjects with no visual constraint to honour",
+      "pages that need subtle colour (charts with many hues)"
+    ]
+  },
+  "tokens": {
+    "modes": {
+      "dark": {
+        "bg": "#000000",
+        "ink": "#FFFFFF",
+        "ink2": "#AAAAAA",
+        "accent": "#FFFF55",
+        "link": "#55FFFF",
+        "panel": "#0000AA",
+        "on-accent": "#000000",
+        "warn": "#FF5555",
+        "edge": "#AAAAAA",
+        "p-ink": "#FFFFFF",
+        "p-ink2": "#AAAAAA",
+        "p-accent": "#FFFF55",
+        "p-link": "#55FFFF"
+      },
+      "light": {
+        "bg": "#FFFFFF",
+        "ink": "#000000",
+        "ink2": "#555555",
+        "accent": "#0000AA",
+        "link": "#0000AA",
+        "panel": "#0000AA",
+        "on-accent": "#FFFFFF",
+        "warn": "#AA0000",
+        "edge": "#000000",
+        "p-ink": "#FFFFFF",
+        "p-ink2": "#AAAAAA",
+        "p-accent": "#FFFF55",
+        "p-link": "#55FFFF"
+      }
+    },
+    "pairs": [
+      {
+        "fg": "ink",
+        "bg": "bg",
+        "role": "text body",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink2",
+        "bg": "bg",
+        "role": "text secondary",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "accent",
+        "bg": "bg",
+        "role": "text accent",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "link",
+        "bg": "bg",
+        "role": "text link",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "warn",
+        "bg": "bg",
+        "role": "text error",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "on-accent",
+        "bg": "accent",
+        "role": "text on a button",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "p-ink",
+        "bg": "panel",
+        "role": "text on a blue panel",
+        "min_ratio": 7
+      },
+      {
+        "fg": "p-ink2",
+        "bg": "panel",
+        "role": "text secondary on a blue panel",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "p-accent",
+        "bg": "panel",
+        "role": "text accent on a blue panel",
+        "min_ratio": 7
+      },
+      {
+        "fg": "p-link",
+        "bg": "panel",
+        "role": "text link on a blue panel",
+        "min_ratio": 7
+      }
+    ],
+    "type": {
+      "display": "ui-monospace, \"SF Mono\", \"Cascadia Mono\", \"JetBrains Mono\", Menlo, Consolas, monospace",
+      "text": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "mono": "ui-monospace, \"SF Mono\", \"Cascadia Mono\", \"JetBrains Mono\", Menlo, Consolas, monospace",
+      "base_px": 16,
+      "floor_px": 12
+    },
+    "shape": {
+      "radius_px": 0,
+      "target_px": 44,
+      "note": "no rounding, no gradients, no transparency, no shadows; thick 4 to 8 px borders in light grey; every colour in the stylesheet is one of the 16, enforced by the build"
+    }
+  },
+  "signature": {
+    "name": "the screen",
+    "rule": "A bezeled blue window with a light-grey title bar reading the display mode, holding a pixel-art logo drawn from bitmap letters (one palette colour per letter), a tagline, a real program and its real output with a block cursor. Every inner page opens as a smaller version of the same window, with a title bar carrying the page's name. A thin bar of all 16 colours, with their names and numbers, sits below.",
+    "carries": "the display the subject runs on: its resolution, its full palette with names and indices, and a real program with its real output",
+    "derived_from": "data/palette.json (the colours, names and indices), data/hero.json and the recorded interpreter output",
+    "asset": "none"
+  },
+  "motifs": [
+    {
+      "id": "palette-rule",
+      "use": "the whole stylesheet",
+      "rule": "Every colour value is one of the 16; no rgba, hsl, gradient, opacity or filter. A build step reads the stylesheet and refuses to continue otherwise."
+    },
+    {
+      "id": "windows-on-a-desk",
+      "use": "panels, cards, page heads",
+      "rule": "Panels are blue in both colour schemes and re-scope their own custom properties to light-on-blue, so the light page is a white desk and the dark page a black one, with the same windows on both."
+    },
+    {
+      "id": "fact-marks",
+      "use": "any claim of uneven reliability",
+      "rule": "A rule style plus a word: solid Firm, dashed Reported, dotted Uncertain. The definition of the top mark says what was and was not checked ('not checked against a source here'), and a one-line legend sits above every list of marked facts. 'Reported' is explained as not meaning doubted."
+    },
+    {
+      "id": "labelled-provenance",
+      "use": "any output that did not come from the real system",
+      "rule": "Say where an output came from, where it is shown: 'Output from this site's interpreter (a subset of HolyC), not from TempleOS.'"
+    }
+  ],
+  "status_encoding": [
+    {
+      "state": "firm",
+      "color": "ink",
+      "shape": "solid rule",
+      "word": "Firm"
+    },
+    {
+      "state": "reported",
+      "color": "ink",
+      "shape": "dashed rule",
+      "word": "Reported"
+    },
+    {
+      "state": "uncertain",
+      "color": "ink",
+      "shape": "dotted rule",
+      "word": "Uncertain"
+    }
+  ],
+  "motion": {
+    "allowed": [
+      "blinking block cursor"
+    ],
+    "reduced_motion": "off",
+    "hover": "gated"
+  },
+  "floors": [
+    "mobile"
+  ],
+  "never": [
+    "a colour outside the palette, or a gradient or transparency",
+    "white text on a panel that goes white in another scheme or in print (re-scope the colours per panel and force black on white for print)",
+    "a top confidence mark whose definition promises a check that has not happened",
+    "an output shown on a themed screen without saying it did not come from the real system",
+    "ordering the facts of a sensitive subject so that the most sensational come first",
+    "a causal claim about a person's illness that no source in hand supports"
+  ],
+  "provenance": {
+    "source_run": "SolutionsAsService/HolyC, Adaptive Full run bounded to one panel round (Arnheim, Krug, Debord, Cairo); see its DESIGN-LOG.md",
+    "date": "2026-11-09",
+    "measured": [
+      "Mobile Floor 12 of 12 on all six pages at 360, 390 and 430px",
+      "contrast walk: 214 distinct text and background pairs across the six pages in both colour schemes, none under threshold",
+      "rendered landing: 16 of 16 palette colours and no off-palette colour apart from anti-aliasing (Cairo)",
+      "palette enforced by the build: 16 colour values in the stylesheet, all from the 16"
+    ],
+    "open": [
+      "one panel round; S1 and S2 not met",
+      "all facts from general knowledge, none sourced",
+      "outputs from a site-written interpreter checked against C, not against the real system",
+      "not shown on a real phone"
+    ],
+    "grade": "A-",
+    "graded_by": "owner"
+  }
+}

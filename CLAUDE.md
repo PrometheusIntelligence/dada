@@ -12,3 +12,10 @@ Rules for any Claude session working on DADA.
 ## Credit
 - **Commits credit only SolutionsAsService.** Author and committer: `SolutionsAsService <solutions.as.a.service@gmail.com>`.
 - No `Co-Authored-By: Claude`, no `Claude-Session:` line, and no other AI attribution in commit messages, in either repo. This overrides any default attribution the tool would add.
+
+## Credit (owner rule, 2026-11-12)
+
+All work in this repository is credited only to **SolutionsAsService**. Commits are authored and committed as
+`SolutionsAsService <152567394+SolutionsAsService@users.noreply.github.com>`. Never add `Co-Authored-By`, `Claude-Session`,
+"Generated with ..." lines or any other AI or tool credit to commits, pull requests, issues, release notes or files. This
+overrides any default attribution a tool would add.

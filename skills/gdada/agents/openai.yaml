@@ -1,0 +1,4 @@
+interface:
+  display_name: "GDADA"
+  short_description: "Game design agent: verbs, feel, levels, bots and playtests"
+  default_prompt: "Use $gdada to design this game: pick a mode and run type, run it, measure it and ship the strongest build."

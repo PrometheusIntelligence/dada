@@ -1,0 +1,14 @@
+{
+  "format": "tidewatch.factions",
+  "formatVersion": 1,
+  "note": "Fictional factions. A match pairs a light faction with a dark one so the two sides always differ in brightness (validate.py asserts >= 2:1). `emblem` is a 3x3 mark worn on every unit and banner; `flag` is the banner shape. Both read without colour.",
+  "defaults": ["azure", "crimson"],
+  "factions": {
+    "azure":   { "name": "Azure Alliance",   "blurb": "Sea-trading coast states.",         "main": "#7db4ff", "dark": "#3a6fd0", "tone": "light", "emblem": "bars",     "flag": "square" },
+    "gold":    { "name": "Golden Concord",   "blurb": "A grain and rail federation.",      "main": "#e8c547", "dark": "#a8851f", "tone": "light", "emblem": "cross",   "flag": "swallow" },
+    "steel":   { "name": "Steel Pact",       "blurb": "Foundry cities under one banner.",  "main": "#cdd5e3", "dark": "#6f7b92", "tone": "light", "emblem": "vee", "flag": "pennant" },
+    "crimson": { "name": "Crimson Republic", "blurb": "A revolutionary mass army.",        "main": "#a62d27", "dark": "#5c1612", "tone": "dark",  "emblem": "block",     "flag": "square" },
+    "violet":  { "name": "Violet League",    "blurb": "Mountain clans with long guns.",    "main": "#6a3fb0", "dark": "#3a2270", "tone": "dark",  "emblem": "ell",   "flag": "swallow" },
+    "pine":    { "name": "Pine Dominion",    "blurb": "Forest state, patient and armoured.", "main": "#2a6a42", "dark": "#143a24", "tone": "dark",  "emblem": "slash", "flag": "pennant" }
+  }
+}

@@ -1,0 +1,293 @@
+<title>Holy Temple Atlas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a TempleOS-blue status bar on top, the map of regions left, the selected region's ledger right (stacked on phones). */
+:root {
+  --bg: #0d0f14;         /* the black of the game's title screen, a little blue */
+  --panel: #151922;
+  --line: #2a3140;
+  --fg: #d7dbe3;
+  --dim: #8b93a5;
+  --gold: #cfb45f;       /* the title's gold */
+  --bar: #2b3a8f;        /* TempleOS status bar blue */
+  --open: #5f9a5f; --time: #d39a34; --know: #5b8fd8; --item: #b06bc0; --flag: #d0584f;
+  --thread: #9aa3b5;
+  --display: "Silkscreen", "Courier New", monospace;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font: 14px/1.5 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bar); }
+header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bar); color: #fff;
+  padding-block: 6px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; font: 12px var(--mono);
+}
+header h1 { font: 16px var(--display); margin: 0; letter-spacing: .04em; color: #fff; }
+header .stats { color: #cfd6ff; }
+main {
+  display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 16px;
+  padding-block: 16px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (max-width: 860px) { main { grid-template-columns: minmax(0, 1fr); } }
+.mapbox { position: relative; min-width: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+svg { display: block; width: 100%; height: min(80vh, 820px); min-height: 460px; cursor: grab; touch-action: none; }
+svg:active { cursor: grabbing; }
+@media (max-width: 600px) { svg { height: 300px; min-height: 280px; } .controls { top: 8px; left: 8px; } }
+.coltitle { font: 10px var(--mono); fill: var(--dim); letter-spacing: .12em; text-transform: uppercase; }
+.colband { fill: #ffffff; opacity: .025; }
+.node .label-bg { fill: var(--panel); opacity: .85; }
+.hint { position: absolute; right: 12px; top: 12px; font: 11px var(--mono); color: var(--dim); pointer-events: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 10px 12px; border-top: 1px solid var(--line); font: 12px var(--mono); color: var(--dim); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 18px; height: 3px; display: inline-block; border-radius: 2px; }
+.sw.dash { background: repeating-linear-gradient(90deg, var(--thread) 0 4px, transparent 4px 7px); }
+.controls { position: absolute; top: 10px; left: 12px; z-index: 2; display: flex; gap: 8px; flex-wrap: wrap; }
+button.toggle { font: 12px var(--mono); color: var(--fg); background: #1d2330; border: 1px solid var(--line); border-radius: 4px; padding: 4px 9px; cursor: pointer; }
+button.toggle[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+button.toggle:focus-visible, .node:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+aside { min-width: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+aside h2 { font: 20px var(--display); color: var(--gold); margin: 0; text-wrap: balance; }
+aside h3 { font: 600 11px var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin: 0 0 6px; }
+.kv { display: flex; gap: 18px; font: 13px var(--mono); font-variant-numeric: tabular-nums; }
+.kv b { color: var(--fg); font-weight: 500; }
+.areas { display: flex; flex-wrap: wrap; gap: 4px; }
+.areas span { font: 11px var(--mono); background: #1d2330; border: 1px solid var(--line); border-radius: 3px; padding: 1px 6px; color: var(--fg); }
+ul.rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+ul.rows li { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: baseline; font-size: 13px; }
+ul.rows li .to { cursor: pointer; text-decoration: underline dotted var(--dim); text-underline-offset: 3px; }
+.chips { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+.chip { font: 10px var(--mono); text-transform: uppercase; letter-spacing: .06em; padding: 1px 6px; border-radius: 10px; color: #0d0f14; }
+.chip.open { background: var(--open); } .chip.time { background: var(--time); } .chip.know { background: var(--know); }
+.chip.item { background: var(--item); } .chip.flag { background: var(--flag); }
+.thread { font-size: 12.5px; color: var(--fg); border-left: 2px dashed var(--thread); padding-left: 8px; }
+.thread .where { font: 11px var(--mono); color: var(--dim); }
+.empty { color: var(--dim); font-size: 13px; }
+.note { font-size: 12px; color: var(--dim); max-width: 65ch; }
+.node text { font: 12px var(--mono); fill: var(--fg); pointer-events: none; }
+.node .sub { font-size: 9.5px; fill: var(--dim); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header>
+  <h1>THE HOLY TEMPLE &middot; ATLAS</h1>
+  <span class="stats" id="stats">loading the world&hellip;</span>
+</header>
+<main>
+  <section class="mapbox" aria-label="Map of regions">
+    <div class="controls">
+      <button class="toggle" id="t-threads" aria-pressed="false">all threads</button>
+      <button class="toggle" id="t-doors" aria-pressed="true">doors</button>
+      <button class="toggle" id="t-fit" aria-pressed="false">fit</button>
+    </div>
+    <svg id="map" role="img" aria-label="Regions of the game in columns by how far they are from your room, with the doors and threads between them"></svg>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--open)"></i>open door</span>
+      <span><i class="sw" style="background:var(--time)"></i>only at some hours</span>
+      <span><i class="sw" style="background:var(--know)"></i>needs what you know</span>
+      <span><i class="sw" style="background:var(--item)"></i>needs a thing</span>
+      <span><i class="sw" style="background:var(--flag)"></i>needs something done</span>
+      <span><i class="sw dash"></i>thread: earned here, matters there</span>
+      <span style="margin-left:auto">drag to pan &middot; scroll or pinch to zoom &middot; click a region</span>
+    </div>
+  </section>
+  <aside id="panel" aria-live="polite"></aside>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+const GATE_ORDER = ["flag", "item", "know", "time", "open"];
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const NICE = { town: "The Town", home: "Your Room", department: "The Department", company: "The Company", office: "The Office",
+  municipal: "Municipal", archive: "The Archive", vatican: "The Sunken Vatican", undercity: "The Undercity", backrooms: "The Backrooms",
+  dream: "The Dream", ancient: "The Ancient Layer", labyrinth: "The Labyrinth", sand: "The Sand City", colony: "The Research Colony",
+  island: "The Estate", wander: "The Wanderers' Roads", lake: "The Lake", eldritch: "The Eldritch", watchers: "The Watchers",
+  index: "The Index", hotel: "The Elm Hotel", institute: "The Institute" };
+const nice = (id) => NICE[id] || id.charAt(0).toUpperCase() + id.slice(1);
+const DEPTH_NAME = ["start", "one door away", "two doors away", "three doors away", "four doors away", "five doors away", "six doors away", "further"];
+
+if (typeof d3 === "undefined") {
+  document.getElementById("stats").textContent = "The map library did not load. Reload the page.";
+} else {
+  fetch("WORLD-GRAPH.json").then((r) => r.json()).then(draw).catch((e) => {
+    document.getElementById("stats").textContent = "The world data did not load. Reload the page.";
+    console.error(e);
+  });
+}
+
+// Layered layout: a column per door-distance from your room (breadth-first over doors, either direction), regions in a column
+// ordered by the average row of their neighbours in the columns beside them (a few sweeps), so lines cross as little as possible.
+function layout(W) {
+  const ids = W.regions.map((r) => r.id);
+  const adj = new Map(ids.map((i) => [i, new Set()]));
+  for (const d of W.doors) { adj.get(d.from).add(d.to); adj.get(d.to).add(d.from); }
+  const depth = new Map([[W.start, 0]]), q = [W.start];
+  while (q.length) { const a = q.shift(); for (const b of adj.get(a)) if (!depth.has(b)) { depth.set(b, depth.get(a) + 1); q.push(b); } }
+  const maxD = Math.max(...depth.values());
+  for (const i of ids) if (!depth.has(i)) depth.set(i, maxD + 1);
+  const cols = [];
+  for (const i of ids) (cols[depth.get(i)] ||= []).push(i);
+  const rowOf = new Map();
+  cols.forEach((c) => c.sort().forEach((id, k) => rowOf.set(id, k)));
+  const bary = (id, ci) => {
+    const ns = [...adj.get(id)].filter((n) => Math.abs(depth.get(n) - ci) === 1);
+    return ns.length ? ns.reduce((s, n) => s + rowOf.get(n) / Math.max(1, cols[depth.get(n)].length - 1), 0) / ns.length : 0.5;
+  };
+  for (let sweep = 0; sweep < 8; sweep++) {
+    const order = sweep % 2 ? [...cols.keys()].reverse() : [...cols.keys()];
+    for (const ci of order) {
+      if (!cols[ci]) continue;
+      cols[ci].sort((a, b) => bary(a, ci) - bary(b, ci) || a.localeCompare(b));
+      cols[ci].forEach((id, k) => rowOf.set(id, k));
+    }
+  }
+  // a column of more than MAXROWS regions is drawn as two staggered lanes, so the map stays wide rather than tall
+  const MAXROWS = 7, LANEW = 120, COLGAP = 150, ROWH = 84, TOP = 64, LEFT = 90;
+  const lanes = cols.map((c) => (c && c.length > MAXROWS ? 2 : 1));
+  const colX = []; let x = LEFT;
+  cols.forEach((c, ci) => { colX[ci] = x; x += (lanes[ci] - 1) * LANEW + COLGAP; });
+  const tallest = Math.max(...cols.map((c, ci) => (c ? (lanes[ci] === 2 ? c.length / 2 + 0.5 : c.length) : 0)));
+  const pos = new Map();
+  cols.forEach((c, ci) => {
+    if (!c) return;
+    const span = lanes[ci] === 2 ? c.length / 2 + 0.5 : c.length;
+    const off = ((tallest - span) * ROWH) / 2;
+    c.forEach((id, k) => {
+      const lane = lanes[ci] === 2 ? k % 2 : 0;
+      pos.set(id, { x: colX[ci] + lane * LANEW, y: TOP + off + (lanes[ci] === 2 ? k * ROWH / 2 : k * ROWH), col: ci });
+    });
+  });
+  const bands = cols.map((c, ci) => c && { x: colX[ci] - 60, w: (lanes[ci] - 1) * LANEW + 120, cx: colX[ci] + (lanes[ci] - 1) * LANEW / 2 });
+  return { pos, cols, depth, bands, width: x - COLGAP + LEFT + (lanes[cols.length - 1] - 1) * 0, height: TOP + tallest * ROWH + 10, ROWH, TOP, LEFT };
+}
+
+function draw(W) {
+  const doorsN = W.doors.reduce((s, d) => s + d.n, 0), thrN = W.threads.reduce((s, t) => s + t.what.length, 0);
+  const mapsN = W.regions.reduce((s, r) => s + r.maps, 0), pplN = W.regions.reduce((s, r) => s + r.people, 0);
+  document.getElementById("stats").textContent =
+    `${W.regions.length} regions · ${mapsN} maps · ${pplN} people · ${doorsN} doors between regions · ${thrN} threads`;
+
+  const L = layout(W);
+  const svg = d3.select("#map");
+  const defs = svg.append("defs");
+  for (const g of [...GATE_ORDER, "thread"]) {
+    defs.append("marker").attr("id", "m-" + g).attr("viewBox", "0 -4 8 8").attr("refX", 7).attr("refY", 0)
+      .attr("markerWidth", 5).attr("markerHeight", 5).attr("orient", "auto")
+      .append("path").attr("d", "M0,-4L8,0L0,4").attr("fill", css("--" + g));
+  }
+  const world = svg.append("g");
+  // column bands and titles
+  L.cols.forEach((c, ci) => {
+    if (!c) return;
+    const b = L.bands[ci];
+    world.append("rect").attr("class", "colband").attr("x", b.x).attr("y", 18)
+      .attr("width", b.w).attr("height", L.height - 18).attr("rx", 8);
+    world.append("text").attr("class", "coltitle").attr("x", b.cx).attr("y", 36).attr("text-anchor", "middle")
+      .text(DEPTH_NAME[Math.min(ci, DEPTH_NAME.length - 1)]);
+  });
+
+  const nodes = W.regions.map((r) => ({ ...r, ...L.pos.get(r.id), r: 11 + Math.sqrt(r.maps) * 2.4 }));
+  const byId = new Map(nodes.map((n) => [n.id, n]));
+  const doorLinks = W.doors.map((d) => ({ ...d, kind: "door", s: byId.get(d.from), t: byId.get(d.to), gate: GATE_ORDER.find((g) => d.gates.includes(g)) }));
+  const threadLinks = W.threads.map((t) => ({ ...t, kind: "thread", s: byId.get(t.from), t: byId.get(t.to) }));
+  // a pair with doors both ways gets two lanes; same-column links bow out sideways
+  const pairKey = (a, b) => [a, b].sort().join("|");
+  const both = new Set(doorLinks.filter((l) => doorLinks.some((m) => m.s === l.t && m.t === l.s)).map((l) => l.s.id + ">" + l.t.id));
+  function path(l, lane) {
+    const s = l.s, t = l.t;
+    if (s.col === t.col) {
+      const side = (s.x > L.bands[s.col].cx ? 1 : -1), bow = 46 + Math.abs(t.y - s.y) * 0.2 + lane * 12;
+      return `M${s.x + side * s.r},${s.y} C${s.x + side * bow},${s.y} ${t.x + side * bow},${t.y} ${t.x + side * (t.r + 4)},${t.y}`;
+    }
+    const dir = t.x > s.x ? 1 : -1, dy = lane * 7;
+    const sx = s.x + dir * s.r, tx = t.x - dir * (t.r + 4), mx = (sx + tx) / 2;
+    return `M${sx},${s.y + dy} C${mx},${s.y + dy} ${mx},${t.y + dy} ${tx},${t.y + dy}`;
+  }
+  const gThreads = world.append("g"), gDoors = world.append("g"), gNodes = world.append("g");
+  const doorSel = gDoors.selectAll("path").data(doorLinks).join("path")
+    .attr("d", (l) => path(l, both.has(l.s.id + ">" + l.t.id) ? (l.s.id < l.t.id ? -1 : 1) : 0))
+    .attr("fill", "none").attr("stroke", (l) => css("--" + l.gate)).attr("stroke-width", (l) => 1.3 + l.n * 0.7)
+    .attr("marker-end", (l) => `url(#m-${l.gate})`);
+  const threadSel = gThreads.selectAll("path").data(threadLinks).join("path")
+    .attr("d", (l) => path(l, 3)).attr("fill", "none").attr("stroke", css("--thread"))
+    .attr("stroke-dasharray", "4 4").attr("stroke-width", (l) => 1 + Math.min(2.5, l.what.length * 0.5)).attr("marker-end", "url(#m-thread)");
+  const nodeSel = gNodes.selectAll("g").data(nodes).join("g").attr("class", "node")
+    .attr("transform", (d) => `translate(${d.x},${d.y})`).attr("tabindex", 0).attr("role", "button")
+    .attr("aria-label", (d) => nice(d.id)).style("cursor", "pointer")
+    .on("click", (e, d) => select(d.id)).on("keydown", (e, d) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(d.id); } });
+  nodeSel.append("circle").attr("r", (d) => d.r)
+    .attr("fill", (d) => (d.id === W.start ? "#3a3420" : "#1d2330")).attr("stroke-width", 1.5);
+  nodeSel.append("text").attr("text-anchor", "middle").attr("dy", 4).attr("class", "sub").text((d) => d.maps);
+  const label = nodeSel.append("g").attr("transform", (d) => `translate(0,${d.r + 14})`);
+  label.append("rect").attr("class", "label-bg").attr("rx", 3);
+  label.append("text").attr("text-anchor", "middle").attr("dy", 4).text((d) => nice(d.id).replace(/^The /, "").toUpperCase());
+  label.each(function () { const t = this.querySelector("text").getBBox(); d3.select(this.querySelector("rect")).attr("x", t.x - 4).attr("y", t.y - 1).attr("width", t.width + 8).attr("height", t.height + 2); });
+
+  // pan and zoom; "fit" frames the whole world
+  const zoom = d3.zoom().scaleExtent([0.25, 4]).on("zoom", (e) => world.attr("transform", e.transform));
+  svg.call(zoom).on("dblclick.zoom", null);
+  const fit = () => {
+    const box = svg.node().getBoundingClientRect(), k = Math.min(box.width / L.width, box.height / L.height) * 0.98;
+    svg.transition().duration(350).call(zoom.transform, d3.zoomIdentity.translate((box.width - L.width * k) / 2, (box.height - L.height * k) / 2).scale(k));
+  };
+  document.getElementById("t-fit").addEventListener("click", fit);
+
+  let allThreads = false, showDoors = true, current = null;
+  const toggle = (id, fn) => document.getElementById(id).addEventListener("click", (e) => {
+    const on = e.currentTarget.getAttribute("aria-pressed") !== "true"; e.currentTarget.setAttribute("aria-pressed", on); fn(on); paint();
+  });
+  toggle("t-threads", (on) => (allThreads = on));
+  toggle("t-doors", (on) => (showDoors = on));
+
+  function paint() {
+    const touches = (l) => !current || l.s.id === current || l.t.id === current;
+    doorSel.attr("display", showDoors ? null : "none").attr("opacity", (l) => (!current ? 0.55 : touches(l) ? 0.95 : 0.06));
+    threadSel.attr("display", (l) => (allThreads || (current && touches(l)) ? null : "none"))
+      .attr("opacity", (l) => (current ? (touches(l) ? 0.95 : 0.08) : 0.45));
+    const near = new Set([current]);
+    if (current) for (const l of [...doorLinks, ...threadLinks]) if (touches(l) && (l.kind === "door" || allThreads || touches(l))) { near.add(l.s.id); near.add(l.t.id); }
+    nodeSel.attr("opacity", (n) => (!current || near.has(n.id) ? 1 : 0.28));
+    nodeSel.select("circle").attr("stroke", (n) => (n.id === current || n.id === W.start ? css("--gold") : "#56617a")).attr("stroke-width", (n) => (n.id === current ? 3 : 1.5));
+  }
+
+  const panel = document.getElementById("panel");
+  const chips = (gates) => `<span class="chips">${gates.map((g) => `<span class="chip ${g}">${g}</span>`).join("")}</span>`;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  function select(id) {
+    current = id; paint();
+    try { history.replaceState(null, "", "#" + id); } catch (e) {}
+    const r = byId.get(id);
+    const out = doorLinks.filter((l) => l.s.id === id), inn = doorLinks.filter((l) => l.t.id === id);
+    const tOut = threadLinks.filter((l) => l.s.id === id), tIn = threadLinks.filter((l) => l.t.id === id);
+    const nOut = new Set(tOut.flatMap((l) => l.what)).size, nIn = new Set(tIn.flatMap((l) => l.what)).size;
+    const doorRows = (ls, side) => ls.length ? `<ul class="rows">${ls.map((l) => {
+      const o = side === "out" ? l.t.id : l.s.id;
+      return `<li><span class="to" data-go="${o}">${side === "out" ? "to" : "from"} ${esc(nice(o))}${l.n > 1 ? ` &times;${l.n}` : ""}</span>${chips(l.gates)}</li>`; }).join("")}</ul>`
+      : `<p class="empty">None.</p>`;
+    const thrRows = (ls, side) => {
+      const by = new Map();
+      for (const l of ls) for (const w of l.what) (by.get(w) || by.set(w, []).get(w)).push(side === "out" ? l.t.id : l.s.id);
+      return by.size ? [...by].map(([w, rs]) => `<div class="thread">${esc(W.names[w] || w)}<div class="where">${side === "out" ? "matters in" : "earned in"} ${rs.map((o) => `<span class="to" data-go="${o}">${esc(nice(o))}</span>`).join(", ")} &middot; ${esc(w)}</div></div>`).join("")
+        : `<p class="empty">None yet.</p>`;
+    };
+    panel.innerHTML = `
+      <h2>${esc(nice(id))}</h2>
+      <div class="kv"><span><b>${r.maps}</b> maps</span><span><b>${r.people}</b> people</span><span><b>${L.depth.get(id)}</b> doors from your room</span></div>
+      ${r.areas.length ? `<div><h3>Named places</h3><div class="areas">${r.areas.map((a) => `<span>${esc(a)}</span>`).join("")}</div></div>` : ""}
+      <div><h3>Ways out (${out.length})</h3>${doorRows(out, "out")}</div>
+      <div><h3>Ways in (${inn.length})</h3>${doorRows(inn, "in")}</div>
+      <div><h3>Earned here, matters elsewhere (${nOut})</h3>${thrRows(tOut, "out")}</div>
+      <div><h3>Earned elsewhere, matters here (${nIn})</h3>${thrRows(tIn, "in")}</div>
+      <p class="note">Columns count the fewest doors from your room. Doors are ways to walk between regions; the coloured tag says what the
+      door asks of you. Threads are flags, things and clues: something you do, carry or learn in one region that changes a door, a
+      standoff or a person in another.</p>`;
+    panel.querySelectorAll("[data-go]").forEach((el) => el.addEventListener("click", () => select(el.dataset.go)));
+  }
+  fit();
+  let first = "index";
+  try { const h = location.hash.slice(1); if (h && byId.has(h)) first = h; } catch (e) {}
+  select(byId.has(first) ? first : W.start);
+}
+</script>

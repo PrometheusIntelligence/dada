@@ -1,0 +1,4 @@
+interface:
+  display_name: "GDADA pixel style unification"
+  short_description: "Make terrain, buildings and sprites one pixel style"
+  default_prompt: "Use $gdada-pixel-style to make terrain, procedural buildings and sprites look like one game."

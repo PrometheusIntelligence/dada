@@ -29,6 +29,24 @@ The traversal is non-linear: each pass spends one candidate from the Frontier (o
 
 The workflow records a Traversal Plan with its Frontier, Decision Records, Panel Reports, an Anchor Ledger, and a Compliance Check in `DESIGN-LOG.md`. Read `skills/dada/SKILL.md` for the full contract and `skills/dada/references/anchor-graph.md` for the graph. The verdict on every node of that graph from the most recent traversal is in `skills/dada/references/traversal-ledger.md`.
 
+## Game-development extension (GDADA)
+
+Five more skills sit beside `dada` in `skills/`. They are DADA's games fork and the method that grew out of the Tidewatch
+game (34 logged runs; the record and the lessons are in
+[dada-lessons](https://github.com/PrometheusIntelligence/dada-lessons) under `tidewatch-game/` and `LESSONS.md`, "Games").
+They are maintained upstream in [SolutionsAsService/gdada](https://github.com/SolutionsAsService/gdada).
+
+| Skill | Use it for |
+|---|---|
+| [`gdada`](skills/gdada/SKILL.md) | The run method for games: `VISION.md` first, modes, run types, a round cap, measurement (determinism, bots, frame budget), plus honesty, AI, balance and simulation rules from Tidewatch |
+| [`gdada-art-subagents`](skills/gdada-art-subagents/SKILL.md) | Many sprites or models by parallel authors: file ownership, contracts, validators, one build by the lead |
+| [`gdada-procgen`](skills/gdada-procgen/SKILL.md) | Procedural maps and cities: preview first, contracts between modules, reach checks, spawn ordering, per-kind validators |
+| [`gdada-pixel-style`](skills/gdada-pixel-style/SKILL.md) | One pixel scale and style across terrain, procedural buildings and sprites |
+| [`gdada-sprite-quality`](skills/gdada-sprite-quality/SKILL.md) | A rubric, a density budget and an author-then-independent-critic loop for sprites |
+
+Games are not recorded in `ledger/runs.jsonl`: its rows are produced by `import_log.py` from a DESIGN-LOG.md with seat
+verdicts, and a GDADA-LOG.md has a different shape (and no seat registry for its critics).
+
 ## Seats, grades and ratings
 
 Every critic in the graph is a **seat**: one authority, one agent, one file. [`skills/dada/seats/`](skills/dada/seats/README.md)

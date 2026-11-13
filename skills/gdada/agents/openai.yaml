@@ -1,0 +1,4 @@
+interface:
+  display_name: "GDADA"
+  short_description: "Game design agent: verbs, feel, worlds, art, music, real-OS tests and shipping, from 142 lessons"
+  default_prompt: "Use $gdada to design this game: pick a mode and run type, run it, measure it and ship the strongest build."

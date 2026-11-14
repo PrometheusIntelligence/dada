@@ -63,9 +63,20 @@ the `100vh` bug (M7), the page that zooms into an input (M5), content under the 
 ships (`viewport` meta with `viewport-fit=cover`, `text-size-adjust`, 16px inputs, `touch-action: manipulation` on
 controls, hover gated) is the starting point of every new page.
 
+## Every page, every state
+
+The floor is measured on the whole artifact, not on the page the brief names. These rules come from the GlobalArms atlas, where a revamped home page sat on top of a viewer that had never been checked on a phone: 134 touch targets under 44px, text down to 7px, a search box at 10.8px that made iOS zoom the page, a record sheet that buried the map it described, and a translucent sticky header with body text showing through it.
+
+1. **Every page.** List every page and view of the artifact in the Traversal Plan at R0. A page nobody revamped is in scope of any run on that site. The run is incomplete while a page is unrevamped or unmeasured, and the log names each page with its measured figures at 390px.
+2. **Every state.** A page is more than its first screen. Measure each state a person can reach on a phone (a list item opened, a sheet or drawer, a menu, a filter, an empty result, an error) with a touch pointer and no hover. An overlay that opens over the thing it describes leaves that thing visible: a record sheet over a map keeps the highlighted places in view.
+3. **No collisions.** Two fixed layers never overlap each other or the content. Check the legend against the timeline, a status chip against a label, and a sticky header against the text that scrolls under it (opaque, not translucent).
+4. **Always, before and after.** Measure at 390 x 844 before the first move and after every move that touches layout. A probe the environment cannot run (a layer that does not render, tiles that cannot load) is listed in the log as unverified and never reported as passing.
+5. **Put the viewport on the real height.** Use `dvh` for full-height layouts so a phone's browser bars do not push the content off screen.
+
 ## Where it sits in a run
 
 - **R0 premortem** measures the inherited page at 360, 390 and 430 and lists every failing row as a Frontier candidate.
 - **Step 2b** renders every move at 390 x 844 as well as the wide viewport.
 - **Step 2g** re-measures the Mobile Floor at the final state; the figures printed in the log come from that run.
+- **Scope:** every page and every reachable state is measured, not only the first screen (see "Every page, every state").
 - **Stop conditions:** S2 and S3 do not hold while a floor row is open.

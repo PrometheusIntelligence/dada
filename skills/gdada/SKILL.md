@@ -327,6 +327,8 @@ Fixed tick, integer units (write speeds in the sim's units and test one in playe
 
 ## Companion skills
 `gdada-art-subagents` (parallel authors, contracts, validators, one build), `gdada-procgen` (maps and cities with contracts and reach checks), `gdada-pixel-style` (one pixel scale and style across terrain, buildings and sprites), `gdada-sprite-quality` (rubric, density budget, author-then-critic loop).
+`gdada-grand-strategy` (Paradox-style grand strategy and large simulations: provinces, persistent clock, flow economy, supply, fronts, map modes, save/load, performance budgets, vertical slices; each rule tagged as Tidewatch evidence or untested practice).
+Before a new game's first week, read [references/lessons-tidewatch-distilled.md](references/lessons-tidewatch-distilled.md), the one-page-per-theme digest of Tidewatch runs 1 to 38 (process, determinism, simulation, AI including the open AI-stall problem, balance, art, legibility, generation, stack, tooling, credit).
 
 ## Graph
 - Game design: [references/game-graph.md](references/game-graph.md): seed, panel and moves come from here.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "GDADA grand strategy"
+  short_description: "Paradox-style grand strategy and large simulations"
+  default_prompt: "Use $gdada-grand-strategy to design and build a province-based grand strategy game with a persistent clock, flow economy, supply, fronts and measurable slices."

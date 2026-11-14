@@ -43,6 +43,7 @@ They are maintained upstream in [SolutionsAsService/gdada](https://github.com/So
 | [`gdada-procgen`](skills/gdada-procgen/SKILL.md) | Procedural maps and cities: preview first, contracts between modules, reach checks, spawn ordering, per-kind validators |
 | [`gdada-pixel-style`](skills/gdada-pixel-style/SKILL.md) | One pixel scale and style across terrain, procedural buildings and sprites |
 | [`gdada-sprite-quality`](skills/gdada-sprite-quality/SKILL.md) | A rubric, a density budget and an author-then-independent-critic loop for sprites |
+| [`gdada-grand-strategy`](skills/gdada-grand-strategy/SKILL.md) | Paradox-style grand strategy and large simulations: provinces, persistent clock, flow economy, supply, fronts, map modes, save/load, budgets, vertical slices |
 
 Games are not recorded in `ledger/runs.jsonl`: its rows are produced by `import_log.py` from a DESIGN-LOG.md with seat
 verdicts, and a GDADA-LOG.md has a different shape (and no seat registry for its critics).

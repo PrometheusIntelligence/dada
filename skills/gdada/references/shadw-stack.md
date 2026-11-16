@@ -48,3 +48,10 @@ suggest the suite should take next. Status 2026-11-12.
 1. `shadw game init --engine <engine>` at the game's root; fill `test` with the game's own headless check (exclude build outputs).
 2. `SHADW_FORGE=... node <suite>/src/cli.ts game test`, then record the run's verdict and duration in the game's docs and the site.
 3. Add a catalogue entry to the store (status `in development`, `build: null`, no prices until the owner sets them).
+
+## Mods on the same stack (added 2026-11-16)
+
+`SolutionsAsService/shadw-modding` is the SHADW mod toolchain (stdlib Python, no install): `shadw-mod new|validate|build|pack|lint|playtest|lib-sync`,
+an adapter per game (`adapters/minecraft-fabric`) and shared generators (`shadwlib`). Three mods have been built on it with GDADA: Asgard (Norse),
+Khemet (Egyptian) and Olympia (Greek), each in its own repository, each with a DADA site and a modpack entry. The Mod run type is in
+[SKILL.md](../SKILL.md); the ledger is [mod-lessons.md](mod-lessons.md).

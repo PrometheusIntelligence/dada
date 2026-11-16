@@ -198,3 +198,13 @@ tail), the face second. Photograph a flier on the ground or with its AI off in i
 to noon. A repeat at midnight showed it hunting (reach 6 s, hit 6). Two other single runs reported empty reach times that a repeat did not.
 **Rule:** a creature with a time or weather rule is measured under both conditions (`mobtest --time 6000` and `--time 18000`), and a measured
 null is repeated once before it goes in a table or a status line. Write both numbers; a rule that stops a mob is a result, not a failure.
+
+### L26 (2026-11-16, Asgard, Khemet)
+**Evidence:** "polish all those into a 2.0, cleaning up little things being rough like faces looking off; mostly A minus; the raven's beak is a B."
+Face close-ups of fifteen creatures found six causes, none visible from the six-angle sheet: a brow box in the face's own plane that hid the
+frost giant's eyes, nose and mouth; a helm cap over the draugr's eye rows; wrap bands across the mummies' eyes; tusks that read as a smile; wolf
+eyes on the wrong rows; a one-pixel jackal eye at the edge of its head; and a straight duck-bill for the raven. Three of the close-ups were
+themselves wrong (the camera saw a belly, the sky, the inside of a head) because the face camera assumed a biped's head position.
+**Rule:** polish starts with the face close-up, with the camera told where the head is. A shared `face()` helper (brow, socket row, glowing
+row, pupil, nose, nostrils, cheeks, mouth, teeth) lays a face out in one call, and `shadw-mod mob lint` prints polish notices. New creatures
+join the same pass (a Cobra, a Crocodile and the Sun Pharaoh went in during it), and the version bump is the owner's call.

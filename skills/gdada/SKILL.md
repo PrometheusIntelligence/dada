@@ -145,7 +145,8 @@ quoted, one-line Must-haves) and `GDADA-LOG.md` like any run, and adds:
 3. **Generated assets, scripts in the repo.** Textures, models, structures, data and the site come from scripts; edit the script, not the output.
 4. **`shadw-mod lint` before every build**, then build, then **playtest in a real game**: load, natural generation in a flat world of the target biome, the logic through the same code path as the click (an operator command), and photographs of every structure and creature, looked at before they are committed (L3, L5, L10).
 5. **Name each claim's rung** (rendered, loaded, generated, logic-tested, hand-played) in the log, README and site (L14). The site is a DADA run (palette from the subject, first-screen wall, Status box per page).
-6. **Creatures are data**: `shadw-mod mob` (a spec per creature, generated class, skin, egg and loot) and `playtest mobtest` (reach time, first hit, effects, drops). Read [references/mob-craft.md](references/mob-craft.md) before adding one.
+6. **Polishing creatures** (faces, beaks, held items, covers): read [references/mob-polish.md](references/mob-polish.md); the close-up photograph is the test, and `shadw-mod mob lint` prints `polish:` notices.
+6b. **Creatures are data**: `shadw-mod mob` (a spec per creature, generated class, skin, egg and loot) and `playtest mobtest` (reach time, first hit, effects, drops). Read [references/mob-craft.md](references/mob-craft.md) before adding one.
 7. **Credit only the owner**, in every commit, as the repository's `CLAUDE.md` says. Push every run.
 Stop test: S1 to S7, with S6 meaning *lint clean, builds, loads on a server, and every Must-have is at least logic-tested*; the run says plainly what a person has not yet played.
 

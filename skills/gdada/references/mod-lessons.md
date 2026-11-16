@@ -159,3 +159,13 @@ test and every later number was zero, until the harness checked that the player 
 overflow.
 **Rule:** measure every creature with the same harness and publish the table; a harness checks its own preconditions (the player is
 alive, at full health) before it measures, and says so when it cannot.
+
+### L22 (2026-11-16, Olympia)
+**Evidence:** the first Satyr and Gorgon were zombies with painted skins, and the owner's verdict was "very basic ... really look like
+satyr and gorgon". A `model` section in the mob spec (a tree of cuboid parts, auto-packed UVs, paint recipes and procedural animation)
+made them real figures in four photograph rounds: goat legs, ram horns and pipes; a twelve-snake mane, wings and a slithering tail.
+Photograph problems that cost rounds: the spectator's eye is 1.62 blocks above the position you teleport it to (every "close-up" was
+aimed at the wrong height); a mob 5 blocks away fills a tenth of the frame; leftover drops and slimes clutter the shot.
+**Rule:** a creature that is a named mythological figure needs a silhouette that names it (horns, hooves, serpent tail), which a
+reskinned humanoid cannot give: build a model. Judge it from front, three-quarter, side and back and from a face close-up before
+calling it done, with the camera set by eye height, not feet height.

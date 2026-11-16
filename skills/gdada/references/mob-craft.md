@@ -30,3 +30,6 @@ Beasts and exceptions (added 2026-11-16, Asgard): a four-legged creature (wolf, 
 for the hitbox; judge it from the side first (leg length against body depth, neck angle, tail). A creature the mod needs as its own class
 (a flier, a tameable) is an `external` spec: the class stays hand-written, the model comes from the tool, and a mob with its AI off is
 photographed in its folded pose. A daylight or weather rule is a behaviour (`stone_by_day`), measured at noon and at midnight.
+
+Mounts (added 2026-11-16): a creature the player rides is a hand-written class (`AbstractHorse` for a horse that is tamed, saddled and fed like one; `Mob` with `tickRidden`/`getRiddenInput`/`getRiddenSpeed` for a vehicle) registered by hand, with an `external` spec for its model (`Rig.horse`, `Rig.wings`). A flier reads the jump key from a client tick event into a static, never from client classes in the entity. A craftable vehicle needs an item that spawns it, a recipe, a sprite, a loot drop of the item, and a creative-tab entry. Passenger positions come from `passengerAttachments`, not from the model.
+

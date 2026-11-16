@@ -108,3 +108,36 @@ prophecy system, and says in its own words that "a functional Minotaur encounter
 **Rule:** a brief that sprawls is a roadmap, not a slice. The first run builds one complete thread through every pillar the brief
 names (a place, a god with favor, a relic, a monster that behaves, a site) and writes the rest into the Frontier as DEFERRED with
 the phase it belongs to. Do not touch a pillar you cannot test in the same run.
+
+### L16 (2026-11-16, Olympia)
+**Evidence:** the first Minotaur wandered its hall for a minute while a player stood 14 blocks away through a wall. Three separate faults
+hid behind one symptom, found one at a time by logging and by changing one thing: (1) its target goal passed `mustSee=false` but the
+targeting conditions still demanded line of sight (the flag only matters once a target is held; call `ignoreLineOfSight()` on the
+conditions); (2) lanterns stood on the floor of one-wide corridors, which pathfinding treats as blocked (set lamps flush in the ceiling);
+(3) one-wide corridors stopped a creature of scale 1.5 at every corner (corridors are now three wide). A stalking goal (breadth-first
+search over floor tiles, steering a few steps ahead) finishes the job when the stock pathfinder cannot. Result: it reached a player a
+162-block walk away in 58 s.
+**Rule:** a "hunts you" claim is measured as time-to-reach from a stated distance and path, not as "it moves toward you". Test
+creature behaviour in the structure it lives in, poll position and distance every second, and change one thing per test. Size a
+structure for the largest creature that must move through it.
+
+### L17 (2026-11-16, Olympia)
+**Evidence:** a flat test world with 3 stone layers put the labyrinth's maze below the world floor: `/locate` found the structure and the
+maze simply was not there. `shadw-mod playtest up --deep N` now gives N stone layers. A freshly summoned mob's NBT showed only the
+attributes it overrides, so `attribute <mob> <name> get` was needed to read the real value.
+**Rule:** a structure that goes underground is tested in a world with room under the surface; "found" is not "present". Read live
+attributes with the `attribute` command, not NBT.
+
+### L18 (2026-11-16, Olympia)
+**Evidence:** Minecraft's tutorial toast ("Move with W, A, S and D") sat in the corner of every first photograph; a boss bar for a Minotaur
+placed 300 blocks away appeared in every shot because a boss bar shows to every player tracking the entity; two photo runs started
+at once (the first one's child processes survived the kill of its shell) wrote over each other.
+**Rule:** the capture tool turns the tutorial off (`tutorialStep:none`); structures with boss entities are placed after every
+photograph that must not show a boss bar; a run is stopped by killing its process group and confirming no `playtest.py` remains.
+
+### L19 (2026-11-16, Olympia)
+**Evidence:** Mojang-mapped names again differed from memory: `MobEffects.MOVEMENT_SPEED` (not `SPEED`), `Zombie.populateDefaultEquipmentSlots`
+(not `populateDefaultEquipment`), `Attributes.SCALE` exists and sizes a mob's hitbox, `ServerBossEvent` needs `startSeenByPlayer` and
+`stopSeenByPlayer` overrides. A relic's `use()` can be run over RCON by `/olympia use`, which calls the held item's `use` exactly as a click.
+**Rule:** let the compiler name the Mojang symbols; give every mod a test command that runs the held item's `use`, and one that sets a
+rule's input (favor) directly, so tests reach every stage without grinding.

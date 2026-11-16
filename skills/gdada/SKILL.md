@@ -1,6 +1,6 @@
 ---
 name: gdada
-description: "GDADA (Game Directed Ambition Design Agent): DADA's fork for games. Use when asked to design, plan, prototype, polish or extend a game: mechanics, loop, feel, world, levels, onboarding, art and audio direction, accessibility, AI, balance and the tests that prove it plays. Every run starts from a VISION.md beside the game holding the person's own words and Must-haves. Traverses a game-design anchor graph through a living Frontier with a fixed round cap, under a panel of independent critics; every claim is backed by a repeatable measurement (bot run, replay hash, frame budget, readability check) or labelled an assumption. Modes: Authored and Player-first. Run types: Concept, Prototype, Polish, Extend, Manage (registry of games, gates G0-G5), Art, Colossus, NPC, Place, Music, Archive and Release (see the skill body for each)."
+description: "GDADA (Game Directed Ambition Design Agent): DADA's fork for games. Use when asked to design, plan, prototype, polish or extend a game: mechanics, loop, feel, world, levels, onboarding, art and audio direction, accessibility, AI, balance and the tests that prove it plays. Every run starts from a VISION.md beside the game holding the person's own words and Must-haves. Traverses a game-design anchor graph through a living Frontier with a fixed round cap, under a panel of independent critics; every claim is backed by a repeatable measurement (bot run, replay hash, frame budget, readability check) or labelled an assumption. Modes: Authored and Player-first. Run types: Concept, Prototype, Polish, Extend, Manage (registry of games, gates G0-G5), Art, Colossus, NPC, Place, Music, Archive, Release and Mod (see the skill body for each)."
 ---
 
 # GDADA: Game Directed Ambition Design Agent
@@ -134,6 +134,20 @@ nothing; prove the player's path headless end to end (title with nothing typed, 
 launcher, twice; keep saves outside what a store owns; test launchers (Wine for Windows); put the licence and the OS author's credit in
 the build. Write the owner's remaining steps as their own checklist; never upload or publish without the owner.
 
+## Mod run type (game mods built on the SHADW mod stack)
+
+**Mod** builds or extends a mod for an existing game (so far Minecraft Java on Fabric, 1.21.4) with `SolutionsAsService/shadw-modding`
+(`tools/shadw-mod`: `new`, `lint`, `playtest`, `lib-sync`, `build`, `pack`; adapter `adapters/minecraft-fabric`). It starts by reading
+[references/mod-lessons.md](references/mod-lessons.md) in full and ends by appending to it. A Mod run keeps `VISION.md` (the person's brief
+quoted, one-line Must-haves) and `GDADA-LOG.md` like any run, and adds:
+1. **Slice first.** A sprawling brief is a roadmap (mod L15): build one complete thread through every pillar it names, write the rest into the Frontier as DEFERRED with its phase.
+2. **Port, then differ.** Start from the stack's template and the last mod's generators (L6); `shadw-mod lib-sync` vendors the library.
+3. **Generated assets, scripts in the repo.** Textures, models, structures, data and the site come from scripts; edit the script, not the output.
+4. **`shadw-mod lint` before every build**, then build, then **playtest in a real game**: load, natural generation in a flat world of the target biome, the logic through the same code path as the click (an operator command), and photographs of every structure and creature, looked at before they are committed (L3, L5, L10).
+5. **Name each claim's rung** (rendered, loaded, generated, logic-tested, hand-played) in the log, README and site (L14). The site is a DADA run (palette from the subject, first-screen wall, Status box per page).
+6. **Credit only the owner**, in every commit, as the repository's `CLAUDE.md` says. Push every run.
+Stop test: S1 to S7, with S6 meaning *lint clean, builds, loads on a server, and every Must-have is at least logic-tested*; the run says plainly what a person has not yet played.
+
 ## Helpers, processes and repositories
 
 Large runs use helper agents. Read [references/production-lessons.md](references/production-lessons.md) (R1-R17) before splitting work:
@@ -260,6 +274,7 @@ Ledger** of durable facts about this game, and the **Compliance Check**:
 - [ ] A Panel Report per round, one critic per reference, played or read from a recording
 - [ ] Measurements printed at the final state, with the claim-audit counts
 - [ ] Art runs: `sprite-lessons.md` read first and appended; the person has seen the renders
+- [ ] Mod runs: `mod-lessons.md` read first and appended; lint clean; the game loaded and natural generation proved in a world of the target biome; each claim labelled with its rung
 - [ ] Colossus runs: `colossus-lessons.md` read first and appended; the person has seen the renders
 - [ ] `lessons-index.md` read first; any new lesson appended to its ledger and the index regenerated (`scripts/lessons_index.mjs`)
 - [ ] Place/Archive runs: zone audit 0 failing; every region with threads in and out (`world_graph.py`); the atlas shown

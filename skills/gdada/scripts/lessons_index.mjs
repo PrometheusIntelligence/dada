@@ -30,6 +30,7 @@ const LEDGERS = [
   { file: "portrait-craft.md", name: "Portraits and eyes", prefix: "portrait", kind: "E" },
   { file: "colossus-lessons.md", name: "Colossi (very large figures)", prefix: "colossus", kind: "L" },
   { file: "music-craft.md", name: "Music (one-voice 8-bit)", prefix: "music", kind: "M" },
+  { file: "mod-lessons.md", name: "Mods (Minecraft Fabric mods on the SHADW mod stack)", prefix: "mod", kind: "L" },
   { file: "production-lessons.md", name: "Production (helpers, processes, repos, restarts)", prefix: "production", kind: "R" },
 ];
 

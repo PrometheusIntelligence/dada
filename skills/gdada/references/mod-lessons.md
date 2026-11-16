@@ -1,0 +1,110 @@
+# Mod lessons (a ledger; read first, append last)
+
+Every Mod run reads this whole file at Step 0 and appends at least one entry at the end. Source: two Minecraft mods built
+with GDADA and the SHADW mod stack (`SolutionsAsService/shadw-modding`): **Asgard** (Norse, 1.21.4 Fabric) and **Khemet**
+(Egyptian, same stack), 2026-11-12..15. The stack's own copy of the technical items is `shadw-modding/docs/LESSONS.md`; items
+marked **lint** are caught by `shadw-mod lint`, **playtest** are defaults in `shadw-mod playtest`. Entries are never deleted; a
+wrong one is superseded by a later entry that names it. Format: `### L<n> (date, game)`, **Evidence**, **Rule**.
+
+### L1 (2026-11-12, Asgard)
+**Evidence:** a 1.21.4 item with a model and a texture but no `assets/<ns>/items/<id>.json` rendered purple and black, and nothing
+logged. The same missed file hit every new item and every block item, and a spawn egg without two `constant` tints rendered colourless.
+**Rule:** resource completeness is a lint, not a memory: every item, block item and spawn egg has its item definition, every block,
+item and entity has a language key, and a linter fails the build before anyone opens the game (`shadw-mod lint`).
+
+### L2 (2026-11-14, Khemet)
+**Evidence:** two desert plants rendered with solid black backgrounds in a real client. The texture had transparent pixels, the game
+did not know to cut them out, and no log line said so. Only a photograph showed it.
+**Rule:** anything the game decides at draw time (render layers, tints, light) is invisible to a code check, so look at a render of
+every new block family at least once, and lint what can be linted (a transparent texture with no cutout layer is now a rule).
+
+### L3 (2026-11-13, Khemet)
+**Evidence:** `/locate` on a mixed-biome world said "not found" for structures that work; a flat world of the target biome answered
+in seconds and found all four. A flat world's `structure_overrides` is an allowlist (empty means no structures at all), and a
+`forceload` over 256 chunks fails and reads as "not loaded".
+**Rule:** prove natural generation in a world made of the target biome, with the mod's own structure sets allowed, and treat a
+negative in a mixed world as no evidence. The playtest tool sets these defaults so a person does not rediscover them.
+
+### L4 (2026-11-13, Asgard)
+**Evidence:** a summoned zombie vanished with no message: the test server was on Peaceful, which removes hostiles as they spawn. A
+cold server was killed by its own watchdog on the first `/locate`. A teleported survival player fell during every camera shot.
+**Rule:** a test server is its own configuration: Easy difficulty, watchdog off, spectator cameras, quiet command feedback and
+effects cleared before a photograph. Put them in the tool's defaults, not in a checklist.
+
+### L5 (2026-11-14, Khemet)
+**Evidence:** the favor system was tested end to end over RCON by an operator command that calls the same function as the altar
+block: offering, wrong-item refusal, stage thresholds (Chosen at 28), blessings by stage, favor after death, Slowness in a
+sandstorm and none under a roof. No input automation was written. A first check "failed" because the NBT key was `ActiveEffects`
+(1.20.5 renamed it `active_effects`); the code was right and the test was wrong.
+**Rule:** give every player-facing rule a command that runs the same code path as the click, so it can be tested without a mouse;
+and when a check says a thing did not happen, verify the check's key before changing the code.
+
+### L6 (2026-11-14, both)
+**Evidence:** Asgard and Khemet were each built on the same bones (data-driven potions, a favor attachment with persistence,
+altar blocks, a structure generator, a skin generator, a playtest scene) and the second took a fraction of the first's time once
+the first was lifted into the stack (`shadwlib`, the adapter, `lib-sync`).
+**Rule:** the second mod is a port: lift the first mod's generators and engine into the stack the moment the second begins, vendor
+the library into each mod, and spend the new time on what makes the new mythology different, not on plumbing.
+
+### L7 (2026-11-14, Khemet)
+**Evidence:** reusing vanilla models with custom skins (a `Zombie` subclass for the Mummy and Royal Mummy, a `Parrot` subclass for
+Raven) produced six creatures with real attributes, drops, spawn rules and a renderer in a few hundred lines. A black head came from
+opaque pixels in the zombie hat layer (x 32..63, y 0..15) and was fixed by leaving unpainted pixels transparent.
+**Rule:** for the first slice, creatures are a vanilla model, a skin and a behaviour change that the player can feel; bespoke model
+code waits until a creature earns it. Say honestly that the model is vanilla.
+
+### L8 (2026-11-15, Khemet)
+**Evidence:** a "kept through death" claim on the site was untested until a test killed the player and read the favor back (28
+before, 28 after). The Debord seat had objected to it on the page; the measurement removed the objection.
+**Rule:** a claim on the site or in the README is either measured in the game, labelled "written, not yet seen in play", or cut.
+Every page of the site ends with a Status box listing what was seen and what was not; update it when a claim is actually verified.
+
+### L9 (2026-11-14, Asgard)
+**Evidence:** chests, vines and lanterns inside a placed structure template silently vanished because placement runs neighbour
+updates. Hanging lights only held when a chain was anchored to a log knot. A dense canopy turned a trunk black at noon until sun
+shafts and hanging lights were carved in.
+**Rule:** structure templates are tested by placing them and photographing them, and anything that needs support, light or
+skylight gets it by construction (a log knot, a carved shaft, an emitter), not by hope. A template places only the blocks you put,
+so a carved room needs explicit air.
+
+### L10 (2026-11-14, both)
+**Evidence:** every real defect found in two mods (black trunk, black head, buried rune circle, structure placed underwater,
+black plants, wrong effect key) was found by looking at a photograph or reading a game log, not by reading code or a generator's
+output; and screenshots written to the wrong directory, or taken with effect icons in the corner, nearly went into the site.
+**Rule:** generate, then look: a contact sheet for textures, a photograph for every structure and creature, a phone-width render
+for every page. Commit a screenshot only after looking at it, and keep capture paths relative to the mod, not the shell.
+
+### L11 (2026-11-15, Khemet)
+**Evidence:** a site generator gained a second serif declaration beside the `--serif` variable; the later rule won and the page
+showed Georgia while the log claimed one font. A CSS arrow written `"\2192"` in Python rendered as a control character and "92".
+A one-line caption added inside the measured landing wall pushed the phone's wall from 752 to 819 against an 812 fold.
+**Rule:** assert on computed values, not on source: measure the computed font, the rendered glyph and the wall's bottom edge after
+every edit that touches them. (Site-side detail: `dada` field-notes 71.)
+
+### L12 (2026-11-15, Khemet)
+**Evidence:** the six category hues for the site were derived from the six canonical colours of Egyptian art and then gated by
+CIE76 distance and contrast; the gate rejected carnelian against red ochre (23.8) and a green against turquoise (22.6). Amethyst
+passed at 44.9.
+**Rule:** a mod's site takes its palette from the mod's own subject, and the build fails on a hue pair under 30 or a contrast under
+the floor. A gate that fails is a result, not an obstacle.
+
+### L13 (2026-11-14, both)
+**Evidence:** a modpack build bundled two jars of one mod because an old version stayed in `build/libs` after a version bump; a
+relative `out` path wrote screenshots into the caller's working directory; the vendored library and a stray copy of `nbt.py`
+drifted apart.
+**Rule:** the tool, not the person, owns the housekeeping: the pack builder takes only the jar matching the manifest version, paths
+resolve against the mod, and a vendored library is refreshed by one command (`shadw-mod lib-sync`).
+
+### L14 (2026-11-15, both)
+**Evidence:** four different kinds of claim sat under "it works": it renders in a client, it loads on a server, natural generation
+finds it, and its logic runs in the game. Item use, brewing, taming and a click on an altar were never exercised by an automated
+test in either mod.
+**Rule:** in the log, the README and the site, name each claim's rung (rendered, loaded, generated, logic-tested, hand-played) and
+never let a lower rung stand for a higher one. A mod is not "done" until a person has played it.
+
+### L15 (2026-11-16, Olympia brief)
+**Evidence:** the Olympia master prompt asks for twelve gods, nine biomes, a custom dimension, ten bosses, sailing, Atlantis and a
+prophecy system, and says in its own words that "a functional Minotaur encounter is more valuable than ten unfinished monsters".
+**Rule:** a brief that sprawls is a roadmap, not a slice. The first run builds one complete thread through every pillar the brief
+names (a place, a god with favor, a relic, a monster that behaves, a site) and writes the rest into the Frontier as DEFERRED with
+the phase it belongs to. Do not touch a pillar you cannot test in the same run.

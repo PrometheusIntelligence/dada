@@ -141,3 +141,21 @@ photograph that must not show a boss bar; a run is stopped by killing its proces
 `stopSeenByPlayer` overrides. A relic's `use()` can be run over RCON by `/olympia use`, which calls the held item's `use` exactly as a click.
 **Rule:** let the compiler name the Mojang symbols; give every mod a test command that runs the held item's `use`, and one that sets a
 rule's input (favor) directly, so tests reach every stage without grinding.
+
+### L20 (2026-11-16, Olympia, Khemet, Asgard)
+**Evidence:** after three hand-written creature classes (Mummy, Troll, Minotaur) each reused the same pieces, `shadw-mod mob` made a
+creature a JSON file and generated its class, skin, egg, lang and loot. Moving Olympia's three hand-written mobs onto specs kept their
+behaviour (checked by `mobtest`) and added two more in a few minutes; Khemet gained three. The first generated registry put renderer
+classes in the main class and the dedicated server crashed at startup (`Cannot load class ...EntityRenderer in environment type SERVER`):
+renderers now live in a separate `GeneratedMobsClient`.
+**Rule:** a second and third creature of the same shape is the signal to write a generator, not a fourth class. Keep client-only classes
+out of any class the server loads. Migrate hand-written creatures onto the generator one at a time, and prove each with a measurement.
+
+### L21 (2026-11-16, three mods)
+**Evidence:** `shadw-mod playtest <mod> mobtest <id>` measured 13 creatures in about a minute each: the Mummy's Weakness (untested since
+Khemet slice one) works; the Troll does not move at noon (by design, now visible in a table); a neutral Satyr needs a different test
+(provoke, then watch) from a hostile one; and a player left at 200 maximum health but 23 current died during the second creature's
+test and every later number was zero, until the harness checked that the player was alive and healed with an amplifier that did not
+overflow.
+**Rule:** measure every creature with the same harness and publish the table; a harness checks its own preconditions (the player is
+alive, at full health) before it measures, and says so when it cannot.

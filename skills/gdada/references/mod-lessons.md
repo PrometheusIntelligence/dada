@@ -169,3 +169,14 @@ aimed at the wrong height); a mob 5 blocks away fills a tenth of the frame; left
 **Rule:** a creature that is a named mythological figure needs a silhouette that names it (horns, hooves, serpent tail), which a
 reskinned humanoid cannot give: build a model. Judge it from front, three-quarter, side and back and from a face close-up before
 calling it done, with the camera set by eye height, not feet height.
+
+### L23 (2026-11-16, Olympia, Khemet)
+**Evidence:** "Excellent improvement, polish a bit finer edges, then do the same for the earlier models." A `figure` kit (biped builder with a
+jaw, two-box torso, shoulder caps, three-part limbs; tapering sway chains) plus a texture bevel pass took ten creatures from zombie skins to
+24 to 105 part models in one session, where the first two models had taken four rounds each. Three things went wrong on the way: a
+snake chain drawn with negative `grow` and mismatched lengths came apart into floating cubes (segments must overlap their pivots, taper by
+size, not by shrinking); water and lava placed on a temple floor poured out over the grass (set liquids into the floor, ringed by solid
+blocks, never on top); and templates placed at the wrong height for the world (a shallow flat world has ground at y -58, a deep one at
+-20) hung in the air and made a half-hour of photographs useless.
+**Rule:** after the second hand-built model, write the kit; judge every model from six angles; give a liquid a basin; and print the world's
+ground height beside every `place` command. When a dead Xvfb leaves a lock, the next client silently fails to start: the tool now clears it.

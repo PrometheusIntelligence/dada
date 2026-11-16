@@ -17,3 +17,11 @@ How a Mod run makes a creature. Read [mod-lessons.md](mod-lessons.md) first (L7,
 Balance heuristics from the measured table: a normal zombie-speed creature reaches a player 12 blocks away in about 5 to 7 s; a charger
 in 3 to 4 s; first hits on Easy run about 3 for a 4-damage creature; a boss that takes a player from full health in six seconds is
 too hard until a person says otherwise.
+
+## Models (added 2026-11-16)
+
+A creature with a name in a myth needs a silhouette that names it, so give it a `"model"` (see `shadw-modding/docs/MOBS.md`). Build it with the
+figure kit (`Rig.biped`, `Rig.chain`) in a `tools/gen_models.py` script, then `tools/model_sheet.py` and `shoot` for six angles. Check, in
+this order: the silhouette from the side (horns, tail, weapon), the face close-up (eyes, muzzle, tusks), the back, then the edges
+(bevelled faces, tapering limbs, no floating segments). Weapons are model parts held in the hand, upright, not pointing at the floor. A
+creature that holds an item in its spec's `equipment` and also in its model holds it twice.

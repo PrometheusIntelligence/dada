@@ -180,3 +180,21 @@ blocks, never on top); and templates placed at the wrong height for the world (a
 -20) hung in the air and made a half-hour of photographs useless.
 **Rule:** after the second hand-built model, write the kit; judge every model from six angles; give a liquid a basin; and print the world's
 ground height beside every `place` command. When a dead Xvfb leaves a lock, the next client silently fails to start: the tool now clears it.
+
+### L24 (2026-11-16, Asgard)
+**Evidence:** "Give Asgard's Draugr, Troll and Raven the same model treatment, and a big wolf for sure." Seven creatures (three rebuilt, four new)
+went from spec to photographed in one session because the tool already had the kit. Three things needed new tool features, not new hand work:
+a four-legged beast (a `Rig.quadruped` builder that solves the hip height from the leg angles; the first wolf stood on stilts with its head
+in the air until leg length and neck angle were tuned from a side photograph), a creature whose class is hand-written (a flying, tameable
+Parrot: an `external` spec that generates only its model, texture, egg, loot and language), and a behaviour that had lived in a hand-written
+class (the troll's daylight stone, now `stone_by_day`). A walking wolf is still a zombie underneath; the model and `size` make it a wolf.
+Weapons held "pointing down" twice: a held item's rotation is added to the arm's, so the part must be rotated to oppose the arm's pose.
+**Rule:** when a creature needs something the generator lacks, add it to the generator and the doc, then use it; do not leave one mob as a
+hand-written exception unless it needs real AI the data cannot say. Model a four-legged beast from a side photograph first (legs, neck,
+tail), the face second. Photograph a flier on the ground or with its AI off in its folded pose, and say that the wing beat was not seen.
+
+### L25 (2026-11-16, Asgard)
+**Evidence:** `mobtest troll` reported "does not move" and read like a bug; the troll is stone at noon by design, and the harness sets the time
+to noon. A repeat at midnight showed it hunting (reach 6 s, hit 6). Two other single runs reported empty reach times that a repeat did not.
+**Rule:** a creature with a time or weather rule is measured under both conditions (`mobtest --time 6000` and `--time 18000`), and a measured
+null is repeated once before it goes in a table or a status line. Write both numbers; a rule that stops a mob is a result, not a failure.

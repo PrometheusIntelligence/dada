@@ -21,7 +21,12 @@ too hard until a person says otherwise.
 ## Models (added 2026-11-16)
 
 A creature with a name in a myth needs a silhouette that names it, so give it a `"model"` (see `shadw-modding/docs/MOBS.md`). Build it with the
-figure kit (`Rig.biped`, `Rig.chain`) in a `tools/gen_models.py` script, then `tools/model_sheet.py` and `shoot` for six angles. Check, in
+figure kit (`Rig.biped`, `Rig.quadruped`, `Rig.chain`) in a `tools/gen_models.py` script, then `tools/model_sheet.py` and `shoot` for six angles. Check, in
 this order: the silhouette from the side (horns, tail, weapon), the face close-up (eyes, muzzle, tusks), the back, then the edges
 (bevelled faces, tapering limbs, no floating segments). Weapons are model parts held in the hand, upright, not pointing at the floor. A
 creature that holds an item in its spec's `equipment` and also in its model holds it twice.
+
+Beasts and exceptions (added 2026-11-16, Asgard): a four-legged creature (wolf, hound) is `Rig.quadruped` on the zombie base with a `size`
+for the hitbox; judge it from the side first (leg length against body depth, neck angle, tail). A creature the mod needs as its own class
+(a flier, a tameable) is an `external` spec: the class stays hand-written, the model comes from the tool, and a mob with its AI off is
+photographed in its folded pose. A daylight or weather rule is a behaviour (`stone_by_day`), measured at noon and at midnight.

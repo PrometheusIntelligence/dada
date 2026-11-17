@@ -27,6 +27,10 @@ Asgard creatures and one for eight Khemet creatures, because the checks below ar
    - **Wraps and bands** go above the eyes and under the mouth, never across them.
 4. **Re-measure what the change could touch** (a bigger hitbox, a new part count) and update the site's pictures: the photographs ARE the evidence.
 
+## Site pictures
+
+Frame in the camera (L28): `model_sheet.py` aims the portrait cameras and raises them 12 degrees down at the creature's centre, with a per-creature distance fraction `K`; `creature_shots.py` only trims a boss's frame. Judge the group picture as well as each card.
+
 ## What not to do
 
 Do not "improve" a creature that reads well by adding parts; a polish pass that grows a model by half again has stopped being polish. Do not

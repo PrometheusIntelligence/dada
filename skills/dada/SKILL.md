@@ -15,7 +15,7 @@ Loading this skill means performing the workflow below, not borrowing its vocabu
 4. **Anchor Ledger**
 5. **Compliance Check**
 
-**There is no move quota.** The run ends when the stop conditions in Step 4 hold, however many moves, rounds or revisits that takes. A move count is an outcome, never a target: do not stop because you reached some number, and do not pad to reach one. Lite mode (one move, one panel round) only if the person explicitly asks. If an external limit forces you to stop before the stop conditions hold, write the Open frontier in the log, say the run is incomplete, and give the resume point. If `DESIGN-LOG.md` already exists with an Open frontier, resume from it instead of starting over.
+**There is no move quota.** The run ends when the stop conditions in Step 4 hold, however many moves, rounds or revisits that takes. A move count is an outcome, never a target: do not stop because you reached some number, and do not pad to reach one. Lite mode (one move, one panel round) only if the person explicitly asks. A Lite run follows [references/lite-playbook.md](references/lite-playbook.md): cheaper, never looser. If an external limit forces you to stop before the stop conditions hold, write the Open frontier in the log, say the run is incomplete, and give the resume point. If `DESIGN-LOG.md` already exists with an Open frontier, resume from it instead of starting over.
 
 In your final reply state the mode you ran, the tools you used, the stop conditions as met or not met, and every step you skipped. Never describe the process as followed if it was not.
 

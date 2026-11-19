@@ -1,0 +1,4 @@
+interface:
+  display_name: "GDADA sprite quality loop"
+  short_description: "Sprite rubric, density budget and critic loop"
+  default_prompt: "Use $gdada-sprite-quality to grade and improve sprites with a rubric, a density budget and an independent critic."

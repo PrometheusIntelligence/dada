@@ -1,0 +1,880 @@
+{
+  "$schema": "../schema/dada-manual.schema.json",
+  "dada_version": "1.0",
+  "manual_version": "1.2.0",
+  "name": "dada",
+  "description": "DADA's run types as data: what each may change, who judges it, how it is measured and when it stops. SKILL.md remains the contract and this manual is its machine-readable form; scripts/validate_runtypes.py fails when the two disagree.",
+  "requires": [
+    {
+      "id": "chromium",
+      "detect": {
+        "kind": "binary",
+        "probe": "chromium",
+        "proof_call": "measure_page"
+      },
+      "if_missing": "use_fallback"
+    }
+  ],
+  "instruments": [
+    {
+      "id": "measure_page",
+      "role": "measure",
+      "description": "Render the site in headless Chromium against a staged copy and run a preset check (overflow, targets, bands, contrast, structure, state, cross) or a snippet at a list of widths. Never edit web/ to take a measurement.",
+      "tags": [
+        "web",
+        "render",
+        "measure"
+      ],
+      "inputs": {
+        "type": "object",
+        "required": [
+          "preset",
+          "widths"
+        ],
+        "properties": {
+          "preset": {
+            "enum": [
+              "overflow",
+              "targets",
+              "bands",
+              "contrast",
+              "structure",
+              "state",
+              "cross",
+              "all",
+              "mobile"
+            ]
+          },
+          "widths": {
+            "type": "string",
+            "description": "Comma list, e.g. 1280,375"
+          },
+          "fold": {
+            "type": "integer",
+            "description": "Iframe height, i.e. the viewport the snippet sees. Omit it and every width reports 3000px tall."
+          },
+          "web": {
+            "type": "string",
+            "description": "Site directory to measure; defaults to web/."
+          }
+        }
+      },
+      "outputs": {
+        "type": "object",
+        "description": "Per width: overflow -> ovf; contrast -> n (the count of FAILING rows, so 0 is clean) and fails; cross -> total (0 is clean). mobile -> ovf, clipped, viewport.n, under44.n, under24.n, tiny.n, body.n, inputZoom.n, hoverUngated, vh100, bars.pct, h1InFold; 0 is clean for every count."
+      },
+      "annotations": {
+        "read_only": true,
+        "idempotent": true
+      },
+      "call_template": {
+        "call_template_type": "cli",
+        "command": [
+          "python3",
+          "tools/measure.py",
+          "--preset",
+          "${input.preset}",
+          "--widths",
+          "${input.widths}",
+          "--fold",
+          "${input.fold}",
+          "--web",
+          "${input.web}"
+        ],
+        "output": "json",
+        "timeout_seconds": 300
+      },
+      "evidence": "MEASURED",
+      "fallback": [
+        "screenshot_by_hand"
+      ]
+    },
+    {
+      "id": "screenshot_by_hand",
+      "role": "render",
+      "description": "Last resort when tools/measure.py cannot run: render the page at the stated widths with any browser and read the figure off it. The value is declared, not measured.",
+      "call_template": {
+        "call_template_type": "text",
+        "procedure": "Open the page at each stated width, screenshot the first screen, and write the figure with the method used. Write UNKNOWN where a figure needs an instrument."
+      },
+      "evidence": "DECLARED"
+    },
+    {
+      "id": "pick_panel",
+      "role": "judge",
+      "description": "Seat the panel from the ratings: the seats the mode, run type and context require, the best-rated seats for the flexible slots, one rotation seat.",
+      "inputs": {
+        "type": "object",
+        "required": [
+          "mode",
+          "run_type"
+        ],
+        "properties": {
+          "mode": {
+            "enum": [
+              "autonomous",
+              "adaptive"
+            ]
+          },
+          "run_type": {
+            "enum": [
+              "full",
+              "polish",
+              "extend",
+              "landing",
+              "lite"
+            ]
+          },
+          "project": {
+            "type": "string"
+          }
+        }
+      },
+      "annotations": {
+        "read_only": true,
+        "idempotent": true
+      },
+      "call_template": {
+        "call_template_type": "cli",
+        "command": [
+          "python3",
+          "skills/dada/scripts/pick_panel.py",
+          "--mode",
+          "${input.mode}",
+          "--run-type",
+          "${input.run_type}",
+          "--project",
+          "${input.project}",
+          "--json"
+        ],
+        "output": "json"
+      },
+      "evidence": "MEASURED"
+    },
+    {
+      "id": "collect_panel",
+      "role": "judge",
+      "description": "List which seats filed a verdict file. A missing seat is recorded NOT REPORTED, never reconstructed.",
+      "inputs": {
+        "type": "object",
+        "required": [
+          "panel_dir",
+          "seats"
+        ],
+        "properties": {
+          "panel_dir": {
+            "type": "string"
+          },
+          "seats": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "annotations": {
+        "read_only": true,
+        "idempotent": true
+      },
+      "call_template": {
+        "call_template_type": "cli",
+        "command": [
+          "python3",
+          "skills/dada/scripts/collect_panel.py",
+          "${input.panel_dir}"
+        ],
+        "output": "text"
+      },
+      "evidence": "MEASURED"
+    },
+    {
+      "id": "record_run",
+      "role": "deliver",
+      "description": "Write a run's DESIGN-LOG.md into the ledger (verdicts per round, finding outcomes, the person's grade verbatim).",
+      "annotations": {
+        "idempotent": false
+      },
+      "call_template": {
+        "call_template_type": "cli",
+        "command": [
+          "python3",
+          "skills/dada/scripts/import_log.py",
+          "${input.log}"
+        ],
+        "output": "text"
+      },
+      "evidence": "MEASURED",
+      "inputs": {
+        "type": "object",
+        "required": [
+          "log"
+        ],
+        "properties": {
+          "log": {
+            "type": "string",
+            "description": "Path to the run's DESIGN-LOG.md"
+          }
+        }
+      }
+    }
+  ],
+  "runtypes": [
+    {
+      "id": "full",
+      "title": "Full run",
+      "use_when": [
+        "New work, a from-scratch build (an empty repository, or the words from scratch, new site, full run, start over, rebuild) or a redesign"
+      ],
+      "triggers": [
+        "new",
+        "build",
+        "redesign",
+        "from scratch",
+        "from-scratch",
+        "full run",
+        "new site",
+        "new website",
+        "empty repo",
+        "start over",
+        "rebuild",
+        "site to learn"
+      ],
+      "frozen": [],
+      "allowed_moves": [
+        "All"
+      ],
+      "r0_premortem": "if_artifact",
+      "judged_rendered": true,
+      "panel": {
+        "required": [],
+        "replaces_mode_minimum": false,
+        "batch_max": 3
+      },
+      "stop": {
+        "s3_quiet_rounds": 2,
+        "s4_push": "Ambition push on the boldest Breaker, an escalation of the Breaker already chosen, re-measured.",
+        "round_cap": null
+      },
+      "measurements": [
+        {
+          "id": "overflow",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "overflow"
+          },
+          "at": [
+            {
+              "w": 1280,
+              "h": 800
+            },
+            {
+              "w": 375,
+              "h": 812
+            }
+          ],
+          "scope": "the whole rendered page at each width",
+          "assert": [
+            {
+              "metric": "ovf",
+              "op": "==",
+              "value": 0,
+              "unit": "px",
+              "why": "A longer label wraps, a new page overflows: words-only runs still break layout (dada-lessons 54)."
+            }
+          ]
+        },
+        {
+          "id": "contrast",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "contrast"
+          },
+          "at": [
+            {
+              "w": 1280,
+              "h": 800
+            },
+            {
+              "w": 375,
+              "h": 812
+            }
+          ],
+          "scope": "every visible text node, over the colour actually behind it",
+          "assert": [
+            {
+              "metric": "n",
+              "op": "==",
+              "value": 0,
+              "why": "n counts FAILING rows, so 0 is clean rather than unrun."
+            }
+          ]
+        }
+      ],
+      "instruments": [
+        "measure_page",
+        "pick_panel",
+        "collect_panel",
+        "record_run"
+      ],
+      "deliverables": [
+        "Traversal Plan",
+        "Frontier",
+        "Decision Records",
+        "Panel Reports",
+        "Anchor Ledger",
+        "Compliance Check"
+      ],
+      "lessons": [
+        "skills/dada/references/measurement-checklist.md",
+        "skills/dada/references/field-notes.md"
+      ]
+    },
+    {
+      "id": "polish",
+      "title": "Polish run",
+      "use_when": [
+        "The artifact exists and its concept is accepted; the person wants it finished, not rethought"
+      ],
+      "triggers": [
+        "polish",
+        "refine",
+        "tidy",
+        "finish",
+        "no redesign"
+      ],
+      "frozen": [
+        "The concept",
+        "The seeded Breaker and its devices",
+        "Page structure and navigation",
+        "Palette, type and layout system (a frozen element changes only to fix a measured defect, and the record says which)"
+      ],
+      "allowed_moves": [
+        "KEEP-THE-RULE refinements",
+        "Fact and content updates from the owner",
+        "Metadata: SEO, answer-engine optimisation, structured data, social cards",
+        "Accessibility and performance",
+        "Honesty sweeps",
+        "New pages only if the existing navigation and system absorb them unchanged",
+        "Escalation of an existing device, never a new one"
+      ],
+      "r0_premortem": "required",
+      "judged_rendered": true,
+      "panel": {
+        "required": [
+          "crit_evid_cairo",
+          "crit_use_krug",
+          "crit_prov_debord"
+        ],
+        "min_seats": 4,
+        "dotted_pair": [
+          "crit_use_krug",
+          "crit_prov_debord"
+        ],
+        "replaces_mode_minimum": true,
+        "batch_max": 3,
+        "by_context": [
+          {
+            "when": "the polish target is brand",
+            "seats": [
+              "crit_brand_sharp"
+            ]
+          },
+          {
+            "when": "the polish target is access",
+            "seats": [
+              "crit_inc_mace"
+            ]
+          }
+        ]
+      },
+      "stop": {
+        "s3_quiet_rounds": 1,
+        "s4_push": "The single refinement with the largest measured effect, pushed once more and measured.",
+        "round_cap": 3
+      },
+      "measurements": [
+        {
+          "id": "overflow",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "overflow"
+          },
+          "at": [
+            {
+              "w": 1280,
+              "h": 800
+            },
+            {
+              "w": 375,
+              "h": 812
+            }
+          ],
+          "scope": "the whole rendered page at each width",
+          "assert": [
+            {
+              "metric": "ovf",
+              "op": "==",
+              "value": 0,
+              "unit": "px",
+              "why": "A longer label wraps, a new page overflows: words-only runs still break layout (dada-lessons 54)."
+            }
+          ]
+        },
+        {
+          "id": "contrast",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "contrast"
+          },
+          "at": [
+            {
+              "w": 1280,
+              "h": 800
+            },
+            {
+              "w": 375,
+              "h": 812
+            }
+          ],
+          "scope": "every visible text node, over the colour actually behind it",
+          "assert": [
+            {
+              "metric": "n",
+              "op": "==",
+              "value": 0,
+              "why": "n counts FAILING rows, so 0 is clean rather than unrun."
+            }
+          ]
+        }
+      ],
+      "instruments": [
+        "measure_page",
+        "pick_panel",
+        "collect_panel",
+        "record_run"
+      ],
+      "deliverables": [
+        "Traversal Plan",
+        "Frontier",
+        "Decision Records",
+        "Panel Reports",
+        "Anchor Ledger",
+        "Compliance Check"
+      ],
+      "lessons": [
+        "skills/dada/references/measurement-checklist.md",
+        "skills/dada/references/field-notes.md"
+      ]
+    },
+    {
+      "id": "extend",
+      "title": "Extend run",
+      "use_when": [
+        "The design system is accepted and the work needs more of it: new pages, sections, places, products or languages"
+      ],
+      "triggers": [
+        "more of",
+        "new pages",
+        "add pages",
+        "new language",
+        "new products"
+      ],
+      "frozen": [
+        "Everything Polish freezes",
+        "Every existing page's layout",
+        "Navigation gains entries only in slots the system already has (a footer group, a hub page)"
+      ],
+      "allowed_moves": [
+        "New pages and sections built only from existing components and tokens",
+        "Hub pages that index them",
+        "Corrections the new content forces in existing copy",
+        "All Polish moves"
+      ],
+      "r0_premortem": "required",
+      "judged_rendered": true,
+      "panel": {
+        "required": [
+          "crit_evid_cairo",
+          "crit_use_krug",
+          "crit_prov_debord"
+        ],
+        "min_seats": 4,
+        "dotted_pair": [
+          "crit_use_krug",
+          "crit_prov_debord"
+        ],
+        "replaces_mode_minimum": true,
+        "batch_max": 3,
+        "by_context": [
+          {
+            "when": "a new locale",
+            "seats": [
+              "crit_inc_holmes"
+            ]
+          },
+          {
+            "when": "new places or products",
+            "seats": [
+              "crit_brand_sharp"
+            ]
+          }
+        ]
+      },
+      "stop": {
+        "s3_quiet_rounds": 1,
+        "s4_push": "Consistency push: the new pages measured against the existing ones (same components, same checks passing, no orphan page).",
+        "round_cap": 3
+      },
+      "measurements": [
+        {
+          "id": "overflow",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "overflow"
+          },
+          "at": [
+            {
+              "w": 1280,
+              "h": 800
+            },
+            {
+              "w": 375,
+              "h": 812
+            }
+          ],
+          "scope": "the whole rendered page at each width",
+          "assert": [
+            {
+              "metric": "ovf",
+              "op": "==",
+              "value": 0,
+              "unit": "px",
+              "why": "A longer label wraps, a new page overflows: words-only runs still break layout (dada-lessons 54)."
+            }
+          ]
+        },
+        {
+          "id": "contrast",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "contrast"
+          },
+          "at": [
+            {
+              "w": 1280,
+              "h": 800
+            },
+            {
+              "w": 375,
+              "h": 812
+            }
+          ],
+          "scope": "every visible text node, over the colour actually behind it",
+          "assert": [
+            {
+              "metric": "n",
+              "op": "==",
+              "value": 0,
+              "why": "n counts FAILING rows, so 0 is clean rather than unrun."
+            }
+          ]
+        }
+      ],
+      "instruments": [
+        "measure_page",
+        "pick_panel",
+        "collect_panel",
+        "record_run"
+      ],
+      "deliverables": [
+        "Traversal Plan",
+        "Frontier",
+        "Decision Records",
+        "Panel Reports",
+        "Anchor Ledger",
+        "Compliance Check"
+      ],
+      "lessons": [
+        "skills/dada/references/measurement-checklist.md",
+        "skills/dada/references/field-notes.md"
+      ]
+    },
+    {
+      "id": "landing",
+      "title": "Landing run",
+      "use_when": [
+        "The brief is the landing page or its hero",
+        "A grade that faults the first screen",
+        "Invoked inside a Full run as the landing move"
+      ],
+      "triggers": [
+        "landing",
+        "hero",
+        "home page",
+        "first screen"
+      ],
+      "frozen": [
+        "Every page except the landing",
+        "The design system's palette and type (the landing may push them, not replace them)",
+        "The site's navigation entries; content that leaves the landing moves to its own page, never deleted"
+      ],
+      "allowed_moves": [
+        "The landing's first screen and what sits below it",
+        "Moving displaced content to a new page",
+        "One new graphic system for the hero, built from the site's own data and pages",
+        "The social card, which must match the new first screen"
+      ],
+      "r0_premortem": "required",
+      "judged_rendered": true,
+      "panel": {
+        "required": [
+          "crit_formal_arnheim",
+          "crit_evid_cairo",
+          "crit_use_krug",
+          "crit_prov_debord"
+        ],
+        "min_seats": 4,
+        "dotted_pair": [
+          "crit_use_krug",
+          "crit_prov_debord"
+        ],
+        "replaces_mode_minimum": true,
+        "batch_max": 3
+      },
+      "stop": {
+        "s3_quiet_rounds": 1,
+        "s4_push": "Hero push: the boldest element of the hero made bigger or sharper once more, then re-measured against the First screen rule and the legibility probe.",
+        "round_cap": 3
+      },
+      "measurements": [
+        {
+          "id": "overflow",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "overflow"
+          },
+          "at": [
+            {
+              "w": 1280,
+              "h": 800
+            },
+            {
+              "w": 375,
+              "h": 812
+            }
+          ],
+          "scope": "the whole rendered page at each width",
+          "assert": [
+            {
+              "metric": "ovf",
+              "op": "==",
+              "value": 0,
+              "unit": "px",
+              "why": "A longer label wraps, a new page overflows: words-only runs still break layout (dada-lessons 54)."
+            }
+          ]
+        },
+        {
+          "id": "contrast",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "contrast"
+          },
+          "at": [
+            {
+              "w": 1280,
+              "h": 800
+            },
+            {
+              "w": 375,
+              "h": 812
+            }
+          ],
+          "scope": "every visible text node, over the colour actually behind it",
+          "assert": [
+            {
+              "metric": "n",
+              "op": "==",
+              "value": 0,
+              "why": "n counts FAILING rows, so 0 is clean rather than unrun."
+            }
+          ]
+        }
+      ],
+      "instruments": [
+        "measure_page",
+        "pick_panel",
+        "collect_panel",
+        "record_run"
+      ],
+      "deliverables": [
+        "Traversal Plan",
+        "Frontier",
+        "Decision Records",
+        "Panel Reports",
+        "Anchor Ledger",
+        "Compliance Check",
+        "Inventory",
+        "Social card matching the first screen"
+      ],
+      "lessons": [
+        "skills/dada/references/measurement-checklist.md",
+        "skills/dada/references/field-notes.md"
+      ]
+    }
+  ],
+  "floors": [
+    {
+      "id": "mobile",
+      "title": "The Mobile Floor",
+      "waivable": false,
+      "applies_to": {
+        "mediums": [
+          "2d",
+          "any"
+        ],
+        "deliverable": "a page rendered in a browser"
+      },
+      "reference": "skills/dada/references/mobile-standard.md",
+      "measurements": [
+        {
+          "id": "mobile_floor",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "mobile"
+          },
+          "at": [
+            {
+              "w": 360,
+              "h": 800
+            },
+            {
+              "w": 390,
+              "h": 800
+            },
+            {
+              "w": 430,
+              "h": 800
+            }
+          ],
+          "scope": "the rendered page at 360, 390 and 430px wide, a coarse pointer, no hover, an 800px fold",
+          "assert": [
+            {
+              "metric": "ovf",
+              "op": "==",
+              "value": 0,
+              "unit": "px",
+              "why": "M1: a page that scrolls sideways on a phone is broken."
+            },
+            {
+              "metric": "viewport.n",
+              "op": "==",
+              "value": 0,
+              "why": "M2: width=device-width, and pinch-zoom left alone."
+            },
+            {
+              "metric": "under44.n",
+              "op": "==",
+              "value": 0,
+              "unit": "targets",
+              "why": "M3: 44px touch targets; the emoji encyclopedia had 139 at 390px."
+            },
+            {
+              "metric": "under24.n",
+              "op": "==",
+              "value": 0,
+              "why": "M3: the WCAG 2.2 AA hard minimum."
+            },
+            {
+              "metric": "tiny.n",
+              "op": "==",
+              "value": 0,
+              "unit": "nodes",
+              "why": "M4: no text under 12px; the emoji encyclopedia had 280 nodes under 12px."
+            },
+            {
+              "metric": "body.n",
+              "op": "==",
+              "value": 0,
+              "why": "M4: body copy at 15px and up."
+            },
+            {
+              "metric": "inputZoom.n",
+              "op": "==",
+              "value": 0,
+              "unit": "inputs",
+              "why": "M5: inputs under 16px make iOS zoom the page on focus."
+            },
+            {
+              "metric": "hoverUngated",
+              "op": "==",
+              "value": 0,
+              "unit": "rules",
+              "why": "M6: ungated :hover sticks after a tap."
+            },
+            {
+              "metric": "vh100",
+              "op": "==",
+              "value": 0,
+              "unit": "rules",
+              "why": "M7: bare 100vh misplaces fixed UI behind the browser chrome."
+            },
+            {
+              "metric": "bars.pct",
+              "op": "<=",
+              "value": 15,
+              "unit": "% of viewport height",
+              "why": "M8: fixed and sticky bars must leave the page room."
+            },
+            {
+              "metric": "h1InFold",
+              "op": "==",
+              "value": true,
+              "why": "M9: the first screen names the page."
+            }
+          ]
+        },
+        {
+          "id": "mobile_contrast",
+          "instrument": "measure_page",
+          "with": {
+            "preset": "contrast"
+          },
+          "at": [
+            {
+              "w": 360,
+              "h": 800
+            },
+            {
+              "w": 390,
+              "h": 800
+            },
+            {
+              "w": 430,
+              "h": 800
+            }
+          ],
+          "scope": "every visible text node at phone widths",
+          "assert": [
+            {
+              "metric": "n",
+              "op": "==",
+              "value": 0,
+              "why": "M10: n counts FAILING rows, so 0 is clean."
+            }
+          ]
+        }
+      ],
+      "judged": [
+        "The five-second test on the 390 x 844 screenshot (Krug)",
+        "One-handed reach of the primary action",
+        "The order of content on one column is the order the page means",
+        "What needs a phone: keyboard, notch, thumb (stated, never declared fixed from emulation)"
+      ],
+      "fix_with": [
+        "mobile-native"
+      ]
+    }
+  ]
+}

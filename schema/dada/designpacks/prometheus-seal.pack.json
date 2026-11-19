@@ -1,0 +1,211 @@
+{
+  "designpack_version": "1",
+  "id": "prometheus-seal",
+  "name": "Prometheus Seal",
+  "version": "1.0.0",
+  "status": "adopted",
+  "summary": "Charcoal and ember. A flame sealed in a shield: fire is only useful while it is contained. For pages that must be honest about security posture, where the picture is the thesis.",
+  "intent": {
+    "mood": "warm, serious, a little mythic; a company that shows what is not true yet",
+    "for": [
+      "company or product stack maps",
+      "security posture and roadmap pages",
+      "any page whose headline is a measured gap"
+    ],
+    "not_for": [
+      "playful consumer pages",
+      "dense data tools (use sentinel-instrument)",
+      "light-theme-only brands"
+    ]
+  },
+  "tokens": {
+    "modes": {
+      "dark": {
+        "bg": "#120e0b",
+        "bg2": "#181310",
+        "panel": "#1d1713",
+        "line": "#302720",
+        "line2": "#473a2f",
+        "fg": "#f1ebe2",
+        "fg2": "#c7bcae",
+        "fg3": "#a59a8c",
+        "ember": "#ff8a3d",
+        "gold": "#f5c36a",
+        "ok": "#7fd1a0",
+        "info": "#8fb4ff",
+        "viol": "#c3a1ff",
+        "mute": "#b3a89a",
+        "on-ember": "#1a0f08"
+      }
+    },
+    "pairs": [
+      {
+        "fg": "fg",
+        "bg": "bg",
+        "role": "text body",
+        "min_ratio": 7
+      },
+      {
+        "fg": "fg2",
+        "bg": "bg",
+        "role": "text secondary",
+        "min_ratio": 7
+      },
+      {
+        "fg": "fg3",
+        "bg": "bg",
+        "role": "text dimmest allowed",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "fg3",
+        "bg": "panel",
+        "role": "text dimmest on card",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "ember",
+        "bg": "bg",
+        "role": "text accent and large display",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "gold",
+        "bg": "bg",
+        "role": "text link",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "on-ember",
+        "bg": "ember",
+        "role": "text on primary button",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "ok",
+        "bg": "panel",
+        "role": "text status",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "info",
+        "bg": "panel",
+        "role": "text status",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "viol",
+        "bg": "panel",
+        "role": "text status",
+        "min_ratio": 4.5
+      }
+    ],
+    "type": {
+      "display": "\"Iowan Old Style\", \"Palatino Linotype\", Palatino, \"Book Antiqua\", Georgia, serif",
+      "text": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "mono": "ui-monospace, \"SF Mono\", \"Cascadia Mono\", Menlo, Consolas, monospace",
+      "base_px": 16,
+      "floor_px": 12
+    },
+    "shape": {
+      "radius_px": 10,
+      "target_px": 44,
+      "note": "system fonts only; nothing loads from elsewhere"
+    }
+  },
+  "signature": {
+    "name": "flame in a shield, ringed by the stack",
+    "rule": "One flame sealed in a shield, with rings of dots around it: filled ember is built, ringed gold is partly built, dashed grey is planned, dashed spokes are the intended wiring. The same shield is the core of any hub diagram, so the page has one symbol.",
+    "carries": "how much of the stack is built, partly built and planned, and which parts are meant to wire to the core",
+    "derived_from": "counts of components by status in the page's own data file; the page prints the same numbers as text",
+    "asset": "assets/prometheus-seal-hero.svg"
+  },
+  "motifs": [
+    {
+      "id": "chain",
+      "use": "the relationship count, directly under the first screen",
+      "rule": "One link per relationship, generated from the data: forged (solid, glowing) only where wired, dashed where planned, dotted where conceptual. Never draw more or fewer links than there are relationships."
+    },
+    {
+      "id": "heat-edge",
+      "use": "cards",
+      "rule": "A lit top edge by status: ember glow for built, gold for prototype, dashed for planned, dotted for concept. Lift on hover only inside (hover: hover) and (pointer: fine)."
+    },
+    {
+      "id": "forge-line",
+      "use": "roadmaps",
+      "rule": "A vertical line with a node per stage; the next stage's node glows, done stages are green, the rest are empty rings."
+    },
+    {
+      "id": "ghost-numeral",
+      "use": "section starts",
+      "rule": "A large low-contrast numeral above the heading and a short ember-to-gold rule under it. The numeral is aria-hidden."
+    }
+  ],
+  "status_encoding": [
+    {
+      "state": "built",
+      "color": "ember",
+      "shape": "filled dot",
+      "word": "built"
+    },
+    {
+      "state": "prototype",
+      "color": "gold",
+      "shape": "half-filled dot",
+      "word": "prototype"
+    },
+    {
+      "state": "planned",
+      "color": "info",
+      "shape": "dashed ring",
+      "word": "planned"
+    },
+    {
+      "state": "concept",
+      "color": "viol",
+      "shape": "dotted ring",
+      "word": "concept"
+    },
+    {
+      "state": "live",
+      "color": "ok",
+      "shape": "solid green dot",
+      "word": "live"
+    }
+  ],
+  "motion": {
+    "allowed": [
+      "slow ring rotation",
+      "flame flicker",
+      "card lift on hover"
+    ],
+    "reduced_motion": "off",
+    "hover": "gated"
+  },
+  "floors": [
+    "mobile"
+  ],
+  "never": [
+    "a gradient on text (clip-to-text hides the colour from contrast probes and from forced-colors users)",
+    "a gradient-only background on a button without a solid background-color",
+    "a motif that does not match the page's own numbers",
+    "claiming audited, certified or live anywhere the data does not",
+    "more than one accent hue for emphasis (ember); gold, blue and violet are status words only"
+  ],
+  "provenance": {
+    "source_run": "SolutionsAsService/prometheus-stack, DESIGN-LOG round 1 (graded C by its owner: no bold graphic) and round 2 (this pack)",
+    "date": "2026-11-08",
+    "grade": "B",
+    "graded_by": "owner",
+    "measured": [
+      "Mobile Floor 12 of 12 at 360, 390 and 430px (tools/measure.py --preset mobile)",
+      "two regressions caught by the probe: an 11px label inside an SVG hub (M4) and a gradient-only button background (M10)"
+    ],
+    "open": [
+      "the lower half of the page (tables, roadmap) was redesigned but not reviewed by a panel",
+      "not shown on a real phone",
+      "no R2 round"
+    ]
+  }
+}

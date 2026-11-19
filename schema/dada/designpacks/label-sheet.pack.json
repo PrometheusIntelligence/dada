@@ -1,0 +1,168 @@
+{
+  "designpack_version": "1",
+  "id": "label-sheet",
+  "name": "Label Sheet",
+  "version": "1.0.0",
+  "status": "adopted",
+  "summary": "A site where every product is shown the way its package label reads: thick ink borders on warm paper, big numerals, a radial data wheel on a deep green poster. Built for regulated or claims-heavy retail where the label is the trust. Unknown facts are marked Sample, never invented.",
+  "intent": {
+    "mood": "warm, exact, editorial, quietly bold",
+    "for": [
+      "retail of regulated goods (cannabis, supplements, food, cosmetics) where a label is the honest part",
+      "sites built before the real business facts exist",
+      "menus and catalogues driven from a data file"
+    ],
+    "not_for": [
+      "brands that need photography-led storytelling",
+      "pages with no structured data to show"
+    ]
+  },
+  "tokens": {
+    "modes": {
+      "dark": {
+        "bg": "#1D4A36",
+        "ink": "#F3EEE2",
+        "ink2": "#F3EEE2",
+        "accent": "#F0B93A",
+        "link": "#F0B93A",
+        "panel": "#0A1D14",
+        "on-accent": "#14231B",
+        "warn": "#F0B93A",
+        "edge": "#F3EEE2"
+      },
+      "light": {
+        "bg": "#F3EEE2",
+        "ink": "#14231B",
+        "ink2": "#46564C",
+        "accent": "#1D4A36",
+        "link": "#1D4A36",
+        "panel": "#FBF8F0",
+        "on-accent": "#F3EEE2",
+        "warn": "#7A5400",
+        "edge": "#14231B"
+      }
+    },
+    "pairs": [
+      {
+        "fg": "ink",
+        "bg": "bg",
+        "role": "text body",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink2",
+        "bg": "bg",
+        "role": "text secondary",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "accent",
+        "bg": "bg",
+        "role": "text accent",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "link",
+        "bg": "bg",
+        "role": "text link",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "on-accent",
+        "bg": "accent",
+        "role": "text on a button",
+        "min_ratio": 4.5
+      }
+    ],
+    "type": {
+      "display": "Georgia, \"Iowan Old Style\", \"Palatino Linotype\", Palatino, serif",
+      "text": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "mono": "ui-monospace, Menlo, Consolas, monospace",
+      "base_px": 16,
+      "floor_px": 13
+    },
+    "shape": {
+      "radius_px": 6,
+      "target_px": 44,
+      "note": "labels have 6px corners and 3px ink borders with a hard offset shadow; buttons and chips are pills; no blur, no gradients"
+    }
+  },
+  "signature": {
+    "name": "the wheel and the label",
+    "rule": "A large radial wheel (one numbered wedge per data item, length proportional to its value on one scale shared by every product) beside a very large serif headline on deep green; below, product cards laid out as labels: category line, name, two boxed key numbers, bars on the same scale, then test date, lab, batch and report.",
+    "carries": "the product's real composition, with the scale stated on the page",
+    "derived_from": "data/menu.json via scripts/build.py",
+    "asset": "none"
+  },
+  "motifs": [
+    {
+      "id": "sample-mark",
+      "use": "any content that is not yet real",
+      "rule": "A dashed 'Sample' mark (rule style plus a word), 'sample' in place of any date, lab or batch, and the word inside the graphic itself, so a screenshot cannot pass it off as data."
+    },
+    {
+      "id": "one-scale",
+      "use": "any comparison chart",
+      "rule": "Every wheel and bar on the site uses the same scale, stated beside the chart."
+    },
+    {
+      "id": "numbered-callouts",
+      "use": "explaining a label or a diagram",
+      "rule": "Numbered 44px badges on a sample label, each linking to its section of the guide; numbers, not colour, carry the mapping."
+    },
+    {
+      "id": "strict-data",
+      "use": "the build",
+      "rule": "The build refuses a real item with a placeholder lab, batch or report reference, a bad or future date, an out-of-range number, or no licence number."
+    }
+  ],
+  "status_encoding": [
+    {
+      "state": "sample",
+      "color": "accent",
+      "shape": "dashed rule",
+      "word": "Sample"
+    },
+    {
+      "state": "from-the-lab-report",
+      "color": "accent",
+      "shape": "solid rule",
+      "word": "From the lab report"
+    }
+  ],
+  "motion": {
+    "allowed": [
+      "background colour transition on hover"
+    ],
+    "reduced_motion": "off",
+    "hover": "gated"
+  },
+  "floors": [
+    "mobile"
+  ],
+  "never": [
+    "claiming on a page what the data cannot back (every-product-is-labelled copy while the items are samples)",
+    "a plausible-looking date, lab or number on a sample item",
+    "bars or wheels on different scales shown side by side",
+    "colour as the only link between a wedge and its name",
+    "unbroken user text that can scroll the page sideways (set overflow-wrap)",
+    "a health claim"
+  ],
+  "provenance": {
+    "source_run": "SolutionsAsService/CannabisCo, Adaptive Full run bounded to one panel round (Arnheim, Krug, Debord, Cairo) plus one owner-requested improvement; see its DESIGN-LOG.md",
+    "date": "2026-11-09",
+    "grade": "B+",
+    "graded_by": "owner",
+    "measured": [
+      "Mobile Floor 12 of 12 on all four pages at 360, 390 and 430px",
+      "contrast pairs all at or above 5.6:1 (Cairo)",
+      "a 120-character unbroken product name causes no sideways scroll at 360, 390 or 430px"
+    ],
+    "open": [
+      "one panel round; S1 and S2 not met",
+      "no legal reviewer; age verification is a notice only",
+      "general statements in the guide from general knowledge, not cited",
+      "not shown on a real phone"
+    ]
+  }
+}

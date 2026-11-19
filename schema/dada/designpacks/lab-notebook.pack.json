@@ -1,0 +1,268 @@
+{
+  "designpack_version": "1",
+  "id": "lab-notebook",
+  "name": "Lab Notebook",
+  "version": "1.0.0",
+  "status": "adopted",
+  "summary": "Pale graph paper, deep ink, one teal accent, system fonts. A reference whose numbers say what kind of number they are: exact, measured or rounded, as a rule style and a word. The table is the page.",
+  "intent": {
+    "mood": "clear, exact, quietly confident",
+    "for": [
+      "science, maths and engineering references",
+      "pages with constants, measurements or counts",
+      "tools that compute something (a balancer, a converter)"
+    ],
+    "not_for": [
+      "narrative or biographical pages (use study-ledger)",
+      "status dashboards (use sentinel-instrument)"
+    ]
+  },
+  "tokens": {
+    "modes": {
+      "light": {
+        "paper": "#f3f7f5",
+        "paper2": "#e7efeb",
+        "card": "#ffffff",
+        "ink": "#0e1d19",
+        "ink2": "#2c403a",
+        "ink3": "#52645d",
+        "accent": "#0a6a5c",
+        "on-accent": "#f3fbf8",
+        "t-alkali": "#f6d4c8",
+        "t-ae": "#f5e2b0",
+        "t-tm": "#cfe2f2",
+        "t-pt": "#d6e7cf",
+        "t-ln": "#e2d6f2",
+        "t-ac": "#f1d0e0",
+        "t-sh": "#e1e5e3",
+        "t-md": "#c7ebe4",
+        "t-nm": "#f3e9a6",
+        "t-hl": "#f7d9bc",
+        "t-ng": "#d9d5f7"
+      },
+      "dark": {
+        "paper": "#0d1613",
+        "paper2": "#121e1a",
+        "card": "#16241f",
+        "ink": "#e6f1ec",
+        "ink2": "#bfd2ca",
+        "ink3": "#93a9a0",
+        "accent": "#4fd1b8",
+        "on-accent": "#06201a",
+        "t-alkali": "#5a2f22",
+        "t-ae": "#54441a",
+        "t-tm": "#213f58",
+        "t-pt": "#2d4a28",
+        "t-ln": "#402f5a",
+        "t-ac": "#5a2641",
+        "t-sh": "#333c39",
+        "t-md": "#144a42",
+        "t-nm": "#52491a",
+        "t-hl": "#5a3b1c",
+        "t-ng": "#38345e"
+      }
+    },
+    "pairs": [
+      {
+        "fg": "ink",
+        "bg": "paper",
+        "role": "text body",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink2",
+        "bg": "paper",
+        "role": "text secondary",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink3",
+        "bg": "paper",
+        "role": "text dimmest allowed",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "ink3",
+        "bg": "paper2",
+        "role": "text dimmest on the band",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "accent",
+        "bg": "paper",
+        "role": "text link and accent",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "on-accent",
+        "bg": "accent",
+        "role": "text on button",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "ink",
+        "bg": "card",
+        "role": "text on card",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-alkali",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-ae",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-tm",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-pt",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-ln",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-ac",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-sh",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-md",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-nm",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-hl",
+        "role": "text on category tint",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "t-ng",
+        "role": "text on category tint",
+        "min_ratio": 7
+      }
+    ],
+    "type": {
+      "display": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "text": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "mono": "ui-monospace, \"SF Mono\", \"Cascadia Mono\", Menlo, Consolas, monospace",
+      "base_px": 16,
+      "floor_px": 12
+    },
+    "shape": {
+      "radius_px": 8,
+      "target_px": 44,
+      "note": "numbers and formulas in mono; solid hex tints only (no color-mix, which contrast probes misread); graph-paper grid behind the hero only, faded out"
+    }
+  },
+  "signature": {
+    "name": "the table as the picture",
+    "rule": "The home hero is the data's own structure drawn as squares: one square per item in its true position, pattern (solid, hatched, outlined, dotted) for kind, a dashed edge for what is only partly measured. The caption prints the counts, and they are computed from the same data file as the page's table.",
+    "carries": "how many things exist, how they are arranged, and which kinds are only predicted",
+    "derived_from": "data/elements.json: 118 squares, counts per class computed at build time",
+    "asset": "assets/lab-notebook-table.svg"
+  },
+  "motifs": [
+    {
+      "id": "number-mark",
+      "use": "every figure in a table or list of numbers",
+      "rule": "A left rule and a word: solid Exact (by definition or convention), dashed Measured, dotted Rounded. The marks describe the kind of number, not a ranking of trust; say so, and say which figures carry a mark and which do not."
+    },
+    {
+      "id": "sticky-detail",
+      "use": "a grid of selectable items on a phone",
+      "rule": "A compact card pinned to the bottom of the viewport, at most 15% of its height, with a close button; never a card above the grid that scrolls away from the thumb."
+    },
+    {
+      "id": "refuse-and-say",
+      "use": "tools that take typed input",
+      "rule": "Refuse impossible or ambiguous input in plain words, say what was ignored (typed coefficients, state symbols), and recount the answer from its printed form."
+    }
+  ],
+  "status_encoding": [
+    {
+      "state": "exact",
+      "color": "ink",
+      "shape": "solid rule",
+      "word": "Exact"
+    },
+    {
+      "state": "measured",
+      "color": "ink",
+      "shape": "dashed rule",
+      "word": "Measured"
+    },
+    {
+      "state": "rounded",
+      "color": "ink3",
+      "shape": "dotted rule",
+      "word": "Rounded"
+    }
+  ],
+  "motion": {
+    "allowed": [
+      "card border colour on hover"
+    ],
+    "reduced_motion": "off",
+    "hover": "gated"
+  },
+  "floors": [
+    "mobile"
+  ],
+  "never": [
+    "a claim that every number is marked when only listed figures are",
+    "a count presented as exact by definition",
+    "a mark that reads as a trust ranking",
+    "color-mix() or other computed colours for text backgrounds that a probe must verify",
+    "a checkbox or control under 44px (use a toggle chip)",
+    "a table that scrolls sideways without a visible cue and a nearby detail view"
+  ],
+  "provenance": {
+    "source_run": "SolutionsAsService/ScienceEncyclopedia, Adaptive Full run bounded to one panel round (Krug, Debord, Cairo); see its DESIGN-LOG.md",
+    "date": "2026-11-09",
+    "measured": [
+      "Mobile Floor 12 of 12 at 360, 390 and 430px on all pages tested, re-run after each change set",
+      "0 horizontal overflow across 116 loads, 0 broken links of 728, 0 external requests (Cairo)",
+      "balancer: 38 of 38 successful answers recounted independently; 14 known answers and 18 bad inputs in scripts/check-balancer.js",
+      "category tints: ink on every tint 7:1 or better in both modes (validator)"
+    ],
+    "open": [
+      "one panel round; S1 and S2 not met",
+      "text and values from general knowledge, not checked against IUPAC, CODATA or NIST",
+      "not shown on a real phone",
+      "the Rounded mark mixes fewer-digits and typical-value"
+    ],
+    "grade": "B+",
+    "graded_by": "owner"
+  }
+}

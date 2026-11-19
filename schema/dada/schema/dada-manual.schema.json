@@ -1,0 +1,763 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/PrometheusIntelligence/dada/skills/dada/schema/dada-manual.schema.json",
+  "title": "DADA run manual",
+  "description": "A run manual declares run types (what may change, who judges, how it is measured, when it stops) and the instruments those runs call. It takes UTCP's declarative manual with direct call templates (no wrapper server in the path) and MCP's capability detection and tool annotations, and adds what neither carries: the run contract (freezes, allowed moves, panel, stop conditions), measurement assertions on computed values, an evidence class on every result, and explicit fallback chains that end in UNKNOWN rather than an invented value. Forks (3dada, and any later one) extend a parent manual instead of copying it.",
+  "type": "object",
+  "required": [
+    "dada_version",
+    "manual_version",
+    "name",
+    "runtypes"
+  ],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "dada_version": {
+      "const": "1.0",
+      "description": "Version of this schema (UTCP: utcp_version)."
+    },
+    "manual_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Version of this manual's content (UTCP: manual_version). Bump the minor when a run type's contract changes, so a ledger row can say which contract it was run under."
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+      "description": "The manual's id; the prefix of every run type id it defines (`dada/polish`)."
+    },
+    "description": {
+      "type": "string"
+    },
+    "extends": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/manualRef"
+      },
+      "description": "Parent manuals. A fork inherits their instruments and run types and may override a run type by id; it never edits the parent's file."
+    },
+    "requires": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/requirement"
+      },
+      "description": "Capabilities the host must offer for the manual to run at full strength (MCP: capability negotiation). A missing capability is stated and its fallback used; it is never papered over."
+    },
+    "instruments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/instrument"
+      },
+      "description": "The callable things a run measures or makes with (UTCP: tools)."
+    },
+    "runtypes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/runtype"
+      }
+    },
+    "floors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/floor"
+      },
+      "description": "Standards every run type must meet, whatever its freezes, cap or bounds. A floor is declared once and applies to each run type whose medium and deliverable match; a run type cannot opt out, and the schema gives it no field to try."
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "manualRef": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "description": "Repository or path the parent lives at."
+        },
+        "version": {
+          "type": "string",
+          "description": "Semver range or commit the fork was written against."
+        }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "required": [
+        "id",
+        "detect"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "detect": {
+          "type": "object",
+          "required": [
+            "kind",
+            "probe"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "tool_present",
+                "mcp_server",
+                "binary",
+                "file"
+              ]
+            },
+            "probe": {
+              "type": "string",
+              "description": "A tool name, server name, executable or path. A real call that proves it, never the tool list alone."
+            },
+            "proof_call": {
+              "type": "string",
+              "description": "The instrument id whose successful call proves the capability."
+            }
+          }
+        },
+        "if_missing": {
+          "enum": [
+            "use_fallback",
+            "stop_and_say",
+            "mark_unknown"
+          ],
+          "default": "use_fallback"
+        }
+      }
+    },
+    "callTemplate": {
+      "description": "How an instrument is invoked, directly. `${input.x}` substitutes an input; `${env.X}` an environment variable (UTCP variable substitution).",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "call_template_type",
+            "server",
+            "tool"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "call_template_type": {
+              "const": "mcp"
+            },
+            "server": {
+              "type": "string"
+            },
+            "tool": {
+              "type": "string"
+            },
+            "arguments": {
+              "type": "object"
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "call_template_type",
+            "command"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "call_template_type": {
+              "const": "cli"
+            },
+            "command": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "cwd": {
+              "type": "string"
+            },
+            "env": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "output": {
+              "enum": [
+                "json",
+                "text"
+              ],
+              "default": "json"
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "call_template_type",
+            "url"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "call_template_type": {
+              "const": "http"
+            },
+            "url": {
+              "type": "string"
+            },
+            "http_method": {
+              "enum": [
+                "GET",
+                "POST",
+                "PUT"
+              ]
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "body_field": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "call_template_type",
+            "procedure"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "call_template_type": {
+              "const": "text"
+            },
+            "procedure": {
+              "type": "string",
+              "description": "A human or agent procedure when no tool exists. Its result is evidence class DECLARED, never MEASURED."
+            }
+          }
+        }
+      ]
+    },
+    "instrument": {
+      "type": "object",
+      "required": [
+        "id",
+        "description",
+        "call_template",
+        "evidence"
+      ],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": {}
+      },
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "description": {
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "author",
+            "measure",
+            "render",
+            "inspect",
+            "judge",
+            "deliver"
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inputs": {
+          "type": "object",
+          "description": "A JSON Schema for the call's input."
+        },
+        "outputs": {
+          "type": "object",
+          "description": "A JSON Schema for the call's result."
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "read_only": {
+              "type": "boolean"
+            },
+            "idempotent": {
+              "type": "boolean"
+            },
+            "destructive": {
+              "type": "boolean"
+            },
+            "costly": {
+              "type": "boolean"
+            }
+          },
+          "description": "MCP-style hints so a host can gate a call without running it."
+        },
+        "call_template": {
+          "$ref": "#/$defs/callTemplate"
+        },
+        "evidence": {
+          "type": "string",
+          "enum": [
+            "MEASURED",
+            "LOCAL",
+            "DECLARED"
+          ],
+          "description": "The class a value from this instrument carries in the measurement table. MEASURED: the named tool computed it on the artifact. LOCAL: an offline stand-in with the same rules, recorded as such. DECLARED: a procedure's claim; it cannot satisfy an assertion alone."
+        },
+        "fallback": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Instrument ids to try in order if this one is unavailable. The chain ends in UNKNOWN: a value no instrument produced is written UNKNOWN, with the method that would produce it."
+        }
+      }
+    },
+    "viewport": {
+      "type": "object",
+      "required": [
+        "w",
+        "h"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "w": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "h": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "assertion": {
+      "type": "object",
+      "required": [
+        "metric",
+        "op",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "metric": {
+          "type": "string",
+          "description": "A path into the instrument's result, e.g. `n` or `bounding_box.x`."
+        },
+        "op": {
+          "enum": [
+            "==",
+            "!=",
+            "<",
+            "<=",
+            ">",
+            ">="
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "boolean"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "why": {
+          "type": "string",
+          "description": "The failure this assertion exists to catch."
+        }
+      }
+    },
+    "measurement": {
+      "type": "object",
+      "required": [
+        "id",
+        "instrument",
+        "assert"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "instrument": {
+          "$ref": "#/$defs/id"
+        },
+        "with": {
+          "type": "object",
+          "description": "Inputs bound for this check (`preset`, `units`, ...)."
+        },
+        "at": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/viewport"
+          },
+          "description": "Viewports (2D) or views (3D, as w/h of the render)."
+        },
+        "scope": {
+          "type": "string",
+          "description": "What the figure claims to count: the whole page, above the fold, the exported file. A number in another scope is not the number."
+        },
+        "assert": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/assertion"
+          }
+        },
+        "required_when": {
+          "type": "string",
+          "description": "A condition in words, e.g. `the move touches claims`."
+        }
+      }
+    },
+    "panel": {
+      "type": "object",
+      "required": [
+        "required"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "description": "Seat ids the run type convenes, one agent per reference."
+        },
+        "min_seats": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "at_least_one_of": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "seats",
+              "reason"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "seats": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Groups from which the panel must seat at least one seat, chosen for the brief (3dada: a Form seat in both modes). Each seat is still one agent."
+        },
+        "dotted_pair": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "by_context": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "when",
+              "seats"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "when": {
+                "type": "string"
+              },
+              "seats": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            }
+          },
+          "description": "Seats added by context (a fabricated part, a data graphic, money)."
+        },
+        "replaces_mode_minimum": {
+          "type": "boolean",
+          "default": false
+        },
+        "batch_max": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 3
+        }
+      }
+    },
+    "stop": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "s3_quiet_rounds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "s4_push": {
+          "type": "string",
+          "description": "The ambition push this run type owes, and what it is re-measured against."
+        },
+        "s6_final_state": {
+          "type": "string",
+          "description": "3D forks: the final-state row required for every delivered file."
+        },
+        "round_cap": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "description": "null: stop conditions only."
+        }
+      }
+    },
+    "runtype": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "use_when",
+        "frozen",
+        "allowed_moves",
+        "panel",
+        "stop",
+        "r0_premortem",
+        "judged_rendered"
+      ],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": {}
+      },
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "extends": {
+          "type": "string",
+          "description": "Another run type id this one specialises (`dada/full`). Fields given here replace the parent's whole field; arrays are never merged silently."
+        },
+        "medium": {
+          "enum": [
+            "2d",
+            "3d",
+            "any"
+          ],
+          "default": "any"
+        },
+        "modes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "autonomous",
+              "adaptive"
+            ]
+          },
+          "description": "Modes the run type allows; both when omitted."
+        },
+        "use_when": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "triggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Words in a brief that select this run type when the person names none."
+        },
+        "frozen": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "What may not change. An empty list means nothing is frozen."
+        },
+        "allowed_moves": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "r0_premortem": {
+          "enum": [
+            "required",
+            "if_artifact",
+            "no"
+          ]
+        },
+        "judged_rendered": {
+          "const": true,
+          "description": "Every run type is judged on the rendered artifact; a manual may not turn this off."
+        },
+        "panel": {
+          "$ref": "#/$defs/panel"
+        },
+        "stop": {
+          "$ref": "#/$defs/stop"
+        },
+        "measurements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/measurement"
+          }
+        },
+        "instruments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "description": "Instrument ids this run type uses, so a host can check availability before Step 0 finishes."
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lessons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Repo-relative reference files to read before Step 0 (MCP: resources). Each must exist."
+        },
+        "out_of_scope": {
+          "type": "string",
+          "default": "DEFERRED (out of run type)",
+          "description": "The status a move that would break a freeze is logged with, and offered to the person as a Full run."
+        }
+      }
+    },
+    "floor": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "applies_to",
+        "reference",
+        "measurements",
+        "waivable"
+      ],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": {}
+      },
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "applies_to": {
+          "type": "object",
+          "required": [
+            "mediums",
+            "deliverable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "mediums": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "enum": [
+                  "2d",
+                  "3d",
+                  "any"
+                ]
+              }
+            },
+            "deliverable": {
+              "type": "string",
+              "description": "What the run produces that the floor judges, e.g. `a page rendered in a browser`. A 3D run that publishes a viewer page meets it; one that only exports STL does not."
+            }
+          }
+        },
+        "reference": {
+          "type": "string",
+          "description": "Repo-relative path of the standard, which must exist."
+        },
+        "measurements": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/measurement"
+          }
+        },
+        "judged": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "What the panel judges from the rendered artifact because no probe can."
+        },
+        "fix_with": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Skill ids in the registry that carry the fixes when a row fails."
+        },
+        "waivable": {
+          "const": false,
+          "description": "Always false. Present so a reader sees the answer, and so a manual that tries `true` fails validation."
+        }
+      }
+    }
+  }
+}

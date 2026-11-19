@@ -1,0 +1,188 @@
+{
+  "designpack_version": "1",
+  "id": "study-ledger",
+  "name": "Study Ledger",
+  "version": "1.0.0",
+  "status": "adopted",
+  "summary": "Warm paper, black ink, one oxblood accent, a heavy rule over every page. A reader's guide that shows its sourcing: every claim carries a mark for how well it is known, as a rule style and a word, and the mark says what to do with the claim.",
+  "intent": {
+    "mood": "bookish, plain-spoken, scrupulous",
+    "for": [
+      "appreciation, biography and reading-guide sites",
+      "pages built on quotations, citations or claims of uneven reliability",
+      "catalogues of works with a date for each"
+    ],
+    "not_for": [
+      "dashboards and status boards (use sentinel-instrument)",
+      "pages with no claims to grade"
+    ]
+  },
+  "tokens": {
+    "modes": {
+      "light": {
+        "paper": "#f5efe2",
+        "paper2": "#ece4d1",
+        "card": "#fbf7ee",
+        "ink": "#1c1915",
+        "ink2": "#3f392f",
+        "ink3": "#675e4f",
+        "accent": "#8f2d1a",
+        "on-accent": "#fff8ee"
+      },
+      "dark": {
+        "paper": "#15120e",
+        "paper2": "#1c1813",
+        "card": "#1b1712",
+        "ink": "#efe7d6",
+        "ink2": "#d1c8b4",
+        "ink3": "#a89e89",
+        "accent": "#e08b70",
+        "on-accent": "#1c0e08"
+      }
+    },
+    "pairs": [
+      {
+        "fg": "ink",
+        "bg": "paper",
+        "role": "text body",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink2",
+        "bg": "paper",
+        "role": "text secondary",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink3",
+        "bg": "paper",
+        "role": "text dimmest allowed",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "ink3",
+        "bg": "paper2",
+        "role": "text dimmest on the band",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "accent",
+        "bg": "paper",
+        "role": "text link and accent",
+        "min_ratio": 4.5
+      },
+      {
+        "fg": "ink2",
+        "bg": "card",
+        "role": "text on card",
+        "min_ratio": 7
+      },
+      {
+        "fg": "on-accent",
+        "bg": "accent",
+        "role": "text on accent",
+        "min_ratio": 4.5
+      }
+    ],
+    "type": {
+      "display": "\"Iowan Old Style\", \"Palatino Linotype\", Palatino, \"Book Antiqua\", Georgia, serif",
+      "text": "\"Iowan Old Style\", \"Palatino Linotype\", Palatino, \"Book Antiqua\", Georgia, serif",
+      "mono": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "base_px": 17,
+      "floor_px": 13
+    },
+    "shape": {
+      "radius_px": 2,
+      "target_px": 44,
+      "note": "system fonts only; labels and metadata in system sans at 13px or more; hard offset shadows, no blur"
+    }
+  },
+  "signature": {
+    "name": "the shelf",
+    "rule": "One flat book per work, stacked in a column per year along a single shelf: the width of the picture is the span of years, the height of a column is how many books that year. One ink colour; the accent marks the works the page recommends, and the caption says so. It must fit the phone width with a caption and a link to the full list, never a hidden sideways scroller.",
+    "carries": "how many works exist, in which years they were published, and which ones the page recommends",
+    "derived_from": "data/works.json: one rectangle per work, the page text prints the same count and years",
+    "asset": "assets/study-ledger-shelf.svg"
+  },
+  "motifs": [
+    {
+      "id": "trust-rule",
+      "use": "every quotation or claim whose source varies",
+      "rule": "A left rule whose style is the mark: solid = book named but unchecked, dashed = widely attributed, dotted = no source known, double accent = credited to someone else. Always with the word, and each mark is written as an action (say 'attributed to', do not quote, do not attribute). The legend is the filter: one control, not a legend plus a repeat of it. Counts are printed from the data."
+    },
+    {
+      "id": "ledger-margin",
+      "use": "dated lists",
+      "rule": "The year sits in the left margin in the accent colour, repeated years collapse to a dot, so the list reads as a ledger."
+    },
+    {
+      "id": "offset-card",
+      "use": "cards and portraits",
+      "rule": "A 2px ink border and a hard offset shadow (no blur); the whole card is the link target."
+    }
+  ],
+  "status_encoding": [
+    {
+      "state": "book named, unchecked",
+      "color": "ink",
+      "shape": "solid rule",
+      "word": "Book named, unchecked"
+    },
+    {
+      "state": "widely attributed",
+      "color": "ink",
+      "shape": "dashed rule",
+      "word": "Widely attributed"
+    },
+    {
+      "state": "no source known",
+      "color": "ink3",
+      "shape": "dotted rule",
+      "word": "No source known"
+    },
+    {
+      "state": "credited to someone else",
+      "color": "accent",
+      "shape": "double rule",
+      "word": "Credited to someone else"
+    }
+  ],
+  "motion": {
+    "allowed": [
+      "card lift on hover"
+    ],
+    "reduced_motion": "off",
+    "hover": "gated"
+  },
+  "floors": [
+    "mobile"
+  ],
+  "never": [
+    "a quotation without its mark",
+    "promoting a quote because it is popular",
+    "a contact form with nowhere to post",
+    "a fixed footer over the content",
+    "an unlabelled image whose licence is unknown (say so in the footer)",
+    "a top tier named as if verified when no source has been checked (name it 'unchecked' until a page is)",
+    "'could not find it' wording where no search was made (say 'not yet searched for')",
+    "a licence line that implies the photographs and quoted words are covered by the site's licence"
+  ],
+  "provenance": {
+    "source_run": "SolutionsAsService/ThomasSowell, Adaptive Full run bounded to one panel round (Krug, Debord, Cairo); see its DESIGN-LOG.md",
+    "date": "2026-11-08",
+    "measured": [
+      "Mobile Floor 12 of 12 at 360, 390 and 430px on all 5 pages, re-run after each change set",
+      "contrast preset n:0 on all pages; lowest measured pair 5.04:1 light, 6.66:1 dark",
+      "all printed figures equal the data files; the shelf has one rect per work",
+      "deep links, filters and hash fallbacks verified in a real browser; no-JS verified"
+    ],
+    "open": [
+      "one panel round; S1 and S2 not met",
+      "every quotation unchecked against a printed page; biography from general knowledge",
+      "the shelf is small at 390px (about 10px blocks); a two-row phone layout was not tried",
+      "no inclusion seat; not shown on a real phone"
+    ],
+    "grade": "B+",
+    "graded_by": "owner"
+  }
+}

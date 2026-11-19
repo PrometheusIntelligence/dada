@@ -1,0 +1,2275 @@
+{
+ "scale": "A finished, B good idea needs work, C sloppy, D redo, F cut; the person may add + or - (B+ is between B and A). Only the person grades; a piece below A stays in the queue until it earns A.",
+ "items": [
+  {
+   "id": "O_CLOCK",
+   "kind": "object",
+   "batch": "maps-1",
+   "grade": "A",
+   "said": "set 2 g1 A g2 c g3 c bushes look rough combining those maybe hedge and grave are B",
+   "date": "2026-11-08",
+   "status": "graded"
+  },
+  {
+   "id": "O_BUSH",
+   "kind": "object",
+   "batch": "maps-1",
+   "grade": "C",
+   "said": "set 2 g1 A g2 c g3 c bushes look rough combining those maybe hedge and grave are B",
+   "date": "2026-11-08",
+   "status": "redrawn_awaiting_grade",
+   "task": "the bushes look rough: combine the best of the versions (clean rounded clusters with a lit side, a clipped edge, a few deliberate blossoms)",
+   "previous_grade": "B",
+   "redo": "one mound, one light, five leaf lumps with lit crescents, clipped base, soil; O_BUSH3 adds evenly spaced blossoms"
+  },
+  {
+   "id": "B_THEEYE",
+   "kind": "colossus",
+   "batch": "colossi-1",
+   "grade": "A",
+   "said": "the eye one is an A",
+   "date": "2026-11-08",
+   "status": "graded"
+  },
+  {
+   "id": "B_FILEMAW",
+   "kind": "colossus",
+   "batch": "colossi-1",
+   "grade": "A",
+   "said": "as well as the computers monster",
+   "date": "2026-11-08",
+   "status": "graded",
+   "note": "the File-Maw"
+  },
+  {
+   "id": "B_BABELWORM",
+   "kind": "colossus",
+   "batch": "colossi-1",
+   "grade": "B",
+   "said": "worm js b needs work",
+   "date": "2026-11-08",
+   "status": "redrawn_awaiting_grade",
+   "previous": "B"
+  },
+  {
+   "id": "B_APEP",
+   "kind": "colossus",
+   "batch": "colossi-1",
+   "grade": "C",
+   "said": "c for snake cthulu worm js b needs work",
+   "date": "2026-11-08",
+   "status": "redrawn_awaiting_grade",
+   "previous": "C"
+  },
+  {
+   "id": "B_BOUNDONE",
+   "kind": "colossus",
+   "batch": "colossi-1",
+   "grade": "C",
+   "said": "c for snake cthulu",
+   "date": "2026-11-08",
+   "status": "redrawn_awaiting_grade",
+   "previous": "C",
+   "note": "the Cthulhu-like titan"
+  },
+  {
+   "id": "B_SEVENTHSTAIR",
+   "kind": "colossus",
+   "batch": "colossi-1",
+   "grade": "C",
+   "said": "all others are good idea but bit sloppy",
+   "date": "2026-11-08",
+   "status": "redrawn_awaiting_grade",
+   "previous": "C",
+   "inferred": true
+  },
+  {
+   "id": "CAST-1",
+   "kind": "character",
+   "batch": "characters-1",
+   "grade": null,
+   "said": "love those characters",
+   "date": "2026-11-08",
+   "status": "praised_ungraded",
+   "note": "the 36-character first cast; no per-sprite grades yet"
+  },
+  {
+   "id": "O_BUSH2",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "C",
+   "said": "set 2 g1 A g2 c g3 c bushes look rough combining those maybe hedge and grave are B",
+   "date": "2026-11-08",
+   "status": "redrawn_awaiting_grade",
+   "note": "redraw of the bush: overlapping circles, lit and shaded rims",
+   "task": "see O_BUSH",
+   "redo": "one mound, one light, five leaf lumps with lit crescents, clipped base, soil; O_BUSH3 adds evenly spaced blossoms"
+  },
+  {
+   "id": "O_BUSH3",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": null,
+   "said": null,
+   "date": "2026-11-08",
+   "status": "redrawn_awaiting_grade",
+   "previous": null,
+   "note": "not graded separately: the person said 'bushes look rough combining those'; treat as part of the bush redo",
+   "redo": "one mound, one light, five leaf lumps with lit crescents, clipped base, soil; O_BUSH3 adds evenly spaced blossoms"
+  },
+  {
+   "id": "O_HEDGE",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "assigned",
+   "note": "a seamless clipped hedge tile"
+  },
+  {
+   "id": "S_WOMAN_A",
+   "kind": "character",
+   "batch": "characters-2",
+   "grade": "A-",
+   "said": "Polish helped a lot a minus on most faceless robot and director are A great job on those",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "S_WOMAN_B",
+   "kind": "character",
+   "batch": "characters-2",
+   "grade": "A-",
+   "said": "Polish helped a lot a minus on most faceless robot and director are A great job on those",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "S_HISTORIAN",
+   "kind": "character",
+   "batch": "characters-2",
+   "grade": "A-",
+   "said": "Polish helped a lot a minus on most faceless robot and director are A great job on those",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "S_MECHANIC",
+   "kind": "character",
+   "batch": "characters-2",
+   "grade": "A-",
+   "said": "Polish helped a lot a minus on most faceless robot and director are A great job on those",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "S_NIGHTREADER",
+   "kind": "character",
+   "batch": "characters-2",
+   "grade": "A-",
+   "said": "Polish helped a lot a minus on most faceless robot and director are A great job on those",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "S_ELECTRICIAN",
+   "kind": "character",
+   "batch": "characters-2",
+   "grade": "A-",
+   "said": "Polish helped a lot a minus on most faceless robot and director are A great job on those",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "S_UNIT05",
+   "kind": "character",
+   "batch": "characters-2",
+   "grade": "A",
+   "said": "Polish helped a lot a minus on most faceless robot and director are A great job on those",
+   "date": "2026-11-08",
+   "status": "graded"
+  },
+  {
+   "id": "S_FACELESS",
+   "kind": "character",
+   "batch": "characters-2",
+   "grade": "A",
+   "said": "Polish helped a lot a minus on most faceless robot and director are A great job on those",
+   "date": "2026-11-08",
+   "status": "graded"
+  },
+  {
+   "id": "S_DIRECTOR",
+   "kind": "character",
+   "batch": "characters-2",
+   "grade": "A",
+   "said": "Polish helped a lot a minus on most faceless robot and director are A great job on those",
+   "date": "2026-11-08",
+   "status": "graded",
+   "note": "'director maybe a': tentative A; confirm"
+  },
+  {
+   "id": "O_GRAVE",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "A",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there [read as: grave A]",
+   "date": "2026-11-09",
+   "status": "graded",
+   "note": "'grave only A there' read as A; confirm"
+  },
+  {
+   "id": "O_SPHINXL",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "third set is all B except intercom A thatsgreat",
+   "date": "2026-11-08",
+   "status": "redrawn_awaiting_grade",
+   "task": "polish toward A",
+   "redo": "polish pass 2026-11-08: one light from the left (lit left edge, shaded right edge on each wide run); hedge and grave redrawn"
+  },
+  {
+   "id": "O_POLE",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "O_HARDHAT",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "O_TICKET",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "O_FAX",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "A",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "graded"
+  },
+  {
+   "id": "O_ELEVATOR",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "O_THRONE",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "O_KILN",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "O_GREENDESK",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "A",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "graded"
+  },
+  {
+   "id": "O_NICHECRT",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "O_SEALED",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "B",
+   "said": "fax and green desk are A others are still b due to weird scales",
+   "date": "2026-11-08",
+   "status": "assigned"
+  },
+  {
+   "id": "O_INTERCOM",
+   "kind": "object",
+   "batch": "library-2",
+   "grade": "A",
+   "said": "third set is all B except intercom A thatsgreat",
+   "date": "2026-11-08",
+   "status": "graded"
+  },
+  {
+   "id": "O_STLAMP",
+   "kind": "object",
+   "batch": "library-3",
+   "status": "graded",
+   "grade": "A",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_STONEWELL",
+   "kind": "object",
+   "batch": "library-3",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B-",
+   "said": "Much better tall but still b need a little depth and polish on edges etc; jars are only a, everything else lacks depth but okay B minus",
+   "date": "2026-11-08",
+   "redo": "depth pass (lit top, shaded underside and right side)"
+  },
+  {
+   "id": "O_STATUE",
+   "kind": "object",
+   "batch": "library-3",
+   "status": "graded",
+   "grade": "A",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_BRAZIER",
+   "kind": "object",
+   "batch": "library-3",
+   "status": "graded",
+   "grade": "A",
+   "said": "mostly lazier is A others all need work obelisk should be way taller dont feel need to fit them all same small box [transcription 'lazier' read as brazier, the only match; confirm]",
+   "date": "2026-11-08",
+   "note": "'lazier' = brazier (inferred)"
+  },
+  {
+   "id": "O_OBELISK",
+   "kind": "object",
+   "batch": "library-3",
+   "status": "graded",
+   "grade": "A",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_ALTAR",
+   "kind": "object",
+   "batch": "library-3",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B-",
+   "said": "Much better tall but still b need a little depth and polish on edges etc; jars are only a, everything else lacks depth but okay B minus",
+   "date": "2026-11-08",
+   "redo": "depth pass (lit top, shaded underside and right side)"
+  },
+  {
+   "id": "O_PHONEBOX",
+   "kind": "object",
+   "batch": "library-3",
+   "status": "graded",
+   "grade": "A",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_SIGNPOST",
+   "kind": "object",
+   "batch": "library-3",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B-",
+   "said": "Much better tall but still b need a little depth and polish on edges etc; jars are only a, everything else lacks depth but okay B minus",
+   "date": "2026-11-08",
+   "redo": "depth pass (lit top, shaded underside and right side)"
+  },
+  {
+   "id": "O_BOOKSHELF",
+   "kind": "object",
+   "batch": "library-4",
+   "status": "graded",
+   "grade": "A",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_EBOOKS",
+   "kind": "object",
+   "batch": "library-4",
+   "status": "graded",
+   "grade": "A",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_GCLOCK",
+   "kind": "object",
+   "batch": "library-4",
+   "status": "graded",
+   "grade": "A",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_WARD",
+   "kind": "object",
+   "batch": "library-4",
+   "status": "graded",
+   "grade": "A",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_ECHAIR",
+   "kind": "object",
+   "batch": "library-4",
+   "status": "redrawn_awaiting_grade",
+   "grade": "C",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there [read as: chairs not good]",
+   "date": "2026-11-09",
+   "redo": "redrawn 2026-11-09: chair as a plain panel-back chair first; table under a cloth with folds; candelabrum with arms",
+   "task": "redraw: a chair that looks like a chair first, then one wrong detail; real seat, back, legs with depth"
+  },
+  {
+   "id": "O_ETABLE",
+   "kind": "object",
+   "batch": "library-4",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09",
+   "redo": "redrawn 2026-11-09: chair as a plain panel-back chair first; table under a cloth with folds; candelabrum with arms",
+   "task": "more depth: stronger lit top, a real cast shadow, overlap"
+  },
+  {
+   "id": "O_EMIRROR",
+   "kind": "object",
+   "batch": "library-4",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B-",
+   "said": "Much better tall but still b need a little depth and polish on edges etc; jars are only a, everything else lacks depth but okay B minus",
+   "date": "2026-11-08",
+   "redo": "depth pass (lit top, shaded underside and right side)"
+  },
+  {
+   "id": "O_JARS",
+   "kind": "object",
+   "batch": "library-4",
+   "status": "graded",
+   "grade": "A",
+   "said": "Much better tall but still b need a little depth and polish on edges etc; jars are only a, everything else lacks depth but okay B minus",
+   "date": "2026-11-08"
+  },
+  {
+   "id": "O_CANDLES",
+   "kind": "object",
+   "batch": "library-4",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B",
+   "said": "Those tall ones are good now A do some different statues too candles and tables need more depth B chairs is not good grave only A there",
+   "date": "2026-11-09",
+   "redo": "redrawn 2026-11-09: chair as a plain panel-back chair first; table under a cloth with folds; candelabrum with arms",
+   "task": "more depth: stronger lit top, a real cast shadow, overlap"
+  },
+  {
+   "id": "O_STATJ",
+   "kind": "object",
+   "batch": "library-5",
+   "status": "retired",
+   "note": "uninspired; replaced by the Egyptian and Anunnaki set (O_ANUBIS, O_PHARAOH, O_LAMASSU, O_ENKI, O_APKALLU)",
+   "grade": "C",
+   "said": "Statues are c pretty uninspired tie them back to annumaki Egypt stuff those epstein maps look good keep working add the island outside maps etc continue add another shiny b grade for those maps",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_STATV",
+   "kind": "object",
+   "batch": "library-5",
+   "status": "retired",
+   "note": "uninspired; replaced by the Egyptian and Anunnaki set (O_ANUBIS, O_PHARAOH, O_LAMASSU, O_ENKI, O_APKALLU)",
+   "grade": "C",
+   "said": "Statues are c pretty uninspired tie them back to annumaki Egypt stuff those epstein maps look good keep working add the island outside maps etc continue add another shiny b grade for those maps",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "O_STATW",
+   "kind": "object",
+   "batch": "library-5",
+   "status": "retired",
+   "note": "uninspired; replaced by the Egyptian and Anunnaki set (O_ANUBIS, O_PHARAOH, O_LAMASSU, O_ENKI, O_APKALLU)",
+   "grade": "C",
+   "said": "Statues are c pretty uninspired tie them back to annumaki Egypt stuff those epstein maps look good keep working add the island outside maps etc continue add another shiny b grade for those maps",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "T_STRIPE",
+   "kind": "tile",
+   "batch": "library-5",
+   "status": "drawn_awaiting_grade",
+   "note": "blue-and-white striped wall; white and pale-blue floor (the island)"
+  },
+  {
+   "id": "T_TIDE",
+   "kind": "tile",
+   "batch": "library-5",
+   "status": "drawn_awaiting_grade",
+   "note": "blue-and-white striped wall; white and pale-blue floor (the island)"
+  },
+  {
+   "id": "MAP_is_dock",
+   "kind": "map",
+   "batch": "island-1",
+   "grade": "A-",
+   "said": "Yes yes very good those are all a minus for now can move on lets do some eldritch themed maps library and whatnot continue developing also do those statues and furniture for here",
+   "date": "2026-11-10",
+   "status": "graded",
+   "task": "polish toward A: richer dressing, a clear focal point per room",
+   "redo": "props on tables, flower beds, deckchairs, calmer ground, worn floor variants"
+  },
+  {
+   "id": "MAP_is_court",
+   "kind": "map",
+   "batch": "island-1",
+   "grade": "A-",
+   "said": "Yes yes very good those are all a minus for now can move on lets do some eldritch themed maps library and whatnot continue developing also do those statues and furniture for here",
+   "date": "2026-11-10",
+   "status": "graded",
+   "task": "polish toward A: richer dressing, a clear focal point per room",
+   "redo": "props on tables, flower beds, deckchairs, calmer ground, worn floor variants"
+  },
+  {
+   "id": "MAP_is_hall",
+   "kind": "map",
+   "batch": "island-1",
+   "grade": "A-",
+   "said": "Yes yes very good those are all a minus for now can move on lets do some eldritch themed maps library and whatnot continue developing also do those statues and furniture for here",
+   "date": "2026-11-10",
+   "status": "graded",
+   "task": "polish toward A: richer dressing, a clear focal point per room",
+   "redo": "props on tables, flower beds, deckchairs, calmer ground, worn floor variants"
+  },
+  {
+   "id": "MAP_is_study",
+   "kind": "map",
+   "batch": "island-1",
+   "grade": "A-",
+   "said": "Yes yes very good those are all a minus for now can move on lets do some eldritch themed maps library and whatnot continue developing also do those statues and furniture for here",
+   "date": "2026-11-10",
+   "status": "graded",
+   "task": "polish toward A: richer dressing, a clear focal point per room",
+   "redo": "props on tables, flower beds, deckchairs, calmer ground, worn floor variants"
+  },
+  {
+   "id": "MAP_is_shore",
+   "kind": "map",
+   "batch": "island-2",
+   "status": "graded",
+   "grade": "A-",
+   "said": "Yes yes very good those are all a minus for now can move on lets do some eldritch themed maps library and whatnot continue developing also do those statues and furniture for here",
+   "date": "2026-11-10",
+   "task": "more tiles (ground variety) and better object scale",
+   "redo": "props on tables, flower beds, deckchairs, calmer ground, worn floor variants"
+  },
+  {
+   "id": "MAP_is_airstrip",
+   "kind": "map",
+   "batch": "island-2",
+   "status": "graded",
+   "grade": "A-",
+   "said": "Yes yes very good those are all a minus for now can move on lets do some eldritch themed maps library and whatnot continue developing also do those statues and furniture for here",
+   "date": "2026-11-10",
+   "task": "the ground under the plane was broken (fixed: ground layer now runs under objects); a minus -> polish to A",
+   "redo": "plane now 7x3 cells (112x48), runway markings, apron slabs"
+  },
+  {
+   "id": "MAP_is_garden",
+   "kind": "map",
+   "batch": "island-2",
+   "status": "graded",
+   "grade": "A-",
+   "said": "Yes yes very good those are all a minus for now can move on lets do some eldritch themed maps library and whatnot continue developing also do those statues and furniture for here",
+   "date": "2026-11-10",
+   "task": "more tiles (ground variety) and better object scale",
+   "redo": "props on tables, flower beds, deckchairs, calmer ground, worn floor variants"
+  },
+  {
+   "id": "MAP_is_guests",
+   "kind": "map",
+   "batch": "island-2",
+   "status": "graded",
+   "grade": "A-",
+   "said": "Yes yes very good those are all a minus for now can move on lets do some eldritch themed maps library and whatnot continue developing also do those statues and furniture for here",
+   "date": "2026-11-10",
+   "task": "more tiles (ground variety) and better object scale",
+   "redo": "props on tables, flower beds, deckchairs, calmer ground, worn floor variants"
+  },
+  {
+   "id": "MAP_is_front",
+   "kind": "map",
+   "batch": "island-2",
+   "status": "graded",
+   "grade": "A-",
+   "said": "Yes yes very good those are all a minus for now can move on lets do some eldritch themed maps library and whatnot continue developing also do those statues and furniture for here",
+   "date": "2026-11-10",
+   "task": "more tiles (ground variety) and better object scale",
+   "redo": "props on tables, flower beds, deckchairs, calmer ground, worn floor variants"
+  },
+  {
+   "id": "O_ANUBIS",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "B",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus",
+   "date": "2026-11-10",
+   "task": "polish: finer shapes, consistent scale, edge and depth passes"
+  },
+  {
+   "id": "O_PHARAOH",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "B",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus",
+   "date": "2026-11-10",
+   "task": "polish: finer shapes, consistent scale, edge and depth passes"
+  },
+  {
+   "id": "O_LAMASSU",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "B",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus",
+   "date": "2026-11-10",
+   "task": "polish: finer shapes, consistent scale, edge and depth passes"
+  },
+  {
+   "id": "O_ENKI",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "B",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus",
+   "date": "2026-11-10",
+   "task": "polish: finer shapes, consistent scale, edge and depth passes"
+  },
+  {
+   "id": "O_APKALLU",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "B",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus",
+   "date": "2026-11-10",
+   "task": "polish: finer shapes, consistent scale, edge and depth passes"
+  },
+  {
+   "id": "O_SCARAB",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "C",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus [everything else pretty sloppy: C]",
+   "date": "2026-11-10",
+   "task": "redraw at a better scale and more carefully"
+  },
+  {
+   "id": "O_CAT",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "C",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus [everything else pretty sloppy: C]",
+   "date": "2026-11-10",
+   "task": "redraw at a better scale and more carefully"
+  },
+  {
+   "id": "O_WINDISC",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "C",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus [everything else pretty sloppy: C]",
+   "date": "2026-11-10",
+   "task": "redraw at a better scale and more carefully"
+  },
+  {
+   "id": "O_PALM",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "B+",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus",
+   "date": "2026-11-10",
+   "task": "polish to A"
+  },
+  {
+   "id": "O_WINDSOCK",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "C",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus [everything else pretty sloppy: C]",
+   "date": "2026-11-10",
+   "task": "redraw at a better scale and more carefully"
+  },
+  {
+   "id": "O_PLANEL",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "C",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus [everything else pretty sloppy: C]",
+   "date": "2026-11-10",
+   "task": "redraw at a better scale and more carefully"
+  },
+  {
+   "id": "O_DOMEL",
+   "kind": "object",
+   "batch": "ancient-1",
+   "status": "assigned",
+   "grade": "C",
+   "said": "Much better them statues but needs lot spolish B grade plan needs way more tiles factor in size of things better make a tool in gadad palm tree is B plus everything else pretty sloppy however the rooms are looking good air strip needs work C others are b plus [everything else pretty sloppy: C]",
+   "date": "2026-11-10",
+   "task": "redraw at a better scale and more carefully"
+  },
+  {
+   "id": "T_SAND",
+   "kind": "tile",
+   "batch": "ancient-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "O_PLANE1",
+   "kind": "object",
+   "batch": "ancient-2",
+   "status": "redrawn_awaiting_grade",
+   "redo": "3x2 was still too small: now 7x3",
+   "grade": null,
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10"
+  },
+  {
+   "id": "O_DOME1",
+   "kind": "object",
+   "batch": "ancient-2",
+   "status": "redrawn_awaiting_grade",
+   "redo": "redrawn as a 3x2 plane / 4x2 dome (scale)"
+  },
+  {
+   "id": "T_PATH",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_DIRT",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_FLAGS",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_COBBLE",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_PLANK",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_GRASS2",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_WETSAND",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_SHALLOW",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_RUNNER",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_BLUERUN",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_MOSS",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_CRACK",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_GRATE",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_MARBLE",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_INLAY",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_RUNWAY",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_RUNWAYM",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "T_TAXI",
+   "kind": "tile",
+   "batch": "ground-1",
+   "status": "redrawn_awaiting_grade",
+   "grade": "B+",
+   "said": "Runway B now needs working getting better those ground tiles all pass B plus just need more variation plane is still way too small scale check tool must not be working properly",
+   "date": "2026-11-10",
+   "redo": "variants added: 68 tiles, each family has 2 to 4 variants"
+  },
+  {
+   "id": "O_IDOL",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_SAINT",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_DROWNED",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_HEADLESS",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_HANDFOUNT",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_MOUTH",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_EYEJARS",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_LIVEBOOK",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_ARMCHAIR7",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_BONELAMP",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_GLOBE",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_CAGE",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_SKULLSHELF",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_PEW",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_CHEST",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_SIGIL",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_ORRERY1",
+   "kind": "object",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "T_BONEPAVE",
+   "kind": "tile",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "T_INKFLOOR",
+   "kind": "tile",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "T_VEINWALL",
+   "kind": "tile",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "T_SKULLWALL",
+   "kind": "tile",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "T_PAGES",
+   "kind": "tile",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "T_DEEP",
+   "kind": "tile",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "T_CIRCLE",
+   "kind": "tile",
+   "batch": "eldritch-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "MAP_el_stair",
+   "kind": "map",
+   "batch": "eldritch-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "MAP_el_unwritten",
+   "kind": "map",
+   "batch": "eldritch-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "MAP_el_eyes",
+   "kind": "map",
+   "batch": "eldritch-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "MAP_el_gallery",
+   "kind": "map",
+   "batch": "eldritch-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "MAP_el_ossuary",
+   "kind": "map",
+   "batch": "eldritch-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "MAP_el_cartog",
+   "kind": "map",
+   "batch": "eldritch-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "MAP_el_chapel",
+   "kind": "map",
+   "batch": "eldritch-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "MAP_el_menagerie",
+   "kind": "map",
+   "batch": "eldritch-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "MAP_el_circle",
+   "kind": "map",
+   "batch": "eldritch-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)",
+   "redo": "singles got the edge and depth passes; pages tile redrawn; maps: wall rows filled with wall-hung pieces, new dense library, cards, curios"
+  },
+  {
+   "id": "O_SHELFA",
+   "kind": "object",
+   "batch": "dense-library-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail"
+  },
+  {
+   "id": "O_SHELFB",
+   "kind": "object",
+   "batch": "dense-library-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail"
+  },
+  {
+   "id": "O_SHELFC",
+   "kind": "object",
+   "batch": "dense-library-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail"
+  },
+  {
+   "id": "O_SHELFD",
+   "kind": "object",
+   "batch": "dense-library-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail"
+  },
+  {
+   "id": "O_LADDER",
+   "kind": "object",
+   "batch": "dense-library-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail"
+  },
+  {
+   "id": "O_CARDCAT",
+   "kind": "object",
+   "batch": "dense-library-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail"
+  },
+  {
+   "id": "O_BOOKPILE",
+   "kind": "object",
+   "batch": "dense-library-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail"
+  },
+  {
+   "id": "O_SCROLLRACK",
+   "kind": "object",
+   "batch": "dense-library-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail"
+  },
+  {
+   "id": "O_CURIO",
+   "kind": "object",
+   "batch": "dense-library-1",
+   "status": "assigned",
+   "grade": "B-",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "needs work: refine shapes, scale and detail"
+  },
+  {
+   "id": "MAP_el_stacks",
+   "kind": "map",
+   "batch": "dense-library-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)"
+  },
+  {
+   "id": "MAP_el_cards",
+   "kind": "map",
+   "batch": "dense-library-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)"
+  },
+  {
+   "id": "MAP_el_curios",
+   "kind": "map",
+   "batch": "dense-library-1",
+   "status": "graded",
+   "grade": "B+",
+   "said": "Objects b minus need work rooms are b plus now tho getting much better the detailed dynamic is what we want for s loy of awesome set pieces",
+   "date": "2026-11-09",
+   "task": "more detail and a dynamic (see setpiece-craft.md)"
+  },
+  {
+   "id": "MAP_mb_lobby",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_mb_permits",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_mb_zoning",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_mb_treasury",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_mb_chamber",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_mb_mayor",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_mb_forms",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_of_2_3",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_dune",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_stair",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_gate",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_street",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_market",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_lanes",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_cistern",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_glass",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_sleep",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_clerks",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_sa_last",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_wa_gate",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_wa_chamber",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_wa_frag",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_wa_schism",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_wa_bound",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_wa_gallery",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "MAP_wa_last",
+   "kind": "map",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "S_MAYOR",
+   "kind": "sprite",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "S_COUNCILLOR",
+   "kind": "sprite",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "S_LOBBYIST",
+   "kind": "sprite",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "O_MBFLAG",
+   "kind": "object",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "O_MBPODIUM",
+   "kind": "object",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "O_MBENVCAB",
+   "kind": "object",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "O_MBFISH",
+   "kind": "object",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "O_MBTROPHY",
+   "kind": "object",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "O_MBPORTRAITS",
+   "kind": "object",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "O_MBNOWSERV",
+   "kind": "object",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "O_MBBALLOT",
+   "kind": "object",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "DESK_UI",
+   "kind": "interface",
+   "batch": "forms-sand-watchers-1",
+   "status": "graded",
+   "grade": "A+",
+   "said": "Very good names b eldrucy are good mske surr to theme them and paper work interface that's an a plus so good add some different stigg around that add the encounter ftamd continue dev",
+   "date": "2026-11-09"
+  },
+  {
+   "id": "AREA_BANNERS",
+   "kind": "interface",
+   "batch": "forms-sand-watchers-1",
+   "status": "assigned",
+   "grade": "B",
+   "said": "Very good names b eldrucy are good mske surr to theme them and paper work interface that's an a plus so good add some different stigg around that add the encounter ftamd continue dev",
+   "date": "2026-11-09",
+   "task": "the names are good; make sure every area is themed (contrast, ornament per theme); eldritch ones good"
+  },
+  {
+   "id": "DESK_PORTRAITS",
+   "kind": "art",
+   "batch": "forms-sand-watchers-1",
+   "status": "drawn_awaiting_grade"
+  },
+  {
+   "id": "ENC_FRAME",
+   "kind": "interface",
+   "batch": "encounters-1",
+   "status": "assigned",
+   "grade": "C+",
+   "said": "Encounter frame is okay but needs work c plus  expands more paperwork mini games around idea change up interfaces thsr was good continue",
+   "date": "2026-11-09",
+   "task": "needs work: bigger foe, a stage per encounter (scale, slate, river, desk, dome), move cards with damage pips; more paperwork mini games with different interfaces"
+  },
+  {
+   "id": "DESK_THEMES",
+   "kind": "interface",
+   "batch": "encounters-1",
+   "status": "graded",
+   "grade": "A",
+   "said": "Encounter frame is okay but needs work c plus  expands more paperwork mini games around idea change up interfaces thsr was good continue [the interfaces were good]",
+   "date": "2026-11-09",
+   "note": "inferred A: 'interfaces thsr was good'"
+  },
+  {
+   "id": "mini_switchboard",
+   "note": "telephone switchboard mini game interface",
+   "grade": "A-",
+   "status": "graded",
+   "user_words": "A minus, pretty good",
+   "said": "A minus, pretty good"
+  },
+  {
+   "id": "mini_redaction",
+   "note": "redaction desk mini game interface",
+   "grade": "A-",
+   "status": "graded",
+   "user_words": "A minus, pretty good",
+   "said": "A minus, pretty good"
+  },
+  {
+   "id": "mini_ledger",
+   "note": "ledger audit mini game interface",
+   "grade": "A-",
+   "status": "graded",
+   "user_words": "A minus, pretty good",
+   "said": "A minus, pretty good"
+  },
+  {
+   "id": "encounter_frame_v2",
+   "note": "stage-based encounter frame v2 (prev C+)",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "mini_spreadsheet",
+   "note": "spreadsheet balance-the-books mini game, accountant's machine",
+   "grade": "B",
+   "status": "graded with the other mini games: okay",
+   "said": "okay"
+  },
+  {
+   "id": "dialogue_dry_voice",
+   "note": "dry deadpan dialogue pass (WWDITS / Edgar Wright register): excerpts sent for grading",
+   "grade": "B+",
+   "status": "graded; 'you get the style right'",
+   "said": "B+/A- overall; 'you get the style right'"
+  },
+  {
+   "id": "dlg_info_clerk",
+   "note": "dialogue line",
+   "grade": "B+",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_window4",
+   "note": "dialogue line",
+   "grade": "C+",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_councillor_vote",
+   "note": "dialogue line",
+   "grade": "C+",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_councillor_abstain",
+   "note": "dialogue line",
+   "grade": "A",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_safety_officer",
+   "note": "dialogue line",
+   "grade": "A",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_receptionist",
+   "note": "dialogue line",
+   "grade": "B",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_secretary",
+   "note": "dialogue line",
+   "grade": "B",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_mail_sorter",
+   "note": "dialogue line",
+   "grade": "A-",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_reply_clerk",
+   "note": "dialogue line",
+   "grade": "C",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_payroll",
+   "note": "dialogue line",
+   "grade": "C",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_maurice_rosen",
+   "note": "dialogue line",
+   "grade": "B+",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_dream_pupil_cake",
+   "note": "dialogue line",
+   "grade": "B",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_pale_rosen",
+   "note": "dialogue line",
+   "grade": "B+",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "dlg_mayor_rosen",
+   "note": "dialogue line",
+   "grade": "B+",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "mini_telegram",
+   "note": "telegram decoder mini game (radio station)",
+   "grade": "B",
+   "status": "graded: okay; wants more detail/style/cohesion across the office/business games",
+   "said": "okay; wants more detail/style/cohesion across the office/business games"
+  },
+  {
+   "id": "dialogue_pass2",
+   "note": "34 dry lines: sand, watchers, island, archive",
+   "grade": "C",
+   "status": "graded: okay",
+   "said": "okay"
+  },
+  {
+   "id": "dialogue_faces",
+   "note": "32x32 faces for every person, popup over dialogue box",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "mini_desk_props",
+   "note": "shared desk props, seal and sticky notes across mini games",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "faces_v3_stardew",
+   "note": "48x48 Stardew-style faces for 260 people",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "npc_run_v2_variety",
+   "note": "variety rewrite: forms, species voices, reactions",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "dialogue_all_cast",
+   "note": "full-cast dialogue after the v2 rewrite",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "face_hq_board_a",
+   "note": "company secretary face",
+   "grade": "A",
+   "status": "regraded after the sash/keys/clean-face pass",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "face_tn_harold7",
+   "note": "Harold-7, the retired robot",
+   "grade": "A",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "face_mb_mayor",
+   "note": "the Mayor",
+   "grade": "B",
+   "status": "graded",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "face_gatekeepers",
+   "note": "the gatekeepers",
+   "grade": "A",
+   "status": "regraded after the sash/keys/clean-face pass",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "faces_blush_rule",
+   "note": "cheeks do not suit most characters: blush only on a few (now opt-in per person)",
+   "status": "graded",
+   "kind": "note"
+  },
+  {
+   "id": "beasts_anubis",
+   "note": "animal-headed people: Anubis, ibis, falcon, cat, ram, crocodile",
+   "grade": "B+",
+   "status": "graded after the polish pass",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "face_tn_maurice",
+   "note": "Maurice Bell, the bird-headed salesman: the reference for animal faces (round head, big eyes, strong colour, hat, clothes)",
+   "grade": "A",
+   "status": "graded again after the bird polish",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "lizard_neck_oval",
+   "note": "the pale oval under the reptile snout read as an oval neck: removed (lesson: a pale ellipse under a chin reads as a neck, use a clean jaw line)",
+   "status": "fixed",
+   "kind": "note"
+  },
+  {
+   "id": "maypole_dance_v2",
+   "note": "rule-applying maypole dance (replaces the memory version, which was C)",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "midsummer_scenes",
+   "note": "six Midsummer maps",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "mask_fitting",
+   "note": "mask fitting screen",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "visitor_unease",
+   "note": "the Visitor and 272 per-person reactions",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "beast_sprites_v2",
+   "note": "animal-headed map sprites v2: big heads, one pushed lever, five bodies",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "clue_web_encounters",
+   "note": "7 clue-web encounters + 4 new stages (meadow, garden, gate, cabinet)",
+   "grade": null,
+   "status": "awaiting grade"
+  },
+  {
+   "id": "map_dr_mem_kitchen",
+   "note": "dream kitchen: counter run on the top wall, table ringed by chairs, rug, calm lino",
+   "grade": "A-",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_an_unborn_throne",
+   "note": "throne room: focal throne, mirrored statues, central runner, calm carpet",
+   "grade": "A-",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_ar_stair_a",
+   "note": "library stair: 'ok'",
+   "grade": "B+",
+   "status": "graded 2026-11-10",
+   "said": "'ok'"
+  },
+  {
+   "id": "map_detail_pass_others",
+   "note": "an_arch_gate, uc_cell2, red_hallway, el_gallery, uc_f07, dr_mid_barn: 'need detail refinement'",
+   "grade": "B",
+   "status": "graded 2026-11-10",
+   "said": "'need detail refinement'"
+  },
+  {
+   "id": "refine_set_a_sheet",
+   "grade": "A-",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_el_gallery_v2",
+   "grade": "C",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_dr_mid_barn_v2",
+   "grade": "A",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_is_guests_v2",
+   "grade": "A",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_is_court_v2",
+   "grade": "A",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_an_stair3_v2",
+   "grade": "C",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_tn_park_v2",
+   "grade": "A",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_ar_duplicates_v2",
+   "grade": "A",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "map_uc_found2_v2",
+   "grade": "A",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "music_soundtrack_v1",
+   "grade": "A-",
+   "note": "'very good' but too short",
+   "status": "graded 2026-11-10",
+   "said": "'very good'"
+  },
+  {
+   "id": "music_sand",
+   "grade": "A",
+   "note": "draw it out",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "music_labyrinth",
+   "grade": "A",
+   "note": "",
+   "status": "graded 2026-11-10",
+   "said": "(graded in chat; the person's words were not recorded)"
+  },
+  {
+   "id": "music_soundtrack_v2",
+   "grade": "A",
+   "note": "'Beautiful, great work': A-B-A' forms, 8-21 s loops",
+   "status": "graded 2026-11-10",
+   "said": "'Beautiful, great work'"
+  },
+  {
+   "id": "vatican_maps_v1",
+   "grade": "B",
+   "note": "15 maps: 'B so far, need refine'",
+   "status": "graded 2026-11-10",
+   "said": "'B so far, need refine'"
+  },
+  {
+   "id": "estate_maps_v1",
+   "grade": "B+",
+   "note": "'looks good'",
+   "status": "graded 2026-11-10",
+   "said": "'looks good'"
+  },
+  {
+   "id": "wander_maps_v1",
+   "grade": "B+",
+   "note": "'maps are getting better on one shots'",
+   "status": "graded 2026-11-10",
+   "said": "'maps are getting better on one shots'"
+  },
+  {
+   "id": "vatican_maps_v2",
+   "grade": null,
+   "note": "awaiting grade",
+   "status": "awaiting grade"
+  }
+ ],
+ "wishlist": [
+  {
+   "id": "S_WOMAN_A",
+   "kind": "character",
+   "source": "the person",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "S_WOMAN_B",
+   "kind": "character",
+   "source": "the person",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "S_HISTORIAN",
+   "kind": "character",
+   "source": "the person",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "S_MECHANIC",
+   "kind": "character",
+   "source": "the person",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "S_NIGHTREADER",
+   "kind": "character",
+   "source": "the person",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "S_DIRECTOR",
+   "kind": "character",
+   "source": "the person",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "S_ELECTRICIAN",
+   "kind": "character",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "S_UNIT05",
+   "kind": "character",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_SPHINXL",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_GRAVE",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_POLE",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_HARDHAT",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_TICKET",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_FAX",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_INTERCOM",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_ELEVATOR",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_THRONE",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_KILN",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_GREENDESK",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_NICHECRT",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  },
+  {
+   "id": "O_SEALED",
+   "kind": "object",
+   "source": "the world designers",
+   "status": "done",
+   "batch": "library-2"
+  }
+ ]
+}

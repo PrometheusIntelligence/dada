@@ -1,0 +1,120 @@
+{
+  "designpack_version": "1",
+  "id": "esoteric-plate",
+  "name": "Esoteric Plate",
+  "version": "0.1.0",
+  "status": "draft",
+  "summary": "Black on warm paper, a thick top bar, a condensed sans and a mono, one breakpoint, fluid type with a floor. The reference for a page that is already good on a phone: nothing shrunk to fit.",
+  "intent": {
+    "mood": "austere, editorial, a printed plate",
+    "for": [
+      "reference and catalogue sites",
+      "long-form lists of named things",
+      "pages where the type is the design"
+    ],
+    "not_for": [
+      "dashboards",
+      "pages that need a status palette"
+    ]
+  },
+  "tokens": {
+    "modes": {
+      "light": {
+        "paper": "#F4F1EA",
+        "ink": "#000000",
+        "muted": "#3d3a33",
+        "code": "#ffffff"
+      },
+      "dark": {
+        "paper": "#0d0d0d",
+        "ink": "#F4F1EA",
+        "muted": "#c9c4b8",
+        "code": "#1a1a1a"
+      }
+    },
+    "pairs": [
+      {
+        "fg": "ink",
+        "bg": "paper",
+        "role": "text body",
+        "min_ratio": 7
+      },
+      {
+        "fg": "muted",
+        "bg": "paper",
+        "role": "text secondary",
+        "min_ratio": 7
+      },
+      {
+        "fg": "ink",
+        "bg": "code",
+        "role": "text code",
+        "min_ratio": 7
+      }
+    ],
+    "type": {
+      "display": "\"Archivo\", \"Arial Narrow\", Arial, sans-serif",
+      "text": "\"Archivo\", \"Arial Narrow\", Arial, sans-serif",
+      "mono": "\"JetBrains Mono\", ui-monospace, Consolas, monospace",
+      "base_px": 17,
+      "floor_px": 12
+    },
+    "shape": {
+      "radius_px": 0,
+      "target_px": 44,
+      "note": "hard edges; one 8px bar at the top; fluid type via clamp() with a floor, one breakpoint at 760px"
+    }
+  },
+  "signature": {
+    "name": "the bar and the rule",
+    "rule": "An 8px black bar across the top and ruled lines in place of boxes; emphasis is weight and case, never colour.",
+    "carries": "the page's structure: every rule is a section boundary and every bar is a masthead",
+    "derived_from": "the page's own headings",
+    "asset": "none"
+  },
+  "motifs": [
+    {
+      "id": "clamp-type",
+      "use": "all type",
+      "rule": "clamp() with a floor of 12 to 15px; never add a breakpoint to reduce a size."
+    }
+  ],
+  "status_encoding": [
+    {
+      "state": "emphasis",
+      "color": "ink",
+      "shape": "bold weight",
+      "word": "bold"
+    },
+    {
+      "state": "secondary",
+      "color": "muted",
+      "shape": "regular weight",
+      "word": "muted"
+    }
+  ],
+  "motion": {
+    "allowed": [],
+    "reduced_motion": "off",
+    "hover": "gated"
+  },
+  "floors": [
+    "mobile"
+  ],
+  "never": [
+    "a colour accent",
+    "a second breakpoint added to shrink type",
+    "box shadows"
+  ],
+  "provenance": {
+    "source_run": "SolutionsAsService/esoteric-languages (the mobile-good reference in dada's mobile standard)",
+    "date": "2026-11-08",
+    "measured": [
+      "Mobile Floor 12 of 12 on all 17 pages (check_floor.py)"
+    ],
+    "open": [
+      "the owner graded its mobile behaviour only, not the whole design",
+      "no status vocabulary: a page that needs one should not use this pack alone"
+    ]
+  }
+}

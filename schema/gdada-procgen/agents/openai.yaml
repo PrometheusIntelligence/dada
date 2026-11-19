@@ -1,0 +1,4 @@
+interface:
+  display_name: "GDADA procedural generation"
+  short_description: "Procedural maps and cities for games, with validators"
+  default_prompt: "Use $gdada-procgen to build or improve procedural maps and cities with contracts, reach checks and validators."

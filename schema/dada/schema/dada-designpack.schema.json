@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/PrometheusIntelligence/dada/skills/dada/schema/dada-designpack.schema.json",
+  "title": "DADA design pack",
+  "description": "A design language as data: tokens, one signature motif that carries a fact, a status vocabulary that never rests on colour alone, and the evidence it was graded on. A run picks a pack at R0 instead of inventing a look; the Mobile Floor still applies to every pack and no pack can waive it.",
+  "type": "object",
+  "required": ["designpack_version", "id", "name", "version", "status", "summary", "intent", "tokens", "signature", "status_encoding", "motion", "floors", "never", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "designpack_version": {"const": "1"},
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+    "name": {"type": "string"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"enum": ["draft", "adopted"], "description": "adopted needs a grade from someone other than the run that made it"},
+    "summary": {"type": "string"},
+    "intent": {
+      "type": "object", "required": ["mood", "for", "not_for"], "additionalProperties": false,
+      "properties": {
+        "mood": {"type": "string"},
+        "for": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "not_for": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "tokens": {
+      "type": "object", "required": ["modes", "pairs", "type", "shape"], "additionalProperties": false,
+      "properties": {
+        "modes": {"type": "object", "patternProperties": {"^(dark|light)$": {"$ref": "#/$defs/colors"}}, "additionalProperties": false},
+        "pairs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/pair"}},
+        "type": {
+          "type": "object", "required": ["display", "text", "mono", "base_px", "floor_px"], "additionalProperties": false,
+          "properties": {
+            "display": {"type": "string"}, "text": {"type": "string"}, "mono": {"type": "string"},
+            "base_px": {"type": "integer", "minimum": 15},
+            "floor_px": {"type": "integer", "minimum": 12}
+          }
+        },
+        "shape": {
+          "type": "object", "required": ["radius_px", "target_px"], "additionalProperties": false,
+          "properties": {"radius_px": {"type": "integer", "minimum": 0}, "target_px": {"type": "integer", "minimum": 44}, "note": {"type": "string"}}
+        }
+      }
+    },
+    "signature": {
+      "type": "object", "required": ["name", "rule", "carries", "asset"], "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string"},
+        "rule": {"type": "string"},
+        "carries": {"type": "string", "description": "the fact the motif encodes; a motif that carries none is decoration and is refused"},
+        "derived_from": {"type": "string", "description": "where the motif's numbers come from, so it cannot drift from the page's text"},
+        "asset": {"type": "string", "description": "path of the drawing, relative to the pack file, or `none`"}
+      }
+    },
+    "motifs": {
+      "type": "array",
+      "items": {"type": "object", "required": ["id", "use", "rule"], "additionalProperties": false,
+                "properties": {"id": {"type": "string"}, "use": {"type": "string"}, "rule": {"type": "string"}}}
+    },
+    "status_encoding": {
+      "type": "array", "minItems": 2,
+      "items": {"type": "object", "required": ["state", "color", "shape", "word"], "additionalProperties": false,
+                "properties": {"state": {"type": "string"}, "color": {"type": "string"}, "shape": {"type": "string"}, "word": {"type": "string"}}}
+    },
+    "motion": {
+      "type": "object", "required": ["allowed", "reduced_motion"], "additionalProperties": false,
+      "properties": {"allowed": {"type": "array", "items": {"type": "string"}}, "reduced_motion": {"const": "off"}, "hover": {"const": "gated"}}
+    },
+    "floors": {"type": "array", "minItems": 1, "items": {"enum": ["mobile"]}},
+    "never": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "provenance": {
+      "type": "object", "required": ["source_run", "date", "measured", "open"], "additionalProperties": false,
+      "properties": {
+        "source_run": {"type": "string"},
+        "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+        "grade": {"enum": ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"]},
+        "graded_by": {"type": "string"},
+        "measured": {"type": "array", "items": {"type": "string"}},
+        "open": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "colors": {"type": "object", "patternProperties": {"^[a-z][a-z0-9-]*$": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"}}, "additionalProperties": false},
+    "pair": {
+      "type": "object", "required": ["fg", "bg", "role", "min_ratio"], "additionalProperties": false,
+      "properties": {"fg": {"type": "string"}, "bg": {"type": "string"}, "role": {"type": "string"}, "min_ratio": {"type": "number"}}
+    }
+  }
+}

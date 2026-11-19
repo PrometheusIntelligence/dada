@@ -1,0 +1,4 @@
+interface:
+  display_name: "GDADA art with parallel sub-agent authors"
+  short_description: "Parallel sub-agent art for games"
+  default_prompt: "Use $gdada-art-subagents to split a sprite or model roster across parallel authors with contracts, validators and one build."

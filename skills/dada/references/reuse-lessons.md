@@ -29,3 +29,9 @@ The palette had the same shape of failure. The rule says to derive the palette f
 - **Vary the ground between siblings.** If the last site was dark, the next opens light, or the reverse.
 - **Brief one seat to compare.** Seat a critic whose duty is "does this repeat the previous site?" with the sibling's screenshot in the evidence file.
 - **Reuse is a decision record**, not a default: one line per carried-over part, with the grade it came from.
+
+## Lesson from Done by 6 (2026-11): the first pass was "very basic, boilerplate"
+- A clean, correct, accessible SaaS look is not a design. The first redo passed the Mobile Floor and still read as a template. Passing the floor is a gate, not a direction: pick a single idea that only this product could have (here, the day as a 12-hour clock with 6 at the bottom, the page background as the sky at the rep's time) and let it drive colour, header, dial and copy.
+- Make the idea live on the data: the dial uses the real day, excludes example data, and has its own copy for weekend, before-start, during and after-hours.
+- Re-check every state the idea creates. A time-of-day sky means text on bare sky flips colour at night; any text that sits outside a panel must use the sky's text colour, and fixed-colour links or help text must sit on a panel. This was found only by repeating the contrast measurement across time states, because it failed on some runs and passed on others.
+- Keep the one thing the owner liked (the proposal's little clock) and rebuild everything around it.

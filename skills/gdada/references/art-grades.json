@@ -2121,6 +2121,24 @@
    "grade": null,
    "note": "awaiting grade",
    "status": "awaiting grade"
+  },
+  {
+   "id": "terraria_sprites_v1",
+   "kind": "sprites",
+   "batch": "terraria-khemet + terraria-olympia, first pass (psprite painters)",
+   "grade": "C-",
+   "said": "First think we need to use gdada to redo those sprites a lot about c maybe grade now generous c possible a D",
+   "date": "2026-11-24",
+   "status": "graded 2026-11-24: C- (generous C, possibly D); redrawn, v2 awaiting grade",
+   "task": "redraw with lit primitives, selective outline, silhouette plans"
+  },
+  {
+   "id": "terraria_sprites_v2",
+   "kind": "sprites",
+   "batch": "terraria-khemet + terraria-olympia, redrawn with tlib/art.py (lit primitives, five-tone ramps, hard bands, selective outline); grading sheets G1..G38 (Khemet) and G1..G43 (Olympia) in each repo's preview/",
+   "grade": null,
+   "note": "awaiting grade; my own read C+/B- (items and tiles clearly better, bosses have silhouettes but sausage limbs and a boxy Sun Pharaoh headdress)",
+   "status": "awaiting grade"
   }
  ],
  "wishlist": [

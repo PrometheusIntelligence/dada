@@ -3,6 +3,7 @@
  * Measure a mobile app (rendered as its web build) at phone sizes, the way the DADA Mobile run needs.
  *
  *   node tools/mobile-measure.mjs --base http://localhost:8099 --routes /,/explore,/docs --out /tmp/shots
+ *   node tools/mobile-measure.mjs --base URL --routes /,/send --seed '{"key":"value"}'   # localStorage seeded before load (a signed-in state)
  *   node tools/mobile-measure.mjs --selftest        # the probe must FAIL a page built to fail it
  *
  * Needs Playwright (`require('playwright')` must resolve; set PLAYWRIGHT=/path/to/playwright if it lives elsewhere).
@@ -12,7 +13,7 @@
  *   text       visible text smaller than 12 px
  *   contrast   WCAG contrast of visible text against its nearest opaque background (4.5:1, 3:1 for 24px+ or 18.66px+ bold)
  *   chrome     fixed/sticky bars (tab bar, header) overlapping the last piece of content once scrolled to the end
- *   fold       bottom edge of the first content block against the device height (is the first screen complete?)
+ *   fold       how far content reaches against the device height; it FAILS only for routes named in --complete (a screen that must fit without scrolling, such as onboarding)
  * `--fail` rows are printed; the exit code is the number of failing probes (capped at 99), so 0 is clean.
  * A web render is NOT a native emulator: it shows layout, size and colour, not Face ID, the keystore, system fonts or safe areas.
  */
@@ -30,7 +31,7 @@ const DEVICES = {
 const args = Object.fromEntries(process.argv.slice(2).map((a, i, all) => a.startsWith('--') ? [a.slice(2), all[i + 1] && !all[i + 1].startsWith('--') ? all[i + 1] : true] : []).filter((x) => x.length));
 
 // Runs in the page. Returns rows of {probe, el, value, fail}.
-const PROBES = ({ width: W, height: H }) => {
+const PROBES = ({ width: W, height: H, complete }) => {
   const rows = [];
   const vis = (e) => { const r = e.getBoundingClientRect(), s = getComputedStyle(e); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && +s.opacity > 0; };
   const label = (e) => (e.getAttribute('aria-label') || e.innerText || e.tagName).trim().replace(/\s+/g, ' ').slice(0, 40);
@@ -49,7 +50,20 @@ const PROBES = ({ width: W, height: H }) => {
   }
   const lum = ([r, g, b]) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
   const parse = (c) => { const m = c.match(/rgba?\(([^)]+)\)/); if (!m) return null; const p = m[1].split(/[ ,/]+/).map(Number); return { rgb: p.slice(0, 3), a: p.length > 3 ? p[3] : 1 }; };
-  const bgOf = (e) => { let n = e; while (n) { const c = parse(getComputedStyle(n).backgroundColor); if (c && c.a > 0.95) return c.rgb; n = n.parentElement; } return [255, 255, 255]; };
+  // The colour a glyph is really read against: composite every background layer under the text's centre (elementsFromPoint),
+  // so translucent chips and backgrounds painted by a sibling layer count, not only the element's own ancestors.
+  const bgOf = (e) => {
+    e.scrollIntoView({ block: 'center' }); // sample where the text really is; a point clamped to the viewport reads another element's colour
+    const r = e.getBoundingClientRect(), x = Math.min(Math.max(r.left + r.width / 2, 1), innerWidth - 1), y = Math.min(Math.max(r.top + Math.min(r.height / 2, 8), 1), innerHeight - 1);
+    const layers = [];
+    for (const n of document.elementsFromPoint(x, y)) {
+      const c = parse(getComputedStyle(n).backgroundColor);
+      if (c && c.a > 0 && !(n === e)) { layers.push(c); if (c.a > 0.95) break; }
+    }
+    let base = [255, 255, 255];
+    for (const c of layers.reverse()) base = base.map((v, i) => c.rgb[i] * c.a + v * (1 - c.a));
+    return base;
+  };
   const seen = new Set();
   for (const e of document.querySelectorAll('body *')) {
     if (!vis(e) || ![...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) continue;
@@ -72,23 +86,25 @@ const PROBES = ({ width: W, height: H }) => {
   for (const b of bars) rows.push({ probe: 'chrome', el: 'bottom bar', value: `last content ends ${Math.round(lastBottom)}, bar starts ${Math.round(b.getBoundingClientRect().top)}`, fail: lastBottom > b.getBoundingClientRect().top + 1 });
   for (const sc of scrollers) sc.scrollTop = 0; window.scrollTo(0, 0);
   const first = content.filter((e) => e.getBoundingClientRect().top < H).map((e) => e.getBoundingClientRect().bottom);
-  rows.push({ probe: 'fold', el: 'first screen', value: `content to ${Math.round(Math.max(0, ...first))} of ${H}`, fail: Math.max(0, ...first) > H });
+  rows.push({ probe: 'fold', el: 'first screen', value: `content to ${Math.round(Math.max(0, ...first))} of ${H}`, fail: complete && Math.max(0, ...first) > H });
   return rows;
 };
 
-async function run(base, routes, devices, out) {
+const completeRoutes = String(args.complete || '').split(',').filter(Boolean); // routes whose first screen must be fully visible without scrolling
+async function run(base, routes, devices, out, seed) {
   mkdirSync(out, { recursive: true });
   const browser = await chromium.launch();
   const all = [];
   for (const d of devices) {
     const ctx = await browser.newContext(DEVICES[d]);
+    if (seed) await ctx.addInitScript((kv) => { for (const [k, v] of Object.entries(kv)) localStorage.setItem(k, v); }, seed);
     const page = await ctx.newPage();
     for (const route of routes) {
       await page.goto(base + route, { waitUntil: 'networkidle' }).catch(() => {});
       await page.waitForTimeout(800);
       const name = `${d}${route.replace(/[^a-z0-9]+/gi, '-').replace(/-$/, '') || '-home'}`;
       await page.screenshot({ path: `${out}/${name}.png` });
-      for (const r of await page.evaluate(PROBES, DEVICES[d].viewport)) all.push({ device: d, route, ...r });
+      for (const r of await page.evaluate(PROBES, { ...DEVICES[d].viewport, complete: completeRoutes.includes(route) })) all.push({ device: d, route, ...r });
     }
     await ctx.close();
   }
@@ -128,6 +144,6 @@ if (args.selftest) {
 const base = args.base, routes = String(args.routes || '/').split(','), out = args.out || './mobile-shots';
 const devices = String(args.devices || 'iphone-15-pro,pixel-7').split(',');
 if (!base) { console.error('usage: --base URL [--routes /,/a] [--devices iphone-15-pro,iphone-se,pixel-7] [--out dir] | --selftest'); process.exit(2); }
-const rows = await run(base, routes, devices, out);
+const rows = await run(base, routes, devices, out, args.seed ? JSON.parse(args.seed) : undefined);
 writeFileSync(`${out}/measure.json`, JSON.stringify(rows, null, 1));
 process.exit(Math.min(99, report(rows)));

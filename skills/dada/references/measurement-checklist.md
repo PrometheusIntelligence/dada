@@ -47,3 +47,22 @@ names the failure that put it here; the lesson numbers refer to `LESSONS.md` in 
 
 Give the panel one evidence file per round: what was measured, how, when (after which edit), and the raw numbers in a
 file beside it. A number measured before the last edit is stale and is re-run, not reported.
+
+## A phone app (Mobile run)
+
+`tools/mobile-measure.mjs` renders the app's web build at iPhone 15 Pro, iPhone SE and Pixel 7 sizes and runs six probes. Run
+`--selftest` first: it serves two pages built to fail every probe, and the tool exits non-zero if any probe reports clean.
+
+- **targets**: every link, button, input and role=button element is at least 44 x 44 CSS px. A pressable row that looks big but
+  renders 30 px tall fails here, not in the screenshot.
+- **text** and **contrast**: nothing under 12 px; 4.5:1 against the nearest opaque background (3:1 for large text). Muted
+  grey-on-dark is the usual failure on a dark theme.
+- **chrome**: scrolled to the end, the last content row ends above the tab bar. A bar that covers the last card hides the action.
+- **overflow**: no sideways scroll; no clipped text.
+- **fold**: how far the first screen's content runs against the device height.
+- **A web render is not an emulator.** Label every capture. Face ID prompts, secure storage, system fonts and safe-area insets
+  are not shown, and a capture must never be described as an iOS or Android emulator when it came from a browser.
+- **The contrast probe cannot read a gradient.** It composites `background-color` layers; a `linear-gradient` is a background
+  image, so text on a gradient hero reads as the page colour behind it and passes. The first Autheo wallet redesign printed
+  `contrast 0 / 474` while a teal chip sat at about 2.5:1 on the green hero, found by eye. Measure text on gradients by
+  sampling pixels from the capture (`tools/pixcontrast.py`), or give such text a fixed light colour and say so.

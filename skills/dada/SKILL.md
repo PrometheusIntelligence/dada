@@ -65,6 +65,15 @@ Mode sets the governing criterion. Run type sets **how much of the artifact may 
 5. **Move, don't delete.** Whatever the hero displaces (a previous hero, an animation, a single strong chart) goes below the hero or to its own page, linked from the hero.
 6. **Push once** (S4): make the boldest element bigger or sharper and re-measure.
 
+**The Mobile run (a phone app: Android, iOS, or both).** Invoke it with "mobile app", "phone app", "app screens", "Expo", "React Native", or when the artifact is an app whose screens are read on a phone. It is a run type like the others: pick Full, Polish or Extend for how much may change, and add this for how the work is judged. A phone app is judged on screens a thumb uses, not on a page that scrolls, and the web-page rules do not carry over by themselves. Steps, in addition to the workflow:
+1. **Inventory the screens and the one journey** (for a wallet: create or import, see the balance, receive, send and approve). Name the screen each journey step lands on; the redesign is judged on the whole journey, and every screen in it is rendered.
+2. **Brand from the owner's own material, not from a guess.** Take the palette, type and mark from the owner's repos, site or style guide, and write the source of every token in the Decision Record. If the owner says only "green" or similar, find the nearest documented palette and record what was assumed.
+3. **Design the thumb zone.** Primary actions in the lower half; targets at least 44 x 44 CSS px (iOS) and 48 dp (Android); the bottom bar never covers the last row; text at least 12 px, body text 16 px; contrast 4.5:1 (3:1 for 24 px or 18.66 px bold). A dense screen opens in its calm state.
+4. **Render at real device sizes** with `tools/mobile-measure.mjs` (iPhone 15 Pro, iPhone SE, Pixel 7 presets) at deviceScaleFactor 2: one capture per screen per device, and the probes (`overflow`, `targets`, `text`, `contrast`, `chrome`, `fold`). Run `--selftest` first: every probe must fail the page built to fail it. Open every capture before the panel sees it.
+5. **Say what the render is.** A web build in a phone-sized browser is not an iOS or Android emulator: it shows layout, size and colour, not Face ID, the keystore, system fonts or safe areas. The Panel Report and the final reply state which it was; never describe a web render as a device capture.
+6. **Panel.** At least `Critic: Evidence (Cairo)` running the probes, `Critic: Usability (Krug)` walking the journey, `Critic: Inclusion (Holmes, Mace)` on targets, contrast and reduced motion, and a brand seat (`Critic: Brand (Sharp)`) against the owner's material. Dotted pair: Krug and Debord.
+7. **Push once** (S4): the single screen the journey depends on most (the one holding the money or the primary action) is made clearer or bolder once more, then re-measured.
+
 **A move that would break a freeze is out of scope for the run.** Log it under the Frontier as DEFERRED (out of run type) and offer it to the person as a Full run.
 
 **Adding a run type.** Add a column to the table and fill every row: when to use it, what is frozen, which moves are allowed, whether R0 is required, the panel minimum, and any change to S3, S4 or the round cap. Then add its name to the Compliance Check line "Run type stated". Candidates not yet defined: *Audit* (panel and measurement only, no moves), *Port* (same design, new medium).
@@ -231,6 +240,7 @@ Then close:
    - [ ] Panel seated from `scripts/pick_panel.py` (or each override reasoned), every seat briefed from its `seats/` file, and any bound stated with the person's words
    - [ ] Seed with exact labels, including one dotted-edge counterpoint, and a living Frontier
    - [ ] Run type stated (Full, Polish, Extend, Landing, or another defined type), and no move broke its freeze
+   - [ ] For a phone app: the journey screens rendered at device sizes with `tools/mobile-measure.mjs` (selftest run first), brand tokens traced to the owner's material, and the render labelled as a web render or an emulator capture
    - [ ] For a website: the landing leads with one bold graphic that summarizes every topic of the site, measured complete (bottom edge above the fold, no sideways scroll) at 1280 x 800 and 375 x 812
    - [ ] At least one BREAK move taken (or Lite mode stated, or a Polish run, where BREAK means escalating an existing device), and no quota used as a stopping rule
    - [ ] A Decision Record written before each move, with all fields filled, including dependencies

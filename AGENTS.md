@@ -39,3 +39,5 @@ Seats, ledger and ratings (31 Oct 2026, from dada-lessons 43-57):
 - **Dependencies.** Keep the skill's scripts free of third-party imports. An installed copy runs wherever Python does, and PyYAML has no wheels for the newest Python.
 
 Keep this file compact. If it exceeds 30 KB, reconcile current facts, notes, memories and git history into a concise replacement before further additions. If comments are encountered, delegate a sweep and preserve any relevant factual rationale here. GM tooling repairs belong in the gm project and must respect filesystem permissions.
+
+The thirty-seventh, **a phone app is judged on thumbs, on real sizes, and on what the render is**: `tools/mobile-measure.mjs` (Playwright, three device presets, six probes, a `--selftest` that must fail a page built to fail every probe) backs the Mobile run in `SKILL.md`. Its selftest caught two inverted probes the first time it ran (the overflow and bottom-bar probes read an undefined viewport and reported clean). A web build in a phone-sized browser is a layout render, not an emulator capture, and the run says so.

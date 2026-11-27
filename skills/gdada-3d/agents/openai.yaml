@@ -1,0 +1,4 @@
+interface:
+  display_name: "GDADA 3D games"
+  short_description: "Build 3D games with measured edges and cel style"
+  default_prompt: "Use $gdada-3d to design, build, measure and polish a 3D (first-person or third-person) game."

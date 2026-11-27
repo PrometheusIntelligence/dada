@@ -81,7 +81,7 @@ for its backend is judged *source-only* until one exists.
 [references/sprite-lessons.md](references/sprite-lessons.md) in full and always ends by appending to it; a run that adds no
 lesson is incomplete. It judges silhouette before colour, with measurements (`hcviz --metrics`), a silhouette-only render, a 1x
 render and both palettes, and it is not complete until the person has seen the renders. The person's grades live in [references/art-grades.json](references/art-grades.json); `scripts/art_queue.mjs` says what to redo next, and every run ends by showing a grading sheet. The process, checks and stop test are in
-[references/sprite-craft.md](references/sprite-craft.md). The list of art style guides (pixel, cel-shaded, and the ones reserved) is [references/art-styles.md](references/art-styles.md): a game picks one in its VISION.md before art starts, and a new style is added there with rules and measures.
+[references/sprite-craft.md](references/sprite-craft.md). The list of art style guides (pixel, cel-shaded, and the ones reserved) is [references/art-styles.md](references/art-styles.md): a game picks one in its VISION.md before art starts, and a new style is added there with rules and measures. For 3D games (first-person interiors first) use the `gdada-3d` skill: renderer choice, targets by projection, cel in 3D, the edge budget, and the lessons file.
 
 ## Colossus run type (very large characters and enemies)
 

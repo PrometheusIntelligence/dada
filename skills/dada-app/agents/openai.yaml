@@ -1,0 +1,4 @@
+interface:
+  display_name: "DADA-App: DADA for apps and data viewports"
+  short_description: "DADA run for apps, dashboards and maps, phone first"
+  default_prompt: "Use $dada-app with $dada to polish an application or data viewport: run the first-screen probe at R0, brief the panel from an evidence file, size marks in screen pixels, keep legends equal to what is drawn, hold the floors with tests, and re-measure every printed figure after each doc edit."

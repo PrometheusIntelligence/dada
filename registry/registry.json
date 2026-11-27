@@ -44,6 +44,53 @@
       ]
     },
     {
+      "id": "dada-app",
+      "kind": "process",
+      "summary": "DADA for apps and data viewports: phone-first probe, honest data marks, floors held by tests, claims re-checked after every edit.",
+      "status": "attached",
+      "invocation": "auto",
+      "source": {
+        "type": "local",
+        "path": "skills/dada-app/SKILL.md"
+      },
+      "attaches": [
+        {
+          "manual": "dada",
+          "runtypes": [
+            "polish",
+            "extend",
+            "full"
+          ],
+          "phase": "R0",
+          "role": "premortem",
+          "when": "the artifact is an application, dashboard, map or other data viewport read in a browser: run its first-screen probe and write the evidence file before the panel sits"
+        },
+        {
+          "manual": "dada",
+          "runtypes": [
+            "polish",
+            "extend",
+            "full"
+          ],
+          "phase": "2c",
+          "role": "critic-brief",
+          "when": "seating the panel for an app: its seat duties (probe, claims reconciliation, mark measurement, phone interaction)"
+        },
+        {
+          "manual": "dada",
+          "runtypes": [
+            "polish",
+            "extend",
+            "full"
+          ],
+          "phase": "2g",
+          "role": "verify",
+          "when": "re-run the claims check after every doc or label edit, not only the last"
+        }
+      ],
+      "note": "Written from the OperatorOS world-picture polish run (2026-11-27). Plain `dada` still governs the traversal; this skill adds what an application needs that a website does not."
+    },
+    {
       "id": "mobile-native",
       "kind": "fix-library",
       "summary": "The CSS and meta-tag fixes that make a web page feel installed on a phone.",

@@ -2139,6 +2139,88 @@
    "grade": null,
    "note": "awaiting grade; my own read C+/B- (items and tiles clearly better, bosses have silhouettes but sausage limbs and a boxy Sun Pharaoh headdress)",
    "status": "awaiting grade"
+  },
+  {
+   "id": "LF_SCHOONER",
+   "kind": "sprite",
+   "batch": "last-frequency-run-3",
+   "grade": "A-",
+   "said": "schooner A minus very good",
+   "date": "2026-11-27",
+   "status": "graded"
+  },
+  {
+   "id": "LF_STEAMER",
+   "kind": "sprite",
+   "batch": "last-frequency-run-3",
+   "grade": "B-",
+   "said": "developed steamer is a B minus needs work",
+   "date": "2026-11-27",
+   "status": "queued_for_redo"
+  },
+  {
+   "id": "LF_KETCH",
+   "kind": "sprite",
+   "batch": "last-frequency-run-3",
+   "grade": "B+",
+   "said": "keych B plus very good maybe even A",
+   "date": "2026-11-27",
+   "status": "graded"
+  },
+  {
+   "id": "LF_TRAWLER",
+   "kind": "sprite",
+   "batch": "last-frequency-run-3",
+   "grade": "B+",
+   "said": "trawler solid b plus",
+   "date": "2026-11-27",
+   "status": "graded"
+  },
+  {
+   "id": "LF_TUG",
+   "kind": "sprite",
+   "batch": "last-frequency-run-3",
+   "grade": "C+",
+   "said": "Tug good idea but suffers from bad design like a c plus",
+   "date": "2026-11-27",
+   "status": "queued_for_redo"
+  },
+  {
+   "id": "LF_COASTER",
+   "kind": "sprite",
+   "batch": "last-frequency-run-3",
+   "grade": "B+",
+   "said": "coaster b plus",
+   "date": "2026-11-27",
+   "status": "graded"
+  },
+  {
+   "id": "LF_LIGHTHOUSE",
+   "kind": "sprite",
+   "batch": "last-frequency-run-3",
+   "grade": "B+",
+   "said": "Lighthouse is way better like a b plus now",
+   "date": "2026-11-27",
+   "status": "graded"
+  },
+  {
+   "id": "LF_INTERIORS",
+   "kind": "scene",
+   "batch": "last-frequency-run-3",
+   "grade": "C+",
+   "said": "Insides needs lots of work general c plus rn I like cell shaded look lets go with that for this game",
+   "date": "2026-11-27",
+   "status": "queued_for_redo"
+  },
+  {
+   "id": "STYLE_LF",
+   "kind": "style",
+   "batch": "last-frequency-run-4",
+   "grade": null,
+   "said": "I like cell shaded look lets go with that for this game, lets keep a list of art style guides in gdada pixel cell shaded etc",
+   "date": "2026-11-27",
+   "status": "adopted",
+   "note": "cel-shaded adopted for Last Frequency; see references/art-styles.md"
   }
  ],
  "wishlist": [

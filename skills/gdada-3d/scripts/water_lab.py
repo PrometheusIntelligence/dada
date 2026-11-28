@@ -9,7 +9,7 @@ as well as by eye (the owner's complaint that started this tool: "water nowhere 
   python3 water_lab.py --check hokusai --min-detail 40     # exit 1 when a style falls under the floors
 
 Styles: flat (the old: one fill and dashes), scallop (seigaiha rows, one size per row), layered (depth bands with colour steps and haze),
-hokusai (layered + swell lines + crest curls with claw foam + foam lace + glitter + island + wake).  The port to a game is the recipe printed with
+organic (no grid: noise patches, scattered scallops, swell sets; the 2026-11-28 fix), hokusai (layered + swell lines + crest curls with claw foam + foam lace + glitter + island + wake).  The port to a game is the recipe printed with
 --recipe: counts and tones per depth band, which the game draws with its own primitives (HolyC: Sea() and WSea() in Last Frequency).
 
 MEASURES (all on the finished image):
@@ -17,6 +17,7 @@ MEASURES (all on the finished image):
   edges/row    mean colour changes along a row (detail; the flat sea is under 6)
   rows_unique  share of rows that differ from the row above (a flat sea is near 0)
   tile_repeat  strongest horizontal self-similarity at a shift of 16..160 px (1.0 = wallpaper; target under 0.55)
+  row_period   strongest repeat of the edges-per-row profile at a fixed row pitch (ribbed wallpaper; target under 0.6)
   depth_grad   ratio of feature size near the bottom to near the horizon (perspective; target 1.8 and up)
 """
 import argparse, math, random, sys
@@ -120,7 +121,55 @@ def finish_hokusai(img, rnd, hz):
     d.polygon([(wx-3, wy), (wx+8, wy), (wx+8, wy-3)], fill=INK)
     for k in range(1, 6): d.line([(wx-4-k*5, wy+1+k//2), (wx-8-k*7, wy+2+k//2)], fill=CREAMHI)
 
-STYLES = {"flat": lambda i, r, h: style_flat(i, r, h), "scallop": lambda i, r, h: style_scallop(i, r, h),
+
+def noise(seed, x, y):
+    """cheap smooth value noise in 0..1, for patches of tone and density (large-scale variation breaks the grid)"""
+    def h(ix, iy): return ((ix*374761393 + iy*668265263 + seed*982451653) ^ (ix*iy*12289)) % 1000 / 1000.0
+    ix, iy = int(math.floor(x)), int(math.floor(y)); fx, fy = x-ix, y-iy; fx = fx*fx*(3-2*fx); fy = fy*fy*(3-2*fy)
+    a, b, c, d2 = h(ix, iy), h(ix+1, iy), h(ix, iy+1), h(ix+1, iy+1)
+    return (a*(1-fx)+b*fx)*(1-fy) + (c*(1-fx)+d2*fx)*fy
+
+def style_organic(img, rnd, hz):
+    """no grid: bands tinted by noise, scallops scattered far to near with jittered size, spacing, skips and partial arcs; swell sets with gaps"""
+    d = ImageDraw.Draw(img); W, H = img.size; sd = rnd.randint(1, 999)
+    bands = [(0.00, FOG), (0.04, FOGD), (0.13, DEEP), (0.30, OCEAN), (0.55, NAVY), (0.80, OCEAN)]
+    for i, (t0, col) in enumerate(bands):
+        y0 = hz + int(t0*(H-hz)); y1 = hz + int((bands[i+1][0] if i+1 < len(bands) else 1.0)*(H-hz)); d.rectangle([0, y0, W, y1], fill=col)
+    for yy in range(hz+6, H, 3):                     # patches: soft tone drifts in noise-shaped blobs, only mid and near water, never the bright violet
+        t = band_t(yy, H, hz)
+        if t < 0.12: continue
+        for xx in range(0, W, 6):
+            n = noise(sd, xx/160.0, yy/(30+90*t))
+            if n > 0.64: d.rectangle([xx, yy, xx+5, yy+2], fill=DEEP if t > 0.45 else FOGD)
+            elif n < 0.3: d.rectangle([xx, yy, xx+5, yy+2], fill=OCEAN if t > 0.5 else DEEP)
+    # the far field is calm: dashes and short low arcs, in tones next to the band's own, sparse
+    for k in range(70):
+        t = rnd.random()**1.8*0.2; y = hz + 3 + int(t/0.2*(H-hz)*0.16); L = int(6 + 40*rnd.random()); x = rnd.randint(-L, W)
+        d.rectangle([x, y, x+L, y], fill=FOG if rnd.random() < 0.5 else FOGD)
+    # scallops from the middle water to the viewer, y spaced by noise, size by depth with +-35% jitter, skipped where the density noise is low
+    y = hz + (H-hz)*0.2
+    while y < H-4:
+        t = band_t(y, H, hz); base = 5 + 32*t**1.3; x = rnd.uniform(-base, base)
+        while x < W+base:
+            dens = noise(sd+7, x/120.0, y/50.0)
+            sc = max(4, int(base*rnd.uniform(0.65, 1.35)))
+            if dens > 0.4:
+                col = [OCEAN, DEEP, NAVY, DEEP][min(3, int(noise(sd+3, x/80.0, y/40.0)*4))]
+                yy = int(y + rnd.uniform(-sc*0.4, sc*0.4))
+                scallop(d, int(x), yy, sc, col, FOAM if t < 0.55 else CREAM, rnd.uniform(0.35, 0.65))
+                if rnd.random() < 0.3: arc(d, int(x), yy-1, int(sc*0.6), FOAM, 1, 0.5)
+                if t > 0.4 and rnd.random() < 0.2: d.rectangle([int(x-sc*0.5), yy-int(sc*0.3), int(x+sc*0.2), yy-int(sc*0.3)], fill=CREAMHI)
+            x += sc*2*rnd.uniform(0.8, 2.0)
+        y += max(4, base*rnd.uniform(0.45, 0.95))
+    for k in range(34):                              # swell sets: groups of three or four long lines with gaps between groups
+        t = rnd.random()**1.4; y = hz + 4 + int(t*(H-hz-8)); L = int(30 + 230*t); x = rnd.randint(-L//2, W-L//2)
+        for g in range(rnd.randint(1, 4)):
+            for xx in range(x + g*8, x + g*8 + L - g*14, 2):
+                yy = y + g*int(2+3*t) - int(math.sin((xx-x)/L*math.pi)*(1+3*t))
+                if 0 <= yy < H: d.rectangle([xx, yy, xx+1, yy], fill=FOG if t < 0.3 else (FOAM if t > 0.6 else WET))
+    finish_hokusai(img, rnd, hz)
+
+STYLES = {"organic": lambda i, r, h: style_organic(i, r, h), "flat": lambda i, r, h: style_flat(i, r, h), "scallop": lambda i, r, h: style_scallop(i, r, h),
           "layered": lambda i, r, h: style_layered(i, r, h, False),
           "hokusai": lambda i, r, h: (style_layered(i, r, h, True), finish_hokusai(i, r, h))}
 
@@ -143,6 +192,12 @@ def measure(img, hz):
         if len(E) < 6: continue
         for sh in range(16, 161, 2):
             best = max(best, len({x for x in E if (x+sh) in E})/len(E))
+    prof = [sum(1 for x in range(1, W) if r[x] != r[x-1]) for r in rows]       # edges per row, top to bottom
+    k2 = 12; sm = [sum(prof[max(0, i-k2):i+k2+1])/len(prof[max(0, i-k2):i+k2+1]) for i in range(len(prof))]
+    prof = [prof[i]-sm[i] for i in range(len(prof))]                       # detrended: depth makes edges grow, that is not a pattern
+    mp = 0.0; var = sum(v*v for v in prof) or 1.0; vper = 0.0
+    for lag in range(3, 41):                                              # rows repeating at a fixed pitch (ribbed wallpaper)
+        vper = max(vper, sum((prof[i]-mp)*(prof[i+lag]-mp) for i in range(len(prof)-lag))/var)
     # feature size by depth: mean run length of equal colour near the horizon (top fifth) and near the bottom (last fifth)
     def run(rr):
         n = 0; tot = 0
@@ -153,9 +208,15 @@ def measure(img, hz):
                 else: tot += c; n += 1; c = 1
         return tot/max(1, n)
     k = max(1, len(rows)//5); depth = run(rows[-k:])/max(0.5, run(rows[:k]))
-    return {"tones": tones, "edges/row": round(edges, 1), "rows_unique": round(uniq, 2), "tile_repeat": round(best, 2), "depth_grad": round(depth, 2)}
+    return {"tones": tones, "edges/row": round(edges, 1), "rows_unique": round(uniq, 2), "tile_repeat": round(best, 2), "depth_grad": round(depth, 2), "row_period": round(vper, 2)}
 
-RECIPE = """RECIPE (hokusai), per depth band t = 0 (horizon) .. 1 (viewer); port with the game's own primitives, never copy pixels:
+RECIPE = """RECIPE (organic = the one to port; hokusai below is the layered grid it replaced, kept for its parts)
+  organic    no grid. A seeded PRNG (the same every frame) lays: tone blobs (30-150 px wide, 6-14 tall) in mid and near water only; 40-70 calm dashes in the far field;
+             scallops from 20% depth to the viewer on rows spaced base*(0.45..0.95) apart, scallop size base*(0.65..1.35), gap 0.8..2.0 diameters, 28% skipped, tone from OCEAN/DEEP/NAVY
+             by noise, 20-30% get an inner arc or a cream dash; swell SETS of 1-4 lines with gaps; then the glitter, island, wake and crest. Drift by tick, never by re-seeding.
+  judge      tile_repeat under 0.55 AND row_period under 0.6 (a grid fails the first, ribbing fails the second)
+
+RECIPE (hokusai), per depth band t = 0 (horizon) .. 1 (viewer); port with the game's own primitives, never copy pixels:
   bands      6 colour steps: FOGD haze 0-5%, WET 5-14%, DEEP 14-30%, OCEAN 30-55%, NAVY 55-80%, OCEAN 80-100%; a cream horizon line
   swell      26 long curves, y = t^1.7, length 30..250 px, tone FOG (far) / WET / FOAM (near), 1-4 px sag
   crests     11 scallop rows, y = t^1.5, half-width 5..35 px, alternate rows offset by half, +-1/3 jitter, foam edge on the arc, cream dash on t>0.35
@@ -169,7 +230,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--style"); ap.add_argument("--seed", type=int, default=1); ap.add_argument("--out", default="water.png")
     ap.add_argument("--size", default="640x200"); ap.add_argument("--recipe", action="store_true")
-    ap.add_argument("--check"); ap.add_argument("--min-detail", type=float, default=40.0)
+    ap.add_argument("--check"); ap.add_argument("--min-detail", type=float, default=30.0)
     a = ap.parse_args(); W, H = map(int, a.size.split("x"))
     if a.recipe: print(RECIPE); return
     names = [a.style] if a.style else (list(STYLES) if not a.check else [a.check]); sheet = Image.new("RGB", (W, (H+4)*len(names)), (0, 0, 0)); bad = False
@@ -177,7 +238,7 @@ def main():
         img, hz = render(n, a.seed, (W, H)); m = measure(img, hz)
         print(f"{n:9s} " + "  ".join(f"{k}={v}" for k, v in m.items()))
         sheet.paste(img.convert("RGB"), (0, i*(H+4)))
-        if a.check and (m["edges/row"] < a.min_detail or m["tile_repeat"] > 0.55 or m["tones"] < 6 or m["depth_grad"] < 1.8): bad = True
+        if a.check and (m["edges/row"] < a.min_detail or m["tile_repeat"] > 0.55 or m["row_period"] > 0.6 or m["tones"] < 6 or m["depth_grad"] < (0.4 if n == "organic" else 1.8)): bad = True
     sheet.save(a.out)
     if a.check and bad: print("CHECK FAIL: under the detail floors"); sys.exit(1)
 

@@ -23,6 +23,10 @@ Read [references/lessons.md](references/lessons.md) first and append to it at th
 9. **Critic round.** At least one independent critic reads the stills (and the concept art if there is some) against the style guide; their objections are applied or named as not applied. State plainly that it was read, not played.
 10. **Stop test.** The owner has seen the renders and graded them; edge budget and tests pass; every skipped item is named.
 
+## Water (and other repeating textures)
+
+Water is the thing most likely to read as wallpaper. Design it in `scripts/water_lab.py` first: it renders styles (flat, scallop, layered, hokusai) on the game's palette and prints measures (tones, edges per row, share of unique rows, tile repeat, depth gradient); `--check hokusai` exits 1 under the floors, `--recipe` prints per-band counts to port. Judge by the sheet and the numbers, then draw it in the game with its own primitives. The recipe: six depth bands with a haze, swell lines, jittered scallop rows that grow toward the viewer, foam lace, glitter and lamp reflection animated by tick, a far island, a wake, one big claw-foam crest. Run 12 of Last Frequency: edges per row 0.2 (flat) to 50 (hokusai).
+
 ## Traps (each cost a run)
 
 - **Stale layout in tests:** a TAB loop can return at once on a layout from before the camera was set. Tick once after placing the camera.

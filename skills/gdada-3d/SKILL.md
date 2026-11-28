@@ -5,7 +5,7 @@ description: "GDADA method for 3D games, first-person interiors first: choose a 
 
 # GDADA 3D games
 
-Read [references/lessons.md](references/lessons.md) first and append to it at the end of every 3D run. The art style is chosen first (`gdada/references/art-styles.md`); this skill assumes **cel-shaded** unless the owner picked another.
+Read [references/lessons.md](references/lessons.md) first and append to it at the end of every 3D run. Also read [references/space-logic.md](references/space-logic.md) (proportions, openings, circulation, the space lint), [references/render-recipes.md](references/render-recipes.md) (how each piece is drawn) and give [references/critic-3d.md](references/critic-3d.md) to the critic. The art style is chosen first (`gdada/references/art-styles.md`); this skill assumes **cel-shaded** unless the owner picked another.
 
 ## The loop
 
@@ -13,7 +13,8 @@ Read [references/lessons.md](references/lessons.md) first and append to it at th
 2. **Pick the renderer by what the target can afford** and write why in a decision record:
    - *Software painter's algorithm* (TempleOS, any CPU-only target): convex polygons, sorted far to near, **clipped at the near plane** (Sutherland-Hodgman on z), back faces culled by normal. Boxes, eight-sided prisms and floor discs cover most interiors.
    - *GPU*: standard; the rest of this skill (edges, targets, tests, critic) still applies.
-3. **Space.** Build rooms from a few primitives that read at once: a round drum of facets, a floor, a ceiling, furniture as boxes on a ring. One light per room, in a known place. Eye height 1.6 m; remember that near floor objects are below the bottom of the view unless the player looks down: put anything clickable above knee height or give it uprights.
+3. **Space (logic first).** Use the proportions table; make openings recesses; make every stair arrive at a hole; then run the space lint (`templates/space-lint.HC.txt`) before looking at a single render. Details in `references/space-logic.md`.
+3b. **Shape.** Build rooms from a few primitives that read at once: a round drum of facets, a floor, a ceiling, furniture as boxes on a ring. One light per room, in a known place. Eye height 1.6 m; remember that near floor objects are below the bottom of the view unless the player looks down: put anything clickable above knee height or give it uprights.
 4. **Targets by projection.** The clickable box list is found by projecting the same boxes the picture is drawn from (all eight corners, clamped at the near plane, merged per target id, added far to near so the nearest wins). Never keep a second hand-made hit list.
 5. **Cel in 3D.** Flat fills; each surface has a lit tone and a shade tone with a hard edge; an **ink edge on every polygon** (2 px for objects, 1 px for inner marks); one flat cast shadow under every grounded object, same direction and length; lamp light as flat concentric discs and floor pools, never a dotted fade. Shade is chosen per face by orientation; walls by angle to the lamp.
 6. **Edges are detail.** In a 16-colour, low-resolution 3D view, detail is the number of distinct edges, not texture. Add architecture (pilasters with base and capital, a ring beam with corbels, cornice, skirting, dado rail, panel mouldings, blind arches, irregular stone courses with a bevel line, ceiling boards and rafters, a rosette), furniture structure (legs, aprons, drawers, slats, battens, posts, shelf boards), and frames (window jambs, lintels, sills; door frames with thresholds). Prefer lines and small boxes to big polygons: lines are cheap.

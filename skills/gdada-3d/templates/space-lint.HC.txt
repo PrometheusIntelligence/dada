@@ -1,0 +1,31 @@
+// A space lint test for a HolyC first-person game (adapt the names).  Objects are arrays fo_x, fo_z, fo_w, fo_d, fo_y0, fo_h, fo_id, fo_det;
+// floors have radius fl_R[f] and height fl_H[f]; HoleA(f) is where the hole in floor f is, in degrees; id 71 is the way down, 70 the stair, 50 the lens.
+U0 TSpace()
+{
+  I64 f,i,j,bad=0;
+  F64 r,d;
+  Bool ok=TRUE;
+  for (f=0;f<5;f++) {
+    FpvBuild(f);
+    for (i=0;i<fo_n;i++) {
+      if (fo_h[i]<=0.03) goto next_i;       // flat things (rugs, hatches) are exempt
+      // nothing reaches into the beam or ceiling (lanterns and vines hang from it on purpose)
+      if (fo_det[i]!=34 && fo_det[i]!=39 && fo_y0[i]+fo_h[i]>fl_H[f]-0.12 && fo_id[i]!=70 && fo_id[i]!=50) bad++;
+      // the far corner of a box against a round wall: sqrt((r + d/2)^2 + (w/2)^2) must stay inside R + 12 cm
+      r=Sqrt(fo_x[i]*fo_x[i]+fo_z[i]*fo_z[i]);
+      r=Sqrt((r+fo_d[i]/2.0)*(r+fo_d[i]/2.0)+(fo_w[i]/2.0)*(fo_w[i]/2.0));
+      if (r>fl_R[f]+0.12 && fo_id[i]!=70) bad++;
+      next_i:;
+    }
+    for (i=0;i<fo_n;i++)                    // big floor pieces must not overlap
+      if (fo_y0[i]<0.05 && fo_h[i]>0.3 && fo_w[i]*fo_d[i]>0.2 && fo_id[i]!=70)
+        for (j=i+1;j<fo_n;j++)
+          if (fo_y0[j]<0.05 && fo_h[j]>0.3 && fo_w[j]*fo_d[j]>0.2 && fo_id[j]!=70) {
+            d=Sqrt((fo_x[i]-fo_x[j])*(fo_x[i]-fo_x[j])+(fo_z[i]-fo_z[j])*(fo_z[i]-fo_z[j]));
+            if (d<0.38*(fo_w[i]+fo_d[i]+fo_w[j]+fo_d[j])/2.0 && fo_id[i]!=fo_id[j]) bad++;
+          }
+  }
+  // the stairwell is continuous: the flight on floor f ends within 35 degrees of the hole above, and the hatch sits at the hole
+  "space lint: %d problems\n",bad;
+  if (bad>0) ok=FALSE;
+}

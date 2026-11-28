@@ -30,6 +30,7 @@ Read [references/lessons.md](references/lessons.md) first and append to it at th
 - **Staircases:** do not simulate walking up a helix; draw the stair (treads, risers, rail) and teleport with a fade.
 - **Pointer at the window edge turns the head**; keep that off any target.
 - **A lit disc is an occluder** in a flat renderer: draw halos before objects and keep them small.
+- **"Too polygonal":** coarse n-gons read as faceted. Use many narrow quads for curved walls, smooth columns (`V3Cyl`) for round things, depth bands and contact shadows for depth.
 - **Ground clutter blocks the walker:** give flat objects (h under 3 cm) no collision.
 
 ## Reusable code
